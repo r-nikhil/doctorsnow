@@ -31,10 +31,21 @@ if($query){echo json_encode("the doctor has been added");}
 } else {
   echo("$email is not a valid email address");
 }
+});
+
+$app->post('/patient', function () use ($app,$connection) {
+  $request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
+  $name=$input->name;
+  $issue=$input->issue;
+
+$query=mysqli_query($connection, "INSERT INTO patient (name, issue)
+VALUES ('$name','$issue')" );
+if($query){echo json_encode("the issue has been added");}
 
 
 });
-
 
 
 $app->run();
