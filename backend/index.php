@@ -39,10 +39,13 @@ $app->post('/patient_details', function () use ($app,$connection) {
   $body = $request->getBody();
   $input = json_decode($body);
   $name=$input->name;
-  $issue=$input->issue;
+  $allergies=$input->allergies;
+  $age=$input->age;
+  $blood=$input->blood;
 
-$query=mysqli_query($connection, "INSERT INTO patient (name, issue)
-VALUES ('$name','$issue')" );
+
+$query=mysqli_query($connection, "INSERT INTO patient (name, issue, age, allergies, blood)
+VALUES ('$name','$issue','$age','$allergies','$blood')" );
 if($query){echo json_encode("the issue has been added");}
 
 });
