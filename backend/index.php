@@ -19,13 +19,13 @@ $app->post('/create_doctor', function () use ($app,$connection) {
   $phone=$input->phone;
   $city=$input->city;
   $speciality=$input->speciality;
-
+  $experience=$input->experience;
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
   echo("$email is a valid email address");
 
-$query=mysqli_query($connection, "INSERT INTO signup (name, email, phone, city, speciality)
-VALUES ('$namee','$email','$phone','$city','$speciality')" );
+$query=mysqli_query($connection, "INSERT INTO doctor_details (name, email, phone, city, speciality, experience)
+VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')" );
 if($query){echo json_encode("the doctor has been added");}
 
 } else {
@@ -33,7 +33,8 @@ if($query){echo json_encode("the doctor has been added");}
 }
 });
 
-$app->post('/patient', function () use ($app,$connection) {
+
+$app->post('/patient_details', function () use ($app,$connection) {
   $request = $app->request();
   $body = $request->getBody();
   $input = json_decode($body);
