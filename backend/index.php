@@ -51,15 +51,23 @@ $app->post('/patient', function () use ($app,$connection) {
 $request = $app->request();
   $body = $request->getBody();
   $input = json_decode($body);
-  $patient
-
-
-
-
-
-
+  $patient_id=$input->patient_id;
+  $doctor_id=$input->doctor_id;
+  $link=$input->link;
 
 });
+
+
+$app->put('/make_appointment', function () use ($app,$connection) {
+$request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
+  $patient_id=$input->patient_id;
+  $doctor_id=$input->doctor_id;
+  $link=$input->link;
+
+});
+
 
 
 
