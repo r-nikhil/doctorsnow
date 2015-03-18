@@ -51,13 +51,31 @@ if($query){echo json_encode("the issue has been added");}
 });
 
 
-$app->post('/patient', function () use ($app,$connection) {
+
+
+
+
+$app->post('/appointment', function () use ($app,$connection) {
 $request = $app->request();
   $body = $request->getBody();
   $input = json_decode($body);
   $patient_id=$input->patient_id;
   $doctor_id=$input->doctor_id;
-  $link=$input->link;
+  $time=$input->time;
+  $date=$input->date;
+  $details=$input->details;
+  $previous_med=$input->previous_med;
+  $confirm=$input->confirm;
+  $chat_url=$input->chat_url;
+
+
+
+$query=mysqli_query($connection, "INSERT INTO appointment (patient_id, doctor_id, time, date, details, previous_med, confirm, chat_url)
+VALUES ('$patient_id','$doctor_id','$time','$date','$details','$previous_med','$confirm', '$chat_url')" );
+if($query){echo json_encode("the issue has been added");}
+
+
+
 
 });
 
