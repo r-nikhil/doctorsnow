@@ -75,18 +75,27 @@ VALUES ('$patient_id','$doctor_id','$time','$date','$details','$previous_med','$
 if($query){echo json_encode("the issue has been added");}
 
 
-
-
 });
 
-
-$app->put('/make_appointment', function () use ($app,$connection) {
+$app->put('/slot', function () use ($app,$connection) {
 $request = $app->request();
   $body = $request->getBody();
   $input = json_decode($body);
   $patient_id=$input->patient_id;
   $doctor_id=$input->doctor_id;
-  $link=$input->link;
+  $confirm=$input->confirm;
+  $busy=$input->busy;
+  $appointment_id=$input->appointment_id;
+
+$query=mysqli_query($connection, "INSERT INTO docname_docid (patient_id, doctor_id, confirm,busy,appointment_id)
+VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')" );
+if($query){echo json_encode("the issue has been added");}
+
+
+// this has to be worked on
+
+
+
 
 });
 
