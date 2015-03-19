@@ -4,9 +4,9 @@
 
 $connection = mysqli_connect("localhost", "root", "", "instaconsult");
 
-$login_client = $_SESSION['login_client'];
+$login_patient = $_SESSION['login_patient'];
 
-$result=mysqli_query($connection, "select username from login_client where username= '$login_client'");
+$result=mysqli_query($connection, "select username from login_patient where username= '$login_patient'");
 
 $row = mysqli_fetch_assoc($result);
 
