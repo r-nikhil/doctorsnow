@@ -62,7 +62,8 @@ $app->post('/login_doctor', function () use ($app,$connection) {
 
   if ($rows == 1) {
     $_SESSION['login_doctor']=$username; // after the user logs the session variable is assigned.
-    $app->redirect('profile_doctor');
+    // $app->redirect('profile_doctor');
+   echo json_encode("True");
   }
 
   else {
@@ -73,6 +74,9 @@ $app->post('/login_doctor', function () use ($app,$connection) {
 
   $app->response()->header('Content-Type', 'application/json');
 });
+
+
+
 $app->get('/profile_doctor',function () use ($app,$connection) {
   include('db.php');
   $body = $app->request->getBody();
