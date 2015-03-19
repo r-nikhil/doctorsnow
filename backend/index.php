@@ -6,7 +6,7 @@ require 'Slim/Slim.php';
 session_cache_limiter(false);
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "doctornow");
-include 'db.php';
+// include 'db.php';
 $app = new \Slim\Slim();                    // pass an associative array to this if you want to configure the settings
 
 
@@ -17,10 +17,13 @@ $result=  json_decode($body);
 $username=$result->username;
 $password=$result->password;
 
-$result = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
-$rows = mysqli_num_rows($result);
+$query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
+$rows = mysqli_num_rows($query);
 
 if ($rows == 1) {
+  echo json_encode("Username or Password is valid");
+  
+  
   $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
   // $app->redirect('profile_patient');
   //include('session.php');
@@ -63,7 +66,7 @@ $app->post('/login_doctor', function () use ($app,$connection) {
   $rows = mysqli_num_rows($result);
 
   if ($rows == 1) {
-    $_SESSION['login_doctor']=$username; // after the user logs the session variable is assigned.
+    //$_SESSION['login_doctor']=$username; // after the user logs the session variable is assigned.
     // $app->redirect('profile_doctor');
    echo json_encode("True");
   }
@@ -180,8 +183,16 @@ if($query){echo json_encode("the issue has been added");}
 });
 
 
+$app->put('/', function () use ($app,$connection) {
+
+$request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
 
 
+
+
+});
 
 
 
