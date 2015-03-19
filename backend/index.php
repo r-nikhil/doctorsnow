@@ -183,21 +183,56 @@ if($query){echo json_encode("the issue has been added");}
 });
 
 
-$app->put('/', function () use ($app,$connection) {
+$app->put('/category1', function () use ($app,$connection) {
 
 $request = $app->request();
   $body = $request->getBody();
   $input = json_decode($body);
+   $doctor_id=$input->doctor_id;
 
+$result = mysqli_query($connection, "select * from category1 where doctor_id='$doctor_id'");
+
+
+
+});
+
+$app->put('/category2', function () use ($app,$connection) {
+
+$request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
+   $doctor_id=$input->doctor_id;
+
+$result = mysqli_query($connection, "select * from category2 where doctor_id='$doctor_id'");
 
 
 
 });
 
 
+$app->put('/category3', function () use ($app,$connection) {
+
+$request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
+   $doctor_id=$input->doctor_id;
+
+$result = mysqli_query($connection, "select * from category3 where doctor_id='$doctor_id'");
 
 
 
+});
+
+$app->put('/category4', function () use ($app,$connection) {
+
+$request = $app->request();
+  $body = $request->getBody();
+  $input = json_decode($body);
+   $doctor_id=$input->doctor_id;
+
+$result = mysqli_query($connection, "select * from category4 where doctor_id='$doctor_id'");
+
+});
 
 
 
