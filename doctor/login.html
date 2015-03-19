@@ -295,32 +295,7 @@ $(document).ready(function() {
 
             submitHandler: function (form) {
 				$(form).find('#login-submit').prepend('<i class="fa fa-spinner fa-spin mgr-10"></i>')/*.addClass('disabled').attr('disabled')*/;		 			
-				
-$("#login-submit").click(function(){
-  username=$("#email").val();
-  password=$("#password").val();
-  $.ajax({
-   type: "POST",
-   url: "localhost/doctorsnow/index.php/login.doctor",
-data: "name="+username+"&pwd="+password,
-   success: function(html){    
-if(html=='true')    {
-//$("#add_err").html("right username or password");
-window.location="dashboard.php";
-}
-else    {
-$("#vd_login-error").css('display', 'inline', 'important');
-$("#vd_login-error").html("Wrong username or password");
-}
-   },
-   beforeSend:function()
-   {
-$("#vd_login-error").css('display', 'inline', 'important');
-$("#vd_login-error").html("Loading...")
-   }
-  });
-return false;
-});
+	
 				
 				
 				//console.log("login");
