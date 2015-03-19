@@ -12,10 +12,14 @@ $app = new \Slim\Slim();                    // pass an associative array to this
 
 $app->post('/login_patient', function () use ($app,$connection) {
 
-$body = $app->request->getBody();
-$result=  json_decode($body);
-$username=$result->username;
-$password=$result->password;
+// $body = $app->request->getBody();
+// $req = $app->request();
+// $result=  json_decode($body);
+// $req->post('username')
+$username = $app->request->post('username');
+$password = $app->request->post('password');
+// $username=$result->username;
+// $password=$result->password;
 
 $query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
 $rows = mysqli_num_rows($query);
