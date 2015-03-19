@@ -23,6 +23,7 @@ $rows = mysqli_num_rows($result);
 if ($rows == 1) {
   $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
   // $app->redirect('profile_patient');
+  include('session.php')
   echo json_encode("True");
 }
 else {
