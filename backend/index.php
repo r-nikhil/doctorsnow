@@ -22,10 +22,11 @@ $rows = mysqli_num_rows($result);
 
 if ($rows == 1) {
   $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
-  $app->redirect('profile_patient');
+  // $app->redirect('profile_patient');
+  echo json_encode("True");
 }
 else {
-  echo json_encode("Username or Password is invalid");
+  echo json_encode("false");
 }
 mysqli_close($connection);
   $app->response()->header('Content-Type', 'application/json');
@@ -43,6 +44,8 @@ $data=mysqli_fetch_array($result);
 echo json_encode($data);
 
   $app->response()->header('Content-Type', 'application/json');
+
+
 });
 
 
@@ -169,6 +172,17 @@ if($query){echo json_encode("the issue has been added");}
 
 // this has to be worked on
 });
+
+
+$app->get('/slot', function () use ($app,$connection) {
+
+
+
+
+
+
+
+
 
 
 
