@@ -1,6 +1,7 @@
 <?php
+echo "yolo";
 require 'Slim/Slim.php';
-// require 'RedBean/rb.php';
+require 'RedBean/rb.php';
 \Slim\Slim::registerAutoloader();
 session_cache_limiter(false);
 session_start();
@@ -22,7 +23,7 @@ $rows = mysqli_num_rows($result);
 if ($rows == 1) {
   $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
   // $app->redirect('profile_patient');
-  include('session.php')
+  include('session.php');
   $app->response()->header('Content-Type', 'application/json');
   echo json_encode("True");
 }
@@ -179,7 +180,8 @@ if($query){echo json_encode("the issue has been added");}
 });
 
 
-$app->get('/slot', function () use ($app,$connection) {
+
+
 
 
 
