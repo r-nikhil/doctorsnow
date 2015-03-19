@@ -1,7 +1,7 @@
 <?php
 echo "yolo";
 require 'Slim/Slim.php';
-require 'RedBean/rb.php';
+// require 'RedBean/rb.php';
 \Slim\Slim::registerAutoloader();
 session_cache_limiter(false);
 session_start();
