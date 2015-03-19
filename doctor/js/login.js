@@ -1,12 +1,22 @@
 			$(document).ready(function(){
-
+var person;
 $("#login-submit").click(function(){
-  username=$("#email").val();
-  password=$("#password").val();
+  
+  
+  var username=$("#email").val();
+  var password=$("#password").val();
+  
+   person = {
+            username: username,
+            password: password,
+
+        };
+		
+		
   $.ajax({
    type: "POST",
    url: "../backend/index.php/login_doctor",
-data: "username="+username+"&password="+password,
+data: person,
    success: function(html){    
 if(html=='true')    {
 //$("#add_err").html("right username or password");
