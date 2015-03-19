@@ -3,19 +3,26 @@ var url,encodedata;
 
 $(document).ready(function(){
 
-$("#login-submit").click(function(){
+$("#submit-register").click(function(){
 
   //getting values from the textfields
-  username=$("#email").val();
+  firstname=$("#firstname").val();
+  lastname=$("#lastname").val();
+   mobile=$("#phone").val();
+  email=$("#email").val();
   password=$("#password").val();
   
   //encoding JSON
   encode=JSON.stringify({
-        "username": username,
+        "firstname": firstname,
+        "lastname": lastname,
+        "mobile": mobile,
+        "email": email,
         "password": password
+       
         });
 		
-  url=base_url+'api/v1/login_doctor';
+  url=base_url+'api/v1/register_doctor';
 
 
 
@@ -37,13 +44,6 @@ console.log(data);
 });
 
 
-function formToJSON() {
-    return JSON.stringify({
-        "username": $("#email").val(),
-        "password": $("#password").val()
-        });
-}
-
 function handleResponse(data){
 
 var arr = $.map(data, function(el) { return el; });
@@ -52,10 +52,7 @@ console.log(arr);
 
 }
 
-function renderList(data) {
-	
-	
-}
+
 
 
 function post_ajax_data(url, encodedata, success)
@@ -64,7 +61,6 @@ $.ajax({
 type:"POST",
 url:url,
 data :encodedata,
-dataType:"json",
 restful:true,
 contentType: 'application/json',
 cache:false,
@@ -72,11 +68,10 @@ timeout:20000,
 async:true,
 beforeSend :function(data) { },
 success:function(data){
-console.log("success");
 handleResponse(data);
 },
 error:function(data){
-console.log("error");
+console.log("ajax_error");
 console.log(data);
 }
 });

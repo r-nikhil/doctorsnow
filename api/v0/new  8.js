@@ -1,4 +1,4 @@
-var base_url="../";
+var base_url="localhost/doctorsnow/";
 var url,encodedata;
 
 $(document).ready(function(){
@@ -15,7 +15,7 @@ $("#login-submit").click(function(){
         "password": password
         });
 		
-  url=base_url+'api/v1/login_doctor';
+  url=base_url+'api/login_patient';
 
 
 
@@ -24,7 +24,12 @@ if(password.length>0)
 {
 post_ajax_data(url,encode, function(data)
 {
-console.log(data);
+$.each(data.updates, function(i,data)
+{
+var html="<div class='stbody' id='stbody"+data.update_id+"'><div class='stimg'><img src='"+data.profile_pic+"' class='stprofileimg'/></div><div class='sttext'><strong>"+data.name+"</strong>"+data.user_update+"<span id='"+data.update_id+"' class='stdelete'>Delete</span></div></div>";
+$("#mainContent").prepend(html);
+$('#update').val('').focus();
+});
 });
 }  
 		
@@ -44,18 +49,6 @@ function formToJSON() {
         });
 }
 
-function handleResponse(data){
-
-var arr = $.map(data, function(el) { return el; });
-console.log(data);
-console.log(arr);
-
-}
-
-function renderList(data) {
-	
-	
-}
 
 
 function post_ajax_data(url, encodedata, success)
@@ -72,12 +65,10 @@ timeout:20000,
 async:true,
 beforeSend :function(data) { },
 success:function(data){
-console.log("success");
-handleResponse(data);
+success.call(this, data);
 },
 error:function(data){
-console.log("error");
-console.log(data);
+alert("Error In Connecting");
 }
 });
 }
