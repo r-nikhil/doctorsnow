@@ -1,0 +1,34 @@
+{
+
+"valid_dates":[
+{
+"date" : "date1", 
+"slots":[{"time" : "7:45", "status":"busy"},
+{"time" : "7:45", "status":"available"},
+{"time" : "7:45", "status":"available"}
+]
+
+}
+,
+{
+"date" : "date2", 
+"slots":[{"time" : "7:45", "status":"busy"},
+{"time" : "7:45", "status":"available"},
+{"time" : "7:45", "status":"available"}
+]
+
+}
+,
+{
+"date" : "date3", 
+"slots":[{"time" : "7:45", "status":"busy"},
+{"time" : "7:45", "status":"available"},
+{"time" : "7:45", "status":"available"}
+]
+
+}
+
+
+
+]
+}
