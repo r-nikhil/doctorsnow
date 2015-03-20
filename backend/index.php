@@ -16,10 +16,13 @@ $app->post('/login_patient', function () use ($app,$connection) {
 // $req = $app->request();
 // $result=  json_decode($body);
 // $req->post('username')
-$username = $app->request->post('username');
-$password = $app->request->post('password');
+// $username = $app->request->post('username');
+
+// $password = $app->request->post('password');
 // $username=$result->username;
 // $password=$result->password;
+  $username=$_POST['username'];
+  $password=$_POST['password'];
 
 $query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
 $rows = mysqli_num_rows($query);
