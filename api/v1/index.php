@@ -67,17 +67,17 @@ $app->contentType('application/json');
 				if($pass_db == $pass_request)
 				{   
 					//$app->response()->set->contentType('application/json');
-					$arr=array('status' => 'success', 'message' => 'true');
-					echo json_encode("hello");
+					 $app->response->body( json_encode("{'status':'success', 'message' : 'logging in'}" ));
 					
 					
 				  }
 				else
 				{ 	
-//header("Content-Type: application/json");
-					$arr=array('status' => 'success', 'message' => 'false');
-					//$app->response()->set->contentType('application/json');
-					$response->body(json_encode($arr));
+					 $arr=array('status' => 'success', 'message' => 'false');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode($arr );
+					 $app->response->body($msg );
+			
 					
 				}	
             
@@ -85,9 +85,10 @@ $app->contentType('application/json');
 			
 			else {
 			
-			 $arr=array('status' => 'success', 'message' => 'false');
-			 //$app->response()->set->contentType('application/json');
-			 $app->response->body( json_encode("{'status':'True', 'message' : 'false'}" ));
+			 $arr=array('status' => 'success', 'message' => 'not registered');
+			 $app->response()->header('Content-Type', 'application/javascript');
+			 $msg=json_encode($arr );
+			 $app->response->body($msg );
 				
 					
 			}

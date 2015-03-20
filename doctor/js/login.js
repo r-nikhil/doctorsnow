@@ -60,20 +60,28 @@ function renderList(data) {
 
 function post_ajax_data(url, encodedata, success)
 {
+console.log(encodedata);
 $.ajax({
 type:"POST",
 dataType: 'application/json',
 url:url,
 data :encodedata,
 dataType:'script',
+onComplete: function(transport){
+           {
+                result = transport.responseText;
+                console.log(result);
+            }
+        },
 
 beforeSend :function(data) { },
 success:function(data){
 success.call(this, data);
 },
-error:function(data){
+error: function(data){
 console.log("error");
-console.log(data);
+//result = data.responseText;
+ console.log(JSON.stringify(data));
 }
 });
 }
