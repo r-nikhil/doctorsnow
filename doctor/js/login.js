@@ -15,7 +15,7 @@ $("#login-submit").click(function(){
         "password": password
         });
 		
-  url=base_url+'api/v1/login_doctor';
+  url=base_url+'api/v0/login_patient';
 
 
 
