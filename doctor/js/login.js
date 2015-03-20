@@ -64,16 +64,11 @@ $.ajax({
 type:"POST",
 url:url,
 data :encodedata,
-dataType:"json",
-restful:true,
-contentType: 'application/json',
-cache:false,
-timeout:20000,
-async:true,
+dataType:'script',
+
 beforeSend :function(data) { },
 success:function(data){
-console.log("success");
-handleResponse(data);
+success.call(this, data);
 },
 error:function(data){
 console.log("error");

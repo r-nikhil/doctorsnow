@@ -1,8 +1,5 @@
-index.php
 <?php
- 
-//require_once '../include/DbHandler.php';
-//require_once '../include/PassHash.php';
+
 require '.././libs/Slim/Slim.php';
 require '.././libs/rb.php';
  
@@ -10,14 +7,15 @@ require '.././libs/rb.php';
 
 // set up database connection
 R::setup('mysql:host=localhost;dbname=doctornow','root','');
+
 //R::freeze(true);
 
  
 $app = new \Slim\Slim();
- 
+
 // User id from db - Global Variable
 $user_id = NULL;
- 
+$app->contentType('application/json'); 
  
  
  $app->post('/register_doctor', function() use ($app) {
@@ -36,8 +34,9 @@ $user_id = NULL;
 			$article->docPassword = (string)$input->password;
 			$id = R::store($article); 
 			
-			$arr=array('status' => 'success', 'message' => 'registered');
 			//$app->response()->header('Content-Type', 'application/json');
+			$app->response()->set->contentType('application/json');
+			$arr=array('status' => 'success', 'message' => 'registered');
 			
 			echo json_encode($arr);
 			
@@ -54,7 +53,7 @@ $user_id = NULL;
 
 
  $app->post('/login_doctor', function() use ($app) {
-		//try {	
+		try {	
 			//getting json and decoding it
 			$request = $app->request();
 			$body = $request->getBody();
@@ -66,39 +65,41 @@ $user_id = NULL;
 			    $pass_db = (string)$article->doc_password;
 			    $pass_request = (string)$input->password;
 				if($pass_db == $pass_request)
-				{
+				{   
+					//$app->response()->set->contentType('application/json');
 					$arr=array('status' => 'success', 'message' => 'true');
-					$response = $app->response();
-					$response['Content-Type'] = 'application/json';
-					$response->body(json_encode($arr));
-					exit();
+					echo json_encode("hello");
+					
 					
 				  }
 				else
-				{ 		
+				{ 	
+					 $app->contentType('application/json');
+					echo '{"foo":"bar"}';
+					exit();
 				    //header("Content-Type: application/json");
 					$arr=array('status' => 'success', 'message' => 'false');
-					$response = $app->response();
-					$response['Content-Type'] = 'application/json';
+					//$app->response()->set->contentType('application/json');
 					$response->body(json_encode($arr));
-					exit();
+					
 				}	
-                  				
-			  
-			  
-			} else {
-			 $arr=array('status' => 'success', 'message' => 'not_registered');
-			 // $app->response()->header('Content-Type', 'application/json');
-			  echo json_encode($arr);
-			 
+            
+			} 
+			
+			else {
+	
+			 //$app->response()->set->contentType('application/json');
+			 $app->response->body( json_encode("True") );
+				
+					
 			}
-		 /* } catch (ResourceNotFoundException $e) {
+		 } catch (ResourceNotFoundException $e) {
 			// return 404 server error
 			$app->response()->status(404);
 		  } catch (Exception $e) {
 			$app->response()->status(400);
 			$app->response()->header('X-Status-Reason', $e->getMessage());
-		  }*/
+		  }
 			
            
         });		
