@@ -74,10 +74,7 @@ $app->contentType('application/json');
 				  }
 				else
 				{ 	
-					 $app->contentType('application/json');
-					echo '{"foo":"bar"}';
-					exit();
-				    //header("Content-Type: application/json");
+//header("Content-Type: application/json");
 					$arr=array('status' => 'success', 'message' => 'false');
 					//$app->response()->set->contentType('application/json');
 					$response->body(json_encode($arr));
@@ -87,9 +84,10 @@ $app->contentType('application/json');
 			} 
 			
 			else {
-	
+			
+			 $arr=array('status' => 'success', 'message' => 'false');
 			 //$app->response()->set->contentType('application/json');
-			 $app->response->body( json_encode("True") );
+			 $app->response->body( json_encode("{'status':'True', 'message' : 'false'}" ));
 				
 					
 			}

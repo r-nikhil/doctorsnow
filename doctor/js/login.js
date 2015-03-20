@@ -62,6 +62,7 @@ function post_ajax_data(url, encodedata, success)
 {
 $.ajax({
 type:"POST",
+dataType: 'application/json',
 url:url,
 data :encodedata,
 dataType:'script',
