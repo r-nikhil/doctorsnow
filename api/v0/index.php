@@ -174,7 +174,7 @@ $app->post('/create_doctor', function() use ($app, $connection)
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
         echo ("$email is a valid email address");
 
-        $query = mysqli_query($connection, "INSERT INTO doctor_details (name, email, phone, city, speciality, experience)
+        $query = mysqli_query($connection, "INSERT INTO profile_doctor (name, email, phone, city, speciality, experience)
 VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
         if ($query) {
             echo json_encode("the doctor has been added");
@@ -184,6 +184,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
         echo ("$email is not a valid email address");
     }
 });
+// the baove code adds a new row in the doctor table
 
 
 $app->post('/patient_details', function() use ($app, $connection)
@@ -197,7 +198,7 @@ $app->post('/patient_details', function() use ($app, $connection)
     $blood     = $input->blood;
 
 
-    $query = mysqli_query($connection, "INSERT INTO patient (name, issue, age, allergies, blood)
+    $query = mysqli_query($connection, "INSERT INTO profile_patient (name, issue, age, allergies, blood)
 VALUES ('$name','$issue','$age','$allergies','$blood')");
     if ($query) {
         echo json_encode("the issue has been added");
@@ -205,10 +206,10 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 
 });
 
+// the above code adds new row in the patient table
 
 
-
-
+// for the below code, lets sit together and finish it tonight... front + back.. until then, you try integrating the front
 
 $app->post('/appointment', function() use ($app, $connection)
 {
