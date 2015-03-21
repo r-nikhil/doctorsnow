@@ -62,7 +62,7 @@ else{
     }
     mysqli_close($connection);
 });
-/////////////////////////////////////////////////////////// the password hash is not generated now
+/////////////////////////////////////////////////////////// the password hash is not generated now. login_patient ends here
                    
 
 $app->post('/login_doctor', function() use ($app, $connection)
@@ -120,16 +120,15 @@ else{
 });
 
 
-//// login doctor done
+/////////////////////////////////////////////////////////// the password hash is not generated now. login_doctor ends here
 
 
 $app->get('/profile_patient', function() use ($app, $connection)
 {
-    include('db.php');
+   
     $body   = $app->request->getBody();
     $result = json_decode($body);
-    
-    
+        
     $result = mysqli_query($connection, "select * from patient_details where username='$login_session_user'");
     $data   = mysqli_fetch_array($result);
     
