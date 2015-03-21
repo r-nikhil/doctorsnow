@@ -279,7 +279,7 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
 
 
 });
-
+// below code is for retrieving doctors by category
 
 $app->put('/category1', function() use ($app, $connection)
 {
