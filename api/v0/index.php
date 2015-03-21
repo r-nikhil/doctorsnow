@@ -1,5 +1,4 @@
 <?php
-echo "yolo";
 require 'Slim/Slim.php';
 //require 'RedBean/rb.php';
 \Slim\Slim::registerAutoloader();
@@ -15,29 +14,24 @@ $app->post('/login_patient', function () use ($app,$connection) {
  $body = $app->request->getBody();
  $req = $app->request();
  $result=  json_decode($body);
-// $req->post('username')
-// $username = $app->request->post('username');
-
-// $password = $app->request->post('password');
-$username=$result->username; $password=$result->password;
-  //$username=$_POST['username'];
-  //$password=$_POST['password'];
-
+ $username=$result->username; $password=$result->password;
+ 
+//make a change here. Do query only by username. Then compare password outside. If the query fails then it means he is not
+//registered, send this message. If query is right and comparison fails then it means his password is wrong.
 $query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
 $rows = mysqli_num_rows($query);
 
 if ($rows == 1) {
-  echo json_encode("Username or Password is valid");
-  
-  
-  $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
-  // $app->redirect('profile_patient');
-  //include('session.php');
-  $app->response()->header('Content-Type', 'application/json');
-  echo json_encode("True");
+ 
+	$_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
+	$arr=array('status' => 'success', 'message' => 'true');
+	$app->response()->header('Content-Type', 'application/json');
+	echo json_encode($arr);
 }
 else {
-  echo json_encode("false");
+    $arr=array('status' => 'success', 'message' => 'wrong email or password');
+    $app->response()->header('Content-Type', 'application/json');
+    echo json_encode($arr);
 }
 mysqli_close($connection);
   $app->response()->header('Content-Type', 'application/json');

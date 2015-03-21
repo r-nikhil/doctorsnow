@@ -24,7 +24,7 @@ if(password.length>0)
 {
 post_ajax_data(url,encode, function(data)
 {
-console.log(data);
+console.log("success"+data);
 });
 }  
 		
@@ -60,13 +60,15 @@ function renderList(data) {
 
 function post_ajax_data(url, encodedata, success)
 {
-console.log(encodedata);
+
+
 $.ajax({
 type:"POST",
-dataType: 'application/json',
+dataType: 'html',
+contentType: "application/json",
 url:url,
 data :encodedata,
-dataType:'script',
+
 onComplete: function(transport){
            {
                 result = transport.responseText;
@@ -85,3 +87,8 @@ console.log("error");
 }
 });
 }
+
+
+
+
+
