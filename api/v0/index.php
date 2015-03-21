@@ -131,7 +131,7 @@ $app->get('/profile_patient', function() use ($app, $connection)
     $body   = $app->request->getBody();
     $result = json_decode($body);
 
-    $result = mysqli_query($connection, "select * from profile_patient where username='$login_session_user'");
+    $result = mysqli_query($connection, "select * from profile_patient where username='$login_session_user_patient'");
     $data   = mysqli_fetch_array($result);
 
     echo json_encode($data);
@@ -148,7 +148,7 @@ $app->get('/profile_doctor', function() use ($app, $connection)
     $result = json_decode($body);
 
 
-    $result = mysqli_query($connection, "select * from profile_doctor where username='$login_session_user'");
+    $result = mysqli_query($connection, "select * from profile_doctor where username='$login_session_user_doctor'");
     $data   = mysqli_fetch_array($result);
 
     echo json_encode($data);
@@ -187,7 +187,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
 // the baove code adds a new row in the doctor table
 
 
-$app->post('/patient_details', function() use ($app, $connection)
+$app->post('/create_patient', function() use ($app, $connection)
 {
     $request   = $app->request();
     $body      = $request->getBody();
@@ -209,7 +209,29 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 // the above code adds new row in the patient table
 
 
-// for the below code, lets sit together and finish it tonight... front + back.. until then, you try integrating the front
+// for the below code, lets sit together and finish it tonight... front + back.. until then, you try integrating the front\
+
+// down here are the functions you asked for
+
+$app->post('/doctors/:id', function() use ($app, $connection)
+if(isset($login_session_user_patient) || isset($login_session_user_doctor))
+{
+
+$result = mysqli_query($connection, "select * from profile_doctor where id='$id'");
+$data   = mysqli_fetch_array($result);
+
+echo json_encode($data);
+
+$app->response()->header('Content-Type', 'application/json');
+
+}
+else
+{
+  echo json_encode("login first and then try to access all the doctors");
+
+}
+
+});
 
 $app->post('/appointment', function() use ($app, $connection)
 {
