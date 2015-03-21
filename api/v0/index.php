@@ -63,8 +63,6 @@ else{
     mysqli_close($connection);
 });
 /////////////////////////////////////////////////////////// the password hash is not generated now
-
-
                    
 
 $app->post('/login_doctor', function() use ($app, $connection)
@@ -101,7 +99,7 @@ else{
     $rows1  = mysqli_num_rows($query);
     if ($rows1 == 1) { // the user logs in here
         
-        $_SESSION['login_patient'] = $username; // after the user logs the session variable is assigned.
+        $_SESSION['login_doctor'] = $username; // after the user logs the session variable is assigned.
         $arr = array(
             'status' => 'true',
             'message' => 'true'
