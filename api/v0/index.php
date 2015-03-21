@@ -131,7 +131,7 @@ $app->get('/profile_patient', function() use ($app, $connection)
     $body   = $app->request->getBody();
     $result = json_decode($body);
 
-    $result = mysqli_query($connection, "select * from patient_details where username='$login_session_user'");
+    $result = mysqli_query($connection, "select * from profile_patient where username='$login_session_user'");
     $data   = mysqli_fetch_array($result);
 
     echo json_encode($data);
@@ -140,36 +140,6 @@ $app->get('/profile_patient', function() use ($app, $connection)
 
 
 });
-
-
-$app->post('/login_doctor', function() use ($app, $connection)
-{
-
-    $body     = $app->request->getBody();
-    $result   = json_decode($body);
-    $username = $result->username;
-    $password = $result->password;
-
-    $result = mysqli_query($connection, "select * from login_doctor where password='$password' AND username='$username'");
-
-    $rows = mysqli_num_rows($result);
-
-    if ($rows == 1) {
-        //$_SESSION['login_doctor']=$username; // after the user logs the session variable is assigned.
-        // $app->redirect('profile_doctor');
-        echo json_encode("True");
-    }
-
-    else {
-        echo json_encode("Username or Password is invalid");
-    }
-    mysqli_close($connection);
-
-
-    $app->response()->header('Content-Type', 'application/json');
-});
-
-
 
 $app->get('/profile_doctor', function() use ($app, $connection)
 {
@@ -178,13 +148,15 @@ $app->get('/profile_doctor', function() use ($app, $connection)
     $result = json_decode($body);
 
 
-    $result = mysqli_query($connection, "select * from doctor_details where username='$login_session_user'");
+    $result = mysqli_query($connection, "select * from profile_doctor where username='$login_session_user'");
     $data   = mysqli_fetch_array($result);
 
     echo json_encode($data);
 
     $app->response()->header('Content-Type', 'application/json');
 });
+
+// I think the profile details ends here for both doctors and patient
 
 
 $app->post('/create_doctor', function() use ($app, $connection)
