@@ -233,6 +233,8 @@ else
 }
 
 });
+// this one return whenever the doctor is free
+
 
 $app->post('/appointment', function() use ($app, $connection)
 {
@@ -255,8 +257,6 @@ VALUES ('$patient_id','$doctor_id','$time','$date','$details','$previous_med','$
     if ($query) {
         echo json_encode("the issue has been added");
     }
-
-
 });
 
 $app->put('/slot', function() use ($app, $connection)
