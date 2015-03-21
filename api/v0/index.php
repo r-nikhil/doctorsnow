@@ -7,7 +7,7 @@ session_start();
 $connection = mysqli_connect("localhost", "root", "", "doctornow");
 // include 'db.php';
 
-$app        = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
+$app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
 
 $app->post('/login_patient', function() use ($app, $connection)
@@ -21,10 +21,24 @@ $app->post('/login_patient', function() use ($app, $connection)
     
     //make a change here. Do query only by username. Then compare password outside. If the query fails then it means he is not
     //registered, send this message. If query is right and comparison fails then it means his password is wrong.
-    $query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
+    $query = mysqli_query($connection, "select * from login_patient where username='$username'");
     $rows  = mysqli_num_rows($query);
-    
-    if ($rows == 1) {
+    if ($rows ==1){
+
+ $arr   = array(
+            'status' => 'true',
+            'message' => 'username exists'
+        );
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
+
+    }
+
+$query = mysqli_query($connection, "select * from login_patient where username='$username' and password = '$password'");
+    $rows1  = mysqli_num_rows($query);
+
+
+    if ($rows1 == 1) {
         
         $_SESSION['login_patient'] = $username; // after the user logs the session variable is assigned.
         $arr                       = array(
