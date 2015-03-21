@@ -1,7 +1,7 @@
 <?php
 // session_start();
 
-$connection = mysqli_connect("localhost", "root", "", "instaconsult");
+$connection = mysqli_connect("localhost", "root", "", "doctornow");
 
 $login_patient = $_SESSION['login_patient'];
 
@@ -9,19 +9,19 @@ $result=mysqli_query($connection, "select username from login_patient where user
 
 $row = mysqli_fetch_assoc($result);
 
-$login_session_user  = $row['username']; // this extra time reassigning and search happens for safety
+$login_session_user_patient  = $row['username'];
+
+$login_doctor = $_SESSION['login_doctor'];
+
+$result=mysqli_query($connection, "select username from login_patient where username= '$login_doctor'");
+
+$row = mysqli_fetch_assoc($result);
+
+$login_session_user_doctor  = $row['username'];// this extra time reassigning and search happens for safety
 
 
-// $test = mysqli_fetch_assoc($fields);
 
-// $open_project_id=$fields['open_project_id'];
-//
-// $closed_project_id=$fields['closed_project_id'];
-// $accepted_project_id=$fields['accepted_project_id'];
-// $closed_project_id=$fields['closed_project_id'];
-
-
-if(!isset($login_session_user))
+if(!isset($login_session_user_patient) || !isset($login_session_user_doctor) )
 {
 mysqli_close($connection); // Closing Connection
 // header('Location: index.php'); // This has to be changed. Come back to this at the end

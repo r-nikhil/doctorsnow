@@ -125,6 +125,7 @@ else{
 
 $app->get('/profile_patient', function() use ($app, $connection)
 {
+    incluse "session.php";
    
     $body   = $app->request->getBody();
     $result = json_decode($body);
