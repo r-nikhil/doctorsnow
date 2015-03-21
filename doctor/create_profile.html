@@ -32,6 +32,7 @@
 
     <!-- Fonts CSS -->
     <link href="css/fonts.css"  rel="stylesheet" type="text/css">
+    <link href="css/create_profile.css"  rel="stylesheet" type="text/css">
                
     <!-- Plugin CSS -->
     <link href="plugins/jquery-ui/jquery-ui.custom.min.css" rel="stylesheet" type="text/css">    
@@ -266,6 +267,26 @@
                   </div>
                   <div class="panel-body">
                     <form class="form-horizontal" action="#" role="form">
+					   <div class="form-group">
+                        <label class="col-sm-4 control-label">Upload your profile picture</label>
+                        <div class="col-sm-7 controls">
+						
+						<div class="image-container">
+						<div class="image-uploader" data-base-height="250" data-base-width="250" style="width: 300px; height: 300px;">
+							<div class="image" style="width: 250px; height: 250px;">
+							<label>Click or drag a file to change your image</label>
+							<img class="image" id="image_uploaded">
+							</div>
+							<input id="uploader" type="file">
+							<div class="zoom" style="display:none;">
+							<div class="plus"></div>
+							<div class="minus"></div>
+							<div class="close"></div>
+							</div>
+						</div>
+						</div>
+                          <span class="help-inline">Some hint here</span> </div>
+                      </div>
                       <div class="form-group">
                         <label class="col-sm-4 control-label">Input</label>
                         <div class="col-sm-7 controls">
@@ -585,6 +606,7 @@
 <!-- Placed at the end of the document so the pages load faster --> 
 <script type="text/javascript" src="js/jquery.js"></script> 
 <script type="text/javascript" src="js/menu.js"></script> 
+<script type="text/javascript" src="js/img_uploader.js"></script> 
 <!--[if lt IE 9]>
   <script type="text/javascript" src="js/excanvas.js"></script>      
 <![endif]-->
