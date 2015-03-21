@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2015 at 11:35 AM
+-- Generation Time: Mar 21, 2015 at 03:39 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -38,6 +38,50 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `chat_url` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category1`
+--
+
+CREATE TABLE IF NOT EXISTS `category1` (
+  `id` int(12) NOT NULL,
+  `doctor_id` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category2`
+--
+
+CREATE TABLE IF NOT EXISTS `category2` (
+  `id` int(12) NOT NULL,
+  `doctor_id` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category3`
+--
+
+CREATE TABLE IF NOT EXISTS `category3` (
+  `id` int(12) NOT NULL,
+  `doctor_id` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category4`
+--
+
+CREATE TABLE IF NOT EXISTS `category4` (
+  `id` int(12) NOT NULL,
+  `doctor_id` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
