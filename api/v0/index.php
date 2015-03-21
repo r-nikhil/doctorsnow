@@ -6,6 +6,7 @@ session_cache_limiter(false);
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "doctornow");
 // include 'db.php';
+
 $app        = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
 
@@ -41,6 +42,37 @@ $app->post('/login_patient', function() use ($app, $connection)
         echo json_encode($arr);
     }
     mysqli_close($connection);
+=======
+$app = new \Slim\Slim();                    // pass an associative array to this if you want to configure the settings
+
+
+$app->post('/login_patient', function () use ($app,$connection) {
+
+ $body = $app->request->getBody();
+ $req = $app->request();
+ $result=  json_decode($body);
+ $username=$result->username; $password=$result->password;
+ 
+//make a change here. Do query only by username. Then compare password outside. If the query fails then it means he is not
+//registered, send this message. If query is right and comparison fails then it means his password is wrong.
+
+ //okok.. fine fine. I d wasnt thinking that much while making the product. I just wrote it for auth. As you see I am not even handling errors proerly
+ // I will do it now// Sorry
+  
+  
+$query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
+$rows = mysqli_num_rows($query);
+
+if ($rows == 1) {
+ 
+	$_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
+	$arr=array('status' => 'success', 'message' => 'true');
+	$app->response()->header('Content-Type', 'application/json');
+	echo json_encode($arr);
+}
+else {
+    $arr=array('status' => 'success', 'message' => 'wrong email or password');
+
     $app->response()->header('Content-Type', 'application/json');
 });
 
