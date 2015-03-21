@@ -1,6 +1,6 @@
 var menu_html='<ul>'+
 			'<li>'+
-				'<a href="categories.html">'+
+				'<a href="find_doctor.html">'+
 					'<span class="menu-icon"><i class="fa fa-user-md"></i></span> '+
 					'<span class="menu-text">Take an Appointment</span>  '+
 					

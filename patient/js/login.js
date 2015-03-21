@@ -1,4 +1,4 @@
-$.getScript("js/ajax_rest.js", function(){});
+$.getScript("js/ajax_rest.js", function(){console.log("loaded");});
 
 var base_url="../";
 var url,encodedata;
@@ -19,7 +19,7 @@ $("#login-submit").click(function(){
 		
   url=base_url+'api/v1/login_patient';
 
-
+console.log(url);
 
 
 if(password.length>0)

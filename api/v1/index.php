@@ -149,7 +149,7 @@ $app->contentType('application/json');
            
         });		
  
- 
+
  $app->post('/login_doctor', function() use ($app) {
 		try {	
 			//getting json and decoding it
@@ -206,15 +206,67 @@ $app->contentType('application/json');
         });	
 
 
-$app->get('/doctors/{category}', function() use ($app) {
+$app->get('/doctors', function() use ($app) {
 
-//return details of all doctors which match this category. Have two columns for category for now.
-// one will contain like 'physician' and other will contain code lile '1' or '2'. We will decide later which one to use
-//right now I will send you the code, like 1 or 2 or 3 etc.
+
+	try {	
+			//getting json and decoding it
+			$request = $app->request();
+			$body = $request->getBody();
+			$input = json_decode($body); 
+		
+			$article = R::findOne('doctorsprofile', 'type_id=?', array($type_id));
+			
+			if ($article) { 
+			  
+				{    // return JSON-encoded response body with query results
+					$var_result=json_encode(R::exportAll($articles));
+					$arr=array('status' => 'true', 'message' => 'found');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode(array_merge($arr+$var_result) );
+					 $app->response->body($msg );
+					 
+					
+  
+ 
+					
+					
+				  }
+				else
+				{ 	
+					 $arr=array('status' => 'true', 'message' => 'no results');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode($arr );
+					 $app->response->body($msg );
+			
+					
+				}	
+            
+			} 
+			
+			else {
+			
+			 $arr=array('status' => 'true', 'message' => 'looking for wrong id');
+			 $app->response()->header('Content-Type', 'application/javascript');
+			 $msg=json_encode($arr );
+			 $app->response->body($msg );
+				
+					
+			}
+		 } catch (ResourceNotFoundException $e) {
+			// return 404 server error
+			$app->response()->status(404);
+		  } catch (Exception $e) {
+			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+			$app->response()->header('Content-Type', 'application/javascript');
+			$msg=json_encode($arr );
+			$app->response->body($msg );
+		  }
+
 
 
 }		
- 
+
 $app->run();
 
 ?>
