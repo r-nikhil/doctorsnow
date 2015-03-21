@@ -18,3 +18,24 @@ console.log("error");
 }
 });
 }
+
+
+function get_ajax_data(url, success)
+{
+$.ajax({
+type:"GET",
+dataType: 'html',
+contentType: "application/json",
+url:url,
+onComplete: function(transport){ },
+beforeSend :function(data) { },
+success:function(data){
+success.call(this, data);
+},
+error: function(data){
+console.log("error");
+//result = data.responseText;
+ console.log(JSON.stringify(data));
+}
+});
+}

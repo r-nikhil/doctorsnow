@@ -206,31 +206,23 @@ $app->contentType('application/json');
         });	
 
 
-$app->get('/doctors', function() use ($app) {
-
-
+$app->get('/doctors/:id', function($id) use ($app) {
 	try {	
 			//getting json and decoding it
 			$request = $app->request();
 			$body = $request->getBody();
 			$input = json_decode($body); 
-		
-			$article = R::findOne('doctorsprofile', 'type_id=?', array($type_id));
+	
+			$article = R::findOne('doctorsprofile', 'type_id=?', array($id));
 			
-			if ($article) { 
-			  
-				{    // return JSON-encoded response body with query results
-					$var_result=json_encode(R::exportAll($articles));
-					$arr=array('status' => 'true', 'message' => 'found');
+			if ($article){ 
+					// return JSON-encoded response body with query results
+					$var_result=R::exportAll($article);
+					$arr=array('status' => 'true', 'message' => 'found','query_result'=> $var_result );
 					 $app->response()->header('Content-Type', 'application/javascript');
-					 $msg=json_encode(array_merge($arr+$var_result) );
-					 $app->response->body($msg );
 					 
-					
-  
- 
-					
-					
+					 $msg=json_encode($arr);
+					 $app->response->body($msg );
 				  }
 				else
 				{ 	
@@ -238,25 +230,13 @@ $app->get('/doctors', function() use ($app) {
 					 $app->response()->header('Content-Type', 'application/javascript');
 					 $msg=json_encode($arr );
 					 $app->response->body($msg );
-			
-					
+				
 				}	
             
-			} 
 			
-			else {
 			
-			 $arr=array('status' => 'true', 'message' => 'looking for wrong id');
-			 $app->response()->header('Content-Type', 'application/javascript');
-			 $msg=json_encode($arr );
-			 $app->response->body($msg );
-				
-					
-			}
-		 } catch (ResourceNotFoundException $e) {
-			// return 404 server error
-			$app->response()->status(404);
-		  } catch (Exception $e) {
+			
+		 } catch (Exception $e) {
 			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
 			$app->response()->header('Content-Type', 'application/javascript');
 			$msg=json_encode($arr );
@@ -265,7 +245,7 @@ $app->get('/doctors', function() use ($app) {
 
 
 
-}		
+});			
 
 $app->run();
 

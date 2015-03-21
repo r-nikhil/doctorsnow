@@ -1,20 +1,41 @@
+$.getScript("js/ajax_rest.js", function(){console.log("loaded");});
+
+var base_url="../";
+var url,encodedata;
+
 var cat_array = ["physician", "cardiologist","Nutriotinist"];
 
 
 $(document).ready(function(){
-
-
 var fill_html=generate_categories(cat_array);
-console.log($('#middle_content').html);
+//console.log($('#middle_content').html);
 document.getElementById('middle_content').innerHTML =fill_html;
-console.log(fill_html);
-
+//console.log(fill_html);
 });
+
+
+
+function get_doctors(type_id)
+{
+url=base_url+'api/v1/doctors/'+type_id;
+console.log(url);
+get_ajax_data(url, function(data)
+{
+
+var response_object = JSON.parse(data);
+console.log(response_object.query_result[0].id);
+});
+ 
+
+
+
+}
+
 
 function generate_categories(arr) {
     var html = "";
     for (i = 0; i < arr.length; i++) {
-        html += '<li onclick="get_doctors(' + i + ')"><div class="menu-icon"><span class="btn vd_btn category_round-btn mgr-10 fa fa-user-md fa-fw" "></span></div> <div class="menu-text category-text" style="font-weight: bold"> ' + arr[i] + '</div>   </li>';
+        html += '<li onclick="get_doctors(' + (i+1) + ')"><div class="menu-icon"><span class="btn vd_btn category_round-btn mgr-10 fa fa-user-md fa-fw" "></span></div> <div class="menu-text category-text" style="font-weight: bold"> ' + arr[i] + '</div>   </li>';
     }
     var final_html = categories_html(html);
     return final_html; }
