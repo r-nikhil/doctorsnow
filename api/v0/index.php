@@ -277,7 +277,7 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
     }
 
 
-    
+
 });
 
 
@@ -290,6 +290,9 @@ $app->put('/category1', function() use ($app, $connection)
     $doctor_id = $input->doctor_id;
 
     $result = mysqli_query($connection, "select * from category1 where doctor_id='$doctor_id'");
+    $data   = mysqli_fetch_array($result);
+
+    echo json_encode($data);
 
 
 
@@ -304,6 +307,9 @@ $app->put('/category2', function() use ($app, $connection)
     $doctor_id = $input->doctor_id;
 
     $result = mysqli_query($connection, "select * from category2 where doctor_id='$doctor_id'");
+    $data   = mysqli_fetch_array($result);
+
+    echo json_encode($data);
 
 
 
@@ -319,6 +325,9 @@ $app->put('/category3', function() use ($app, $connection)
     $doctor_id = $input->doctor_id;
 
     $result = mysqli_query($connection, "select * from category3 where doctor_id='$doctor_id'");
+    $data   = mysqli_fetch_array($result);
+
+    echo json_encode($data);
 
 
 
@@ -333,6 +342,9 @@ $app->put('/category4', function() use ($app, $connection)
     $doctor_id = $input->doctor_id;
 
     $result = mysqli_query($connection, "select * from category4 where doctor_id='$doctor_id'");
+    $data   = mysqli_fetch_array($result);
+
+    echo json_encode($data);
 
 });
 
