@@ -24,7 +24,7 @@ $("#submit-register").click(function(){
        
         });
 		
-url=base_url+'api/v1/register_doctor';
+url=base_url+'api/v1/register_patient';
 
 if(password.length>0)
 {

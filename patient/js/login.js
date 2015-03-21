@@ -5,41 +5,48 @@ var url,encodedata;
 
 $(document).ready(function(){
 
-$("#submit-register").click(function(){
+$("#login-submit").click(function(){
 
   //getting values from the textfields
-  firstname=$("#firstname").val();
-  lastname=$("#lastname").val();
-   mobile=$("#phone").val();
-  email=$("#email").val();
+  username=$("#email").val();
   password=$("#password").val();
   
   //encoding JSON
   encode=JSON.stringify({
-        "firstname": firstname,
-        "lastname": lastname,
-        "mobile": mobile,
-        "email": email,
+        "username": username,
         "password": password
-       
         });
 		
-url=base_url+'api/v1/register_doctor';
+  url=base_url+'api/v1/login_patient';
+
+
+
 
 if(password.length>0)
 {
 post_ajax_data(url,encode, function(data)
 {
-console.log(data);
 var response_object = JSON.parse(data);
-
+if(response_object.status)
+{
 $("#show_message").addClass("alert alert-success");
 $("#show_message").html(response_object.message);
+}
+else
+{
+$("#show_message").addClass("alert alert-warning");
+$("#show_message").html("Oops, something went wrong. Please try after some time");
+}
 });
 }  
-	
 
 });
 
 });
+
+
+
+
+
+
 

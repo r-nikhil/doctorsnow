@@ -6,7 +6,7 @@ require '.././libs/rb.php';
 \Slim\Slim::registerAutoloader();
 
 // set up database connection
-R::setup('mysql:host=localhost;dbname=doctornow','root','');
+R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
 
 //R::freeze(true);
 
@@ -35,23 +35,121 @@ $app->contentType('application/json');
 			$id = R::store($article); 
 			
 			//$app->response()->header('Content-Type', 'application/json');
-			$app->response()->set->contentType('application/json');
-			$arr=array('status' => 'success', 'message' => 'registered');
-			
-			echo json_encode($arr);
-			
+			//$app->response()->set->contentType('application/json');
+					
+			 $arr=array('status' => 'true', 'message' => 'Registered');
+			 $app->response()->header('Content-Type', 'application/javascript');
+			 $msg=json_encode($arr );
+			 $app->response->body($msg );
+		
 			}
 			
 		catch (Exception $e) {
-			$app->response()->status(400);
-			$app->response()->header('X-Status-Reason', $e->getMessage());
+			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+			$app->response()->header('Content-Type', 'application/javascript');
+			$msg=json_encode($arr );
+			$app->response->body($msg );
+			
 		  }	
 			
            
         });
 		
+		
+ $app->post('/register_patient', function() use ($app) {
+		try {	
+			//getting json and decoding it
+			$request = $app->request();
+			$body = $request->getBody();
+			$input = json_decode($body); 
+		
+		// storing to DB
+			$article = R::dispense('patientregister');
+			$article->docFname = (string)$input->firstname;
+			$article->docLname = (string)$input->lastname;
+			$article->docMobile = (string)$input->mobile;
+			$article->docEmail = (string)$input->email;
+			$article->docPassword = (string)$input->password;
+			$id = R::store($article); 
+			
+			//$app->response()->header('Content-Type', 'application/json');
+			//$app->response()->set->contentType('application/json');
+					
+			 $arr=array('status' => 'true', 'message' => 'Registered');
+			 $app->response()->header('Content-Type', 'application/javascript');
+			 $msg=json_encode($arr );
+			 $app->response->body($msg );
+		
+			}
+			
+		catch (Exception $e) {
+			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+			$app->response()->header('Content-Type', 'application/javascript');
+			$msg=json_encode($arr );
+			$app->response->body($msg );
+			
+		  }	
+			
+           
+        });		
+		
 
-
+ $app->post('/login_patient', function() use ($app) {
+		try {	
+			//getting json and decoding it
+			$request = $app->request();
+			$body = $request->getBody();
+			$input = json_decode($body); 
+		
+			$article = R::findOne('patientregister', 'doc_email=?', array((string)$input->username));
+			
+			if ($article) { // if found, return JSON response
+			    $pass_db = (string)$article->doc_password;
+			    $pass_request = (string)$input->password;
+				if($pass_db == $pass_request)
+				{   
+					$arr=array('status' => 'true', 'message' => 'logging in');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode($arr );
+					 $app->response->body($msg );
+					
+					
+				  }
+				else
+				{ 	
+					 $arr=array('status' => 'true', 'message' => 'wrong password');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode($arr );
+					 $app->response->body($msg );
+			
+					
+				}	
+            
+			} 
+			
+			else {
+			
+			 $arr=array('status' => 'true', 'message' => 'This email seems to be not registered. Any typo? ');
+			 $app->response()->header('Content-Type', 'application/javascript');
+			 $msg=json_encode($arr );
+			 $app->response->body($msg );
+				
+					
+			}
+		 } catch (ResourceNotFoundException $e) {
+			// return 404 server error
+			$app->response()->status(404);
+		  } catch (Exception $e) {
+			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+			$app->response()->header('Content-Type', 'application/javascript');
+			$msg=json_encode($arr );
+			$app->response->body($msg );
+		  }
+			
+           
+        });		
+ 
+ 
  $app->post('/login_doctor', function() use ($app) {
 		try {	
 			//getting json and decoding it
@@ -66,14 +164,16 @@ $app->contentType('application/json');
 			    $pass_request = (string)$input->password;
 				if($pass_db == $pass_request)
 				{   
-					//$app->response()->set->contentType('application/json');
-					 $app->response->body( json_encode("{'status':'success', 'message' : 'logging in'}" ));
+					$arr=array('status' => 'true', 'message' => 'logging in');
+					 $app->response()->header('Content-Type', 'application/javascript');
+					 $msg=json_encode($arr );
+					 $app->response->body($msg );
 					
 					
 				  }
 				else
 				{ 	
-					 $arr=array('status' => 'success', 'message' => 'false');
+					 $arr=array('status' => 'true', 'message' => 'wrong password');
 					 $app->response()->header('Content-Type', 'application/javascript');
 					 $msg=json_encode($arr );
 					 $app->response->body($msg );
@@ -85,7 +185,7 @@ $app->contentType('application/json');
 			
 			else {
 			
-			 $arr=array('status' => 'success', 'message' => 'not registered');
+			 $arr=array('status' => 'true', 'message' => 'This email seems to be not registered. Any typo? ');
 			 $app->response()->header('Content-Type', 'application/javascript');
 			 $msg=json_encode($arr );
 			 $app->response->body($msg );
@@ -96,8 +196,10 @@ $app->contentType('application/json');
 			// return 404 server error
 			$app->response()->status(404);
 		  } catch (Exception $e) {
-			$app->response()->status(400);
-			$app->response()->header('X-Status-Reason', $e->getMessage());
+			$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+			$app->response()->header('Content-Type', 'application/javascript');
+			$msg=json_encode($arr );
+			$app->response->body($msg );
 		  }
 			
            

@@ -106,7 +106,7 @@
                 <div class="logo">
                   <h2 class="mgbt-xs-5"><img src="img/logo.png" alt="logo"></h2>
                 </div>
-                <h4 class="text-center font-semibold vd_grey">USER REGISTRATION</h4>
+                <h4 class="text-center font-semibold vd_grey">DOCTOR REGISTRATION</h4>
               </div>
               <div class="panel widget">
                 <div class="panel-body">
@@ -119,9 +119,7 @@
                   <div class="alert alert-warning vd_hidden">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
                     <span class="vd_alert-icon"><i class="fa fa-exclamation-circle vd_red"></i></span>Your password and Confirm password are not same </div>                    
-                  <div class="alert alert-success vd_hidden">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="icon-cross"></i></button>
-                    <span class="vd_alert-icon"><i class="fa fa-check-circle vd_green"></i></span>Registration confirmation has been sent to your email. </div>                  
+                  <div  id="show_message"></div>                  
                     <div class="form-group">
                       <div class="col-md-6">
                         <div class="label-wrapper">
@@ -197,7 +195,7 @@
               </div>
               <!-- Panel Widget -->
               <div class="register-panel text-center font-semibold"> Already Have an Account? <br/>
-                <a href="pages-login.html">SIGN IN<span class="menu-icon"><i class="fa fa-angle-double-right fa-fw"></i></span></a> </div>
+                <a href="login.html">SIGN IN<span class="menu-icon"><i class="fa fa-angle-double-right fa-fw"></i></span></a> </div>
             </div>
             <!-- vd_login-page --> 
             
@@ -404,7 +402,7 @@ $(document).ready(function() {
 
             submitHandler: function (form) {
 				$(form).find('#submit-register').addClass('disabled').prepend('<i class="fa fa-spinner fa-spin mgr-10"></i>')/*.addClass('disabled').attr('disabled')*/;					
-				$(form).ajaxSubmit(options);
+				//$(form).ajaxSubmit(options);
             }
         });		
 

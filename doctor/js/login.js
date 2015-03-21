@@ -1,3 +1,5 @@
+$.getScript("js/ajax_rest.js", function(){});
+
 var base_url="../";
 var url,encodedata;
 
@@ -15,7 +17,7 @@ $("#login-submit").click(function(){
         "password": password
         });
 		
-  url=base_url+'api/v0/login_patient';
+  url=base_url+'api/v1/login_doctor';
 
 
 
@@ -24,69 +26,25 @@ if(password.length>0)
 {
 post_ajax_data(url,encode, function(data)
 {
-console.log("success"+data);
+var response_object = JSON.parse(data);
+if(response_object.status)
+{
+$("#show_message").addClass("alert alert-success");
+$("#show_message").html(response_object.message);
+}
+else
+{
+$("#show_message").addClass("alert alert-warning");
+$("#show_message").html("Oops, something went wrong. Please try after some time");
+}
 });
 }  
-		
-  
-  
-  
 
 });
 
 });
 
 
-function formToJSON() {
-    return JSON.stringify({
-        "username": $("#email").val(),
-        "password": $("#password").val()
-        });
-}
-
-function handleResponse(data){
-
-var arr = $.map(data, function(el) { return el; });
-console.log(data);
-console.log(arr);
-
-}
-
-function renderList(data) {
-	
-	
-}
-
-
-function post_ajax_data(url, encodedata, success)
-{
-
-
-$.ajax({
-type:"POST",
-dataType: 'html',
-contentType: "application/json",
-url:url,
-data :encodedata,
-
-onComplete: function(transport){
-           {
-                result = transport.responseText;
-                console.log(result);
-            }
-        },
-
-beforeSend :function(data) { },
-success:function(data){
-success.call(this, data);
-},
-error: function(data){
-console.log("error");
-//result = data.responseText;
- console.log(JSON.stringify(data));
-}
-});
-}
 
 
 
