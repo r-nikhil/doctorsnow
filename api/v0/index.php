@@ -9,7 +9,6 @@ $connection = mysqli_connect("localhost", "root", "", "doctornow");
 
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
-
 $app->post('/login_patient', function() use ($app, $connection)
 {
     
@@ -19,13 +18,10 @@ $app->post('/login_patient', function() use ($app, $connection)
     $username = $result->username;
     $password = $result->password;
     
-    //make a change here. Do query only by username. Then compare password outside. If the query fails then it means he is not
-    //registered, send this message. If query is right and comparison fails then it means his password is wrong.
     $query = mysqli_query($connection, "select * from login_patient where username='$username'");
     $rows  = mysqli_num_rows($query);
     if ($rows ==1){
-
- $arr   = array(
+    $arr = array(
             'status' => 'true',
             'message' => 'username exists'
         );
@@ -34,31 +30,41 @@ $app->post('/login_patient', function() use ($app, $connection)
 
     }
 
-$query = mysqli_query($connection, "select * from login_patient where username='$username' and password = '$password'");
+else{
+    $arr = array(
+            'status' => 'true',
+            'message' => 'username itself does not exists'
+        );
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
+}
+
+    $query = mysqli_query($connection, "select * from login_patient where username='$username' and password = '$password'");
     $rows1  = mysqli_num_rows($query);
-
-
-    if ($rows1 == 1) {
+    if ($rows1 == 1) { // the user logs in here
         
         $_SESSION['login_patient'] = $username; // after the user logs the session variable is assigned.
-        $arr                       = array(
+        $arr = array(
             'status' => 'true',
             'message' => 'true'
         );
         $app->response()->header('Content-Type', 'application/json');
         echo json_encode($arr);
-    } else {
+    } 
+    else {
         $arr = array(
             'status' => 'true',
-            'message' => 'wrong email or password'
+            'message' => 'wrong username AND password'
         );
+
         $app->response()->header('Content-Type', 'application/json');
         echo json_encode($arr);
     }
     mysqli_close($connection);
-=======
-$app = new \Slim\Slim();                    // pass an associative array to this if you want to configure the settings
+/////////////////////////////////////////////////////////// 
 
+
+                   
 
 $app->post('/login_patient', function () use ($app,$connection) {
 
