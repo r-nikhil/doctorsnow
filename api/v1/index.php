@@ -203,7 +203,17 @@ $app->contentType('application/json');
 		  }
 			
            
-        });		
+        });	
+
+
+$app->get('/doctors/{category}', function() use ($app) {
+
+//return details of all doctors which match this category. Have two columns for category for now.
+// one will contain like 'physician' and other will contain code lile '1' or '2'. We will decide later which one to use
+//right now I will send you the code, like 1 or 2 or 3 etc.
+
+
+}		
  
 $app->run();
 
