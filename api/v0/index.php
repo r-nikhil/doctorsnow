@@ -212,6 +212,7 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 // for the below code, lets sit together and finish it tonight... front + back.. until then, you try integrating the front\
 
 // down here are the functions you asked for
+/// this one get doctor by id
 
 $app->post('/doctors/:id', function() use ($app, $connection)
 if(isset($login_session_user_patient) || isset($login_session_user_doctor))
