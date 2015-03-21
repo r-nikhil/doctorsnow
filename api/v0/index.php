@@ -277,7 +277,7 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
     }
 
 
-    // this has to be worked on
+    
 });
 
 
