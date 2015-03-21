@@ -20,7 +20,8 @@ $app->post('/login_patient', function () use ($app,$connection) {
 //registered, send this message. If query is right and comparison fails then it means his password is wrong.
 
  //okok.. fine fine. I d wasnt thinking that much while making the product. I just wrote it for auth. As you see I am not even handling errors proerly
- // I will do it now
+ // I will do it now// Sorry
+ 
 $query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
 $rows = mysqli_num_rows($query);
 
