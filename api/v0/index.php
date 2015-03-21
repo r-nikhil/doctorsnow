@@ -61,40 +61,69 @@ else{
         echo json_encode($arr);
     }
     mysqli_close($connection);
-/////////////////////////////////////////////////////////// 
+});
+/////////////////////////////////////////////////////////// the password hash is not generated now
 
 
                    
 
-$app->post('/login_patient', function () use ($app,$connection) {
+$app->post('/login_doctor', function() use ($app, $connection)
+{
+    
+    $body     = $app->request->getBody();
+    $req      = $app->request();
+    $result   = json_decode($body);
+    $username = $result->username;
+    $password = $result->password;
+    
+    $query = mysqli_query($connection, "select * from login_doctor where username='$username'");
+    $rows  = mysqli_num_rows($query);
+    if ($rows ==1){
+    $arr = array(
+            'status' => 'true',
+            'message' => 'username exists'
+        );
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
 
- $body = $app->request->getBody();
- $req = $app->request();
- $result=  json_decode($body);
- $username=$result->username; $password=$result->password;
- 
-//make a change here. Do query only by username. Then compare password outside. If the query fails then it means he is not
-//registered, send this message. If query is right and comparison fails then it means his password is wrong.
+    }
 
- //okok.. fine fine. I d wasnt thinking that much while making the product. I just wrote it for auth. As you see I am not even handling errors proerly
- // I will do it now// Sorry
-  
-  
-$query = mysqli_query($connection, "select * from login_patient where password='$password' AND username='$username'");
-$rows = mysqli_num_rows($query);
-
-if ($rows == 1) {
- 
-	$_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
-	$arr=array('status' => 'success', 'message' => 'true');
-	$app->response()->header('Content-Type', 'application/json');
-	echo json_encode($arr);
+else{
+    $arr = array(
+            'status' => 'true',
+            'message' => 'username itself does not exists'
+        );
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
 }
-else {
-    $arr=array('status' => 'success', 'message' => 'wrong email or password');
 
-    $app->response()->header('Content-Type', 'application/json');
+    $query = mysqli_query($connection, "select * from login_doctor where username='$username' and password = '$password'");
+    $rows1  = mysqli_num_rows($query);
+    if ($rows1 == 1) { // the user logs in here
+        
+        $_SESSION['login_patient'] = $username; // after the user logs the session variable is assigned.
+        $arr = array(
+            'status' => 'true',
+            'message' => 'true'
+        );
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
+    } 
+    else {
+        $arr = array(
+            'status' => 'true',
+            'message' => 'wrong username AND password'
+        );
+
+        $app->response()->header('Content-Type', 'application/json');
+        echo json_encode($arr);
+    }
+    mysqli_close($connection);
 });
+
+
+//// login doctor done
+
 
 $app->get('/profile_patient', function() use ($app, $connection)
 {
