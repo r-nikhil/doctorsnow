@@ -201,7 +201,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     `confirm` int(12) NOT NULL,
     `busy` int(12) NOT NULL,
     `appointment_id` int(12) NOT NULL,
-    
+
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -376,9 +376,69 @@ $app->put('/category4', function() use ($app, $connection)
 // now moving on to slots and all that
 
 
+$app->get('/doctor/getschedule/free', function() use ($app, $connection)
+{
+
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
+  $doctor_id = $input->doctor_id;
+  $doctor_name= $input->doctor_name;
 
 
+  $result = mysqli_query($connection, "select * from '$doctor_name+$doctor_id' where confirm = 0 and busy = 0");
+  $data   = mysqli_fetch_array($result);
+  echo json_encode($data);
+  // now you have all appointment id
 
+});
+
+$app->get('/doctor/getschedule/busy', function() use ($app, $connection)
+
+
+{
+
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
+  $doctor_id = $input->doctor_id;
+  $doctor_name= $input->doctor_name;
+
+
+  $result = mysqli_query($connection, "select * from '$doctor_name+$doctor_id' where confirm != 0 and busy != 0");
+  $data   = mysqli_fetch_array($result);
+  echo json_encode($data);
+  // now you have all appointment id
+
+});
+
+
+$app->get('/doctor/getschedule/busy/:id', function() use ($app, $connection)
+{
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
+  // i have $id which is appointment id
+  $result = mysqli_query($connection, "select * from appointments where id = '$id'");
+  $data   = mysqli_fetch_array($result);
+  echo json_encode($data);
+
+  // i am sending you all the busy ones
+
+});
+$app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
+{
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
+  // i have $id which is appointment id
+  $result = mysqli_query($connection, "select * from appointments where id = '$id'");
+  $data   = mysqli_fetch_array($result);
+  echo json_encode($data);
+
+  // i am sending you all the free ones
+
+});
 
 
 
