@@ -9,6 +9,11 @@ $connection = mysqli_connect("localhost", "root", "", "doctornow");
 
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
+
+
+
+// you wanted the id of doctor/patient while logging in. But I am giving you everything when you log in and redirtect to profile_doctor. Will that do ?
+
 $app->post('/login_patient', function() use ($app, $connection)
 {
 
@@ -126,7 +131,7 @@ else{
 
 $app->get('/profile_patient', function() use ($app, $connection)
 {
-    //incluse "session.php";
+    include "session.php";
 
     $body   = $app->request->getBody();
     $result = json_decode($body);
@@ -143,7 +148,7 @@ $app->get('/profile_patient', function() use ($app, $connection)
 
 $app->get('/profile_doctor', function() use ($app, $connection)
 {
-    include('db.php');
+    include('session.php');
     $body   = $app->request->getBody();
     $result = json_decode($body);
 
@@ -347,6 +352,11 @@ $app->put('/category4', function() use ($app, $connection)
     echo json_encode($data);
 
 });
+
+// retrieve doctors by category done
+// now moving on to slots and all that
+
+
 
 
 
