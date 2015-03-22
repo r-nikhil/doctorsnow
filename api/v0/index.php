@@ -188,6 +188,25 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     } else {
         echo ("$email is not a valid email address");
     }
+
+    $query= mysqli_query($connection, "select id from profile_doctor where name ='$name'")
+    $data   = mysqli_fetch_array($query);
+    $doctor_id=$data[0];
+    echo json_encode($doctor_id);
+
+  $sql=   CREATE TABLE IF NOT EXISTS `$doctor_id+$name` (
+    `id` varchar(20) NOT NULL,
+    `patient_id` int(12) NOT NULL,
+    `doctor_id` int(12) NOT NULL,
+    `confirm` int(12) NOT NULL,
+    `busy` int(12) NOT NULL,
+    `appointment_id` int(12) NOT NULL,
+    
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 });
 // the baove code adds a new row in the doctor table
 
@@ -355,6 +374,8 @@ $app->put('/category4', function() use ($app, $connection)
 
 // retrieve doctors by category done
 // now moving on to slots and all that
+
+
 
 
 
