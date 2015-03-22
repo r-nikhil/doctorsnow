@@ -6,7 +6,9 @@
 <head>
     <meta charset="utf-8" />
     <title>Doctors Now</title>
-    
+    <meta name="keywords" content="HTML5 Template, CSS3, All Purpose Admin Template, " />
+    <meta name="description" content="Responsive Admin Template for multipurpose use">
+    <meta name="author" content="Venmond">
     
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
@@ -30,11 +32,12 @@
 
     <!-- Fonts CSS -->
     <link href="css/fonts.css"  rel="stylesheet" type="text/css">
-   
-    <link href="css/croppic.css"  rel="stylesheet" type="text/css">
-	
                
     <!-- Plugin CSS -->
+	
+<link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/ >
+
+
     <link href="plugins/jquery-ui/jquery-ui.custom.min.css" rel="stylesheet" type="text/css">    
     <link href="plugins/prettyPhoto-plugin/css/prettyPhoto.css" rel="stylesheet" type="text/css">
     <link href="plugins/isotope/css/isotope.css" rel="stylesheet" type="text/css">
@@ -85,8 +88,6 @@
       <script type="text/javascript" src="js/html5shiv.js"></script>
       <script type="text/javascript" src="js/respond.min.js"></script>     
     <![endif]-->
-	
-	 <link href="css/create_profile.css"  rel="stylesheet" type="text/css">
     
 </head>    
 
@@ -258,139 +259,227 @@
           
         
        
-       
+          
+          <div class="vd_content-section clearfix">
 		  
-	<div class="vd_content-section clearfix">	  
-		 <div class="row" id="form-basic">
-              <div class="col-md-12">
-                <div class="panel widget">
-                  <div class="panel-heading vd_bg-grey">
-                    <h3 class="panel-title"> <span class="menu-icon"> <i class="fa fa-bar-chart-o"></i> </span> Profile </h3>
-                  </div>
+		  
+		  
+		  
+		 <div class="vd_content-section clearfix">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="panel widget light-widget panel-bd-top">
+                  <div class="panel-heading no-title"> </div>
                   <div class="panel-body">
-                    <form class="form-horizontal" action="#" role="form">
-				
-					   <div class="form-group">
-                        <label class="col-sm-4 control-label">Upload your profile picture</label>
-						  <div class="col-sm-7 controls">
-                      	<div id="crop-container-modal" style="height: 200px; width:200px;"></div>
-						  
-                      </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label" >Speciality</label>
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="cardiologist,gynaecologist etc" id="speciality">
-						   </div>
-                          <span class="help-inline"></span> </div>
-                      </div>
-					  
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label" >Clinic Name</label>
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="" id="clinic_name">
-						   </div>
-                          <span class="help-inline"></span> </div>
-                      </div>
-					  
-					    <div class="form-group">
-                        <label class="col-sm-4 control-label" >Address</label>
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="" id="address">
-						   </div>
-                          <span class="help-inline"></span> </div>
-                      </div>
-					  
-					   
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label" >Pincode</label>
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="" id="pincode">
-						   </div>
-                          <span class="help-inline"></span> </div>
-                      </div>
-					  
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label" >Consultation Charges </label>
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="" id="charges">
-						   </div>
-                          <span class="help-inline"></span> </div>
-                      </div>
-					  
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label" >Degrees</label>
-						
-                        <div class="col-sm-7 controls">
-						 <div class="vd_input-wrapper no-icon">
-                          <input type="text" placeholder="" id="degrees">
-						   </div>
-						   
-                         <span class="help-inline">Separate degrees by comma</span>  </div>
-						
-                      </div>
-					  
-					  
-					  
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">College(s)</label>
-                        <div class="col-sm-7 controls">
-                          <textarea rows="3" class="width-50"  id="College"></textarea>
-                        </div>
-                      </div>
-					  
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Experience</label>
-						 
-                        <div class="col-sm-7 controls">
-						
-                          <textarea rows="3" class="width-50"  id="College"></textarea>
-						   <span class="help-inline">Separate experiences by commas</span>
-                        </div>
-						
-						
-                      </div>
-					  
-					  <div class="form-group">
-                        <label class="col-sm-4 control-label">Professional Memberships</label>
-                        <div class="col-sm-7 controls">
-                          <textarea rows="3" class="width-50"  id="memberships"></textarea>
-						   <span class="help-inline">Separate memberships by commas</span>
-                        </div>
-                      </div>
-					  
-					    <div class="form-group">
-                        <label class="col-sm-4 control-label">A small writeup about yourself.</label>
-                        <div class="col-sm-7 controls">
-                          <textarea rows="3" class="width-50"  id="writeup"></textarea>
-                        </div>
-                      </div>
-					  
-					 
-                      <div class="form-group form-actions">
-                        <div class="col-sm-4"> </div>
-                        <div class="col-sm-7">
-                          <button class="btn vd_btn vd_bg-green vd_white" type="submit"><i class="icon-ok"></i> Save</button>
-                          <button class="btn vd_btn" type="button">Cancel</button>
-                        </div>
-                      </div>
-                    </form>
+                    <div class="text-center vd_info-parent"> <img alt="example image" src="img/avatar/big.jpg"> </div>
+                    <div class="row">
+                     
+                      <div class="col-xs-12"> <a class="btn vd_btn vd_bg-grey btn-xs btn-block no-br" id="doc_name">Dr. Mariah Caraiban</a> </div>
+                    </div>
+                    <h2 class="font-semibold mgbt-xs-5">Dr. Mariah Caraiban</h2>
+                    <h4>Owner at Our Company, Inc.</h4>
+                    <p>Ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                    <div class="mgtp-20">
+                      <table class="table table-striped table-hover">
+                        <tbody>
+                          <tr>
+                            <td style="width:60%;">Status</td>
+                            <td><span class="label label-success">Active</span></td>
+                          </tr>
+                          <tr>
+                            <td>User Rating</td>
+                            <td><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i><i class="fa fa-star vd_yellow fa-fw"></i></td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-                <!-- Panel Widget --> 
+                <!-- panel widget -->
+                
+               
               </div>
-              <!-- col-md-12 --> 
-            </div> 
-		  
+              <div class="col-sm-9">
+                <div class="tabs widget">
+  <ul class="nav nav-tabs widget">
+    <li class="active"> <a data-toggle="tab" href="#profile-tab"> Doctor's Profile <span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>
+    <li class=""> <a data-toggle="tab" href="#projects-tab"> Reviews <span class="menu-active"><i class="fa fa-caret-up"></i></span> </a></li>    
+  
+  </ul>
+  <div class="tab-content">
+    <div id="profile-tab" class="tab-pane active">
+      <div class="pd-20">
+       <h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="icon-user mgr-10 profile-icon"></i> ABOUT</h3>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label">First Name:</label>
+              <div class="col-xs-7 controls">Mariah</div>
+              <!-- col-sm-10 --> 
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label">Last Name:</label>
+              <div class="col-xs-7 controls">Caraiban</div>
+              <!-- col-sm-10 --> 
+            </div>
+          </div>
+         
+         
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label">City:</label>
+              <div class="col-xs-7 controls">Los Angeles</div>
+              <!-- col-sm-10 --> 
+            </div>
+          </div>
+        
+         
+          
+          <div class="col-sm-6">
+            <div class="row mgbt-xs-0">
+              <label class="col-xs-5 control-label">Phone:</label>
+              <div class="col-xs-7 controls">+1-234-5678</div>
+              <!-- col-sm-10 --> 
+            </div>
+          </div>
+        </div>
+        <hr class="pd-10">
+        <div class="row">
+          <div class="col-sm-7 mgbt-xs-20">
+            <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-file-text-o mgr-10 profile-icon"></i> EXPERIENCE</h3>
+            <div class="content-list content-menu">
+              <ul class="list-wrapper">
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_green"><i class="fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com/">Owner</a> at <a href="http://www.venmond.com/">Vendroid Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2013 ~ Now</span></span> </span> </li>
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com/">CEO</a> at <a href="http://www.venmond.com/">Mc. Dondon</a> <span class="menu-info"><span class="menu-date"> March 2011 ~ February 2013</span></span> </span> </li>
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com/">Web Designer</a> at <a href="http://www.venmond.com/">Web Design Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2010 ~ February 2011</span></span> </span> </li>
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> <a href="http://www.venmond.com/">Sales</a> at <a href="http://www.venmond.com/">Sales Company Ltd.</a> <span class="menu-info"><span class="menu-date"> March 2009 ~ February 2010</span></span> </span> </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-5">
+            <h3 class="mgbt-xs-15 font-semibold"><i class="fa fa-trophy mgr-10 profile-icon"></i> EDUCATION</h3>
+            <div class="content-list content-menu">
+              <ul class="list-wrapper">
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_green"><i class="fa  fa-circle-o"></i></span> <span class="menu-text"> Bachelor's degree, E-Commerce/Electronic Commerce at <a href="http://www.venmond.com/">UCLA</a> <span class="menu-info"><span class="menu-date"> August 2003 ~ July 2008</span></span> </span> </li>
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com/">Web Design Education</a> <span class="menu-info"><span class="menu-date"> March 2006 ~ February 2007</span></span> </span> </li>                
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com/">St. Louis High School</a> <span class="menu-info"><span class="menu-date"> August 2000 ~ July 2003 </span></span> </span> </li>
+                <li class="mgbt-xs-10"> <span class="menu-icon vd_grey"><i class=" fa  fa-circle-o"></i></span> <span class="menu-text"> Student at <a href="http://www.venmond.com/">St. Monica Junior High School</a> <span class="menu-info"><span class="menu-date"> August 1998 ~ July 2000</span></span> </span> </li>
+              </ul>
+            </div>            
+          </div>
+        </div>
+        <!-- row -->
+        <hr class="pd-10">
+      
+      </div>
+      <!-- pd-20 --> 
+    </div>
+    <!-- home-tab -->
+    
+    <div id="projects-tab" class="tab-pane">
+    	<div class="pd-20">
+				<h3 class="mgbt-xs-15 mgtp-10 font-semibold"><i class="fa fa-bolt mgr-10 profile-icon"></i> Reviews</h3>        
+				<table class="table table-striped table-hover">
+							  <thead>
+								  <tr>
+                                  	  
+									                               
+									  <th>Patient</th>
+									  <th>Review</th>
+									                                         
+								  </tr>
+							  </thead>   
+							  <tbody>
+								
+							
+								
+								<tr>
+                                
+									<td>Zoe Corp </td>                                    
+									<td class="center">André Borschberg took-off at 1:48AM from ?#?Ahmedabad? to attempt ?#?Flight3? to ?#?Varanasi?.
+Watch it ?#?LIVE? here: http://www.solarimpulse.com/leg-3-from-Ahmedabad-to-Varanasi
+And enjoy the takeoff ?#?Vine? video: https://vine.co/v/OVTxULIej9F</td>
+									                                                                      
+								</tr>
+								<tr>
+                                	
+									<td>Zoe Corp </td>                                    
+									<td class="center">2010/02/03</td>
+									                                                                       
+								</tr>
+                                                                                          
+                                                                   
+							  </tbody>
+						 </table>
+                         <div class="">
+						 
+                         </div>        
+        </div>
 		
-     
+    </div>
+    
+  
+	
+  </div>
+  <!-- tab-content --> 
+</div>
+
+<div class="row">
+            
+<div class="mgbt-xs-10">
+
+
+
+
+		
+                <div class="panel widget panel-bd-left light-widget">
+                  
+                  <div class="panel-body">
+                    <h3>  <span class="font-semibold">Select Time for Appointment</span> </h3>
+                     <div class="col-sm-16">
+                    <div class="btn-group-vertical" id="day1">                   </div>
+                    <div class="btn-group-vertical" id="day2">                   </div>
+                    <div class="btn-group-vertical" id="day3">                   </div>
+                    <div class="btn-group-vertical" id="day4">                   </div>
+                    <div class="btn-group-vertical" id="day5">                   </div>
+                    <div class="btn-group-vertical" id="day6">                   </div>
+                    <div class="btn-group-vertical" id="day7">                   </div>
+					
+					
+					
+					
+                    </div>
+                  </div>
+				  
+				  
+                  <!-- panel-body --> 
+                </div>
+                <!-- panel --> 
+           
+
+
+
+
+
+                    </div>
+                   
+                    </div>
+<!-- tabs-widget -->              </div>
+
+            </div>
+            <!-- row --> 
 			
 			
+			
+			
+            
+          </div>
+		   
+		   
+		   
 		  
 		        
 		  
@@ -415,9 +504,8 @@
 		  
 		  
 		  </div>
- </div>
           
-      </div>
+        </div>
         <!-- .vd_content --> 
       </div>
       <!-- .vd_container --> 
@@ -457,10 +545,10 @@
 <!-- Placed at the end of the document so the pages load faster --> 
 <script type="text/javascript" src="js/jquery.js"></script> 
 <script type="text/javascript" src="js/menu.js"></script> 
-<script type="text/javascript" src="js/croppic.min.js"></script> 
-<script type="text/javascript" src="js/img_uploader.js"></script> 
+<script type="text/javascript" src="js/ajax_rest.js"></script> 
+<script type="text/javascript" src="js/doc_profile.js"></script> 
 
-
+<script src="js/jquery.datetimepicker.js"></script>
 <!--[if lt IE 9]>
   <script type="text/javascript" src="js/excanvas.js"></script>      
 <![endif]-->
@@ -494,17 +582,8 @@
 <!-- Intro JS (Tour) -->
 <script type="text/javascript" src='plugins/introjs/js/intro.min.js'></script>
 
-<script type="text/javascript">
 
-var croppicContainerModalOptions = {
-				uploadUrl:'../api/libs/img_save_to_file.php',
-				cropUrl:'../api/libs/img_crop_to_file.php',
-				modal:true,
-				imgEyecandyOpacity:0.4,
-				loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> '
-		}
-var cropContainerModal = new Croppic('crop-container-modal', croppicContainerModalOptions);
-</script>
+
 
 
 

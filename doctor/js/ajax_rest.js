@@ -20,7 +20,7 @@ console.log("error");
 }
 
 
-function get_ajax_data(url, encodedata, success)
+function get_ajax_data(url, success)
 {
 $.ajax({
 type:"GET",
@@ -38,4 +38,12 @@ console.log("error");
  console.log(JSON.stringify(data));
 }
 });
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
 }
