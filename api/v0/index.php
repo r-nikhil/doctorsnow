@@ -440,6 +440,10 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 
 });
 
+// I think this you have to do a lot in the frontend with what I have done here. Let's sit together we can fine tune this. I can code more logic into here. I am not able to do it now without much clarity
+// I want to know what all you want and what is easy for you so that minimum amount of work is done by js. Get back to me with what all routes you want.
+
+
 
 
 
