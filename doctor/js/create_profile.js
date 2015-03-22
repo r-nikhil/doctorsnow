@@ -1,4 +1,4 @@
-$.getScript("js/ajax_rest.js", function(){});
+$.getScript("js/ajax_rest.js", function(){console.log("loaded");});
 
 var base_url="../";
 var url,encodedata;
@@ -17,7 +17,7 @@ $("#submit-profile").click(function(){
   experience=$("#experience").val();
   memberships=$("#memberships").val();
   writeup=$("#writeup").val();
-  doc_id=$("#doc_id").val(); //get from local storage
+  doc_id=localStorage.doc_id; //get from local storage
   
   //encoding JSON
   encode=JSON.stringify({
@@ -26,14 +26,14 @@ $("#submit-profile").click(function(){
         "pincode": pincode,
         "charges": charges,
         "degrees": degrees,
-        "college": charges,
-        "experience": charges,
-        "writeup": charges,
+        "college": college,
+        "experience": experience,
+        "writeup": writeup,
         "doc_id": doc_id
        
         });
 		
-url=base_url+'api/v1/create_profile';
+url=base_url+'api/v1/doctors/create_profile';
 
 
 {

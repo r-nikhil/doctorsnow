@@ -31,6 +31,10 @@ if(response_object.status)
 {
 $("#show_message").addClass("alert alert-success");
 $("#show_message").html(response_object.message);
+console.log(response_object.doc_id);
+if(response_object.doc_id)
+localStorage.setItem('doc_id', response_object.doc_id);
+
 }
 else
 {
