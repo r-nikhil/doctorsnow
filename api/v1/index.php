@@ -286,7 +286,18 @@ $app->get('/doctors/:id', function($id) use ($app) {
 
 
 
-});			
+});	
+
+
+
+
+// a route /doctors/getschedule/:day1/:day2/:option
+//this should give me all rows between day1 and day2 of docs shcedule
+//option will act as a filter
+// by default option will be 0 that is return all rows
+// option -1 means return all rows when he is free
+//option +1 means return all rows when is busy or booked
+		
 
 $app->run();
 
