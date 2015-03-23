@@ -38,6 +38,7 @@ $app->contentType('application/json');
 			$article = R::dispense('doctorsprofile');
 			$article->docFname = (string)$input->firstname;
 			$article->docLname = (string)$input->lastname;
+			$article->doctor_name = (string)$input->firstname." ".(string)$input->lastname  ;
 			$article->docMobile = (string)$input->mobile;
 			$article->docEmail = (string)$input->email;
 			$id = R::store($article); 
@@ -89,12 +90,40 @@ $app->contentType('application/json');
 				$article->doccollege = (string)$input->college;
 				$article->docexp = (string)$input->experience;
 				$article->docwriteup = (string)$input->writeup;
-				
-				
-				
+				$article->docmember = (string)$input->memberships;
+				$article->doctime = (string)$input->doc_time;
+				$article->docclinic = (string)$input->clinicname;
 				$id = R::store($article); 
 			  
-			  
+				//making and storing doc time table here
+				$time = (string)$input->doc_time;
+				$time_arr=explode(',',$time);
+				
+				//we need like this date time patient case meds busy confirmed
+				
+				
+				$begin = new DateTime( '2010-05-01' );
+				$end = new DateTime( '2010-05-10' );
+
+				$interval = DateInterval::createFromDateString('1 day');
+				$period = new DatePeriod($begin, $interval, $end);
+
+				foreach ( $period as $dt )
+				 { echo $dt->format( "l Y-m-d H:i:s\n" );
+				
+		       	foreach ($time_arr as $item) {
+					  $article = R::dispense('doctime_'.(string)$input->doc_id));
+					  $article->docspecial = (string)$input->speciality;
+					  $article->docadd = (string)$input->address;
+					  $article->docpin = (string)$input->pincode;
+					  $article->doccharges = (string)$input->charges;
+					  
+					  echo "$item\n";
+         		}
+				
+				}
+				
+				
 				
 					$arr=array('status' => 'true', 'message' => 'saved');
 					 $app->response()->header('Content-Type', 'application/javascript');
