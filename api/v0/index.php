@@ -195,7 +195,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     $doctor_id=$data[0];
     echo json_encode($doctor_id);
 
-  $sql=   "CREATE TABLE IF NOT EXISTS `$doctor_id+$name` (
+  $sql=   "CREATE TABLE IF NOT EXISTS `.$doctor_id+$name.` (
     `id` varchar(20) NOT NULL,
     `patient_id` int(12) NOT NULL,
     `doctor_id` int(12) NOT NULL,
@@ -205,6 +205,16 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
 
     PRIMARY KEY (`id`)
   )";
+
+  if (mysqli_query($connection,$sql))
+  {
+    echo "new doctor table created successfully";
+  }
+  else
+  {
+    echo "Error creating table: " . mysqli_error($con);
+  }
+
 
 
 
