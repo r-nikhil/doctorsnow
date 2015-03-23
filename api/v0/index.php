@@ -209,6 +209,9 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
   if (mysqli_query($connection,$sql))
   {
     echo "new doctor table created successfully";
+
+
+
   }
   else
   {
@@ -305,7 +308,7 @@ $app->put('/slot', function() use ($app, $connection)
     $busy           = $input->busy;
     $appointment_id = $input->appointment_id;
 
-    $query = mysqli_query($connection, "INSERT INTO docname_docid (patient_id, doctor_id, confirm,busy,appointment_id)
+    $query = mysqli_query($connection, "INSERT INTO '.$doctor_name+$doctor_id.' (patient_id, doctor_id, confirm,busy,appointment_id)
 VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
     if ($query) {
         echo json_encode("the issue has been added");
