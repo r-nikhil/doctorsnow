@@ -14,7 +14,7 @@ $app = new \Slim\Slim(); // pass an associative array to this if you want to con
 
 // you wanted the id of doctor/patient while logging in. But I am giving you everything when you log in and redirtect to profile_doctor. Will that do ?
 
-$app->post('/login_patient', function() use ($app, $connection)
+$app->post('/patient/login', function() use ($app, $connection)
 {
 
     $body     = $app->request->getBody();
@@ -70,7 +70,7 @@ else{
 /////////////////////////////////////////////////////////// the password hash is not generated now. login_patient ends here
 
 
-$app->post('/login_doctor', function() use ($app, $connection)
+$app->post('/doctor/login', function() use ($app, $connection)
 {
 
     $body     = $app->request->getBody();
@@ -129,7 +129,7 @@ else{
 
 // everything until here works
 
-$app->get('/profile_patient', function() use ($app, $connection)
+$app->get('/patient/profile', function() use ($app, $connection)
 {
     include "session.php";
 
@@ -146,7 +146,7 @@ $app->get('/profile_patient', function() use ($app, $connection)
 
 });
 
-$app->get('/profile_doctor', function() use ($app, $connection)
+$app->get('/doctor/profile', function() use ($app, $connection)
 {
     include('session.php');
     $body   = $app->request->getBody();
@@ -164,7 +164,7 @@ $app->get('/profile_doctor', function() use ($app, $connection)
 // I think the profile details ends here for both doctors and patient
 
 
-$app->post('/create_doctor', function() use ($app, $connection)
+$app->post('/doctor/profile', function() use ($app, $connection)
 {
     $request    = $app->request();
     $body       = $request->getBody();
@@ -225,7 +225,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
 // the baove code adds a new row in the doctor table
 
 
-$app->post('/create_patient', function() use ($app, $connection)
+$app->post('/patient/profile', function() use ($app, $connection)
 {
     $request   = $app->request();
     $body      = $request->getBody();
@@ -252,7 +252,7 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 // down here are the functions you asked for
 /// this one get doctor by id
 
-$app->post('/doctors/:id', function() use ($app, $connection){
+$app->post('/doctor/profile/:id', function() use ($app, $connection){
 if(isset($login_session_user_patient) || isset($login_session_user_doctor))
 {
 
@@ -319,32 +319,17 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
 });
 // below code is for retrieving doctors by category
 
-$app->put('/category1', function() use ($app, $connection)
+$app->get('/doctor/search/category/:id', function() use ($app, $connection)
 {
 
     $request   = $app->request();
     $body      = $request->getBody();
     $input     = json_decode($body);
     $doctor_id = $input->doctor_id;
-
-    $result = mysqli_query($connection, "select * from category1 where doctor_id='$doctor_id'");
-    $data   = mysqli_fetch_array($result);
-
-    echo json_encode($data);
+    $tablename= "category"+$id;
 
 
-
-});
-
-$app->put('/category2', function() use ($app, $connection)
-{
-
-    $request   = $app->request();
-    $body      = $request->getBody();
-    $input     = json_decode($body);
-    $doctor_id = $input->doctor_id;
-
-    $result = mysqli_query($connection, "select * from category2 where doctor_id='$doctor_id'");
+    $result = mysqli_query($connection, "select * from '.$tablename.' where doctor_id='$doctor_id'");
     $data   = mysqli_fetch_array($result);
 
     echo json_encode($data);
@@ -354,37 +339,38 @@ $app->put('/category2', function() use ($app, $connection)
 });
 
 
-$app->put('/category3', function() use ($app, $connection)
+$app->get('/doctor/search/name/:name', function() use ($app, $connection)
 {
 
-    $request   = $app->request();
-    $body      = $request->getBody();
-    $input     = json_decode($body);
-    $doctor_id = $input->doctor_id;
-
-    $result = mysqli_query($connection, "select * from category3 where doctor_id='$doctor_id'");
-    $data   = mysqli_fetch_array($result);
-
-    echo json_encode($data);
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
 
 
+  $result = mysqli_query($connection, "select * from doc_profile where full_name='$name'");
+  $data   = mysqli_fetch_array($result);
+
+  echo json_encode($data);
 
 });
-
-$app->put('/category4', function() use ($app, $connection)
+$app->get('/doctor/search/city/:city', function() use ($app, $connection)
 {
 
-    $request   = $app->request();
-    $body      = $request->getBody();
-    $input     = json_decode($body);
-    $doctor_id = $input->doctor_id;
+  $request   = $app->request();
+  $body      = $request->getBody();
+  $input     = json_decode($body);
 
-    $result = mysqli_query($connection, "select * from category4 where doctor_id='$doctor_id'");
-    $data   = mysqli_fetch_array($result);
 
-    echo json_encode($data);
+  $result = mysqli_query($connection, "select * from doc_profile where city='$city'");
+  $data   = mysqli_fetch_array($result);
 
-});
+  echo json_encode($data);
+
+})
+
+
+
+
 
 // retrieve doctors by category done
 // now moving on to slots and all that
@@ -398,6 +384,15 @@ $app->get('/doctor/getschedule/free', function() use ($app, $connection)
   $input     = json_decode($body);
   $doctor_id = $input->doctor_id;
   $doctor_name= $input->doctor_name;
+
+  if(!isset($login_session_user_patient) || !isset($login_session_user_doctor) )
+  {
+    mysqli_close($connection);
+    // Closing Connection
+    // header('Location: index.php'); // This has to be changed. Come back to this at the end
+    // put the whole thing under a if statement
+  }
+
 
 
   $result = mysqli_query($connection, "select * from '$doctor_name+$doctor_id' where confirm = 0 and busy = 0");
@@ -456,6 +451,14 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 
 // I think this you have to do a lot in the frontend with what I have done here. Let's sit together we can fine tune this. I can code more logic into here. I am not able to do it now without much clarity
 // I want to know what all you want and what is easy for you so that minimum amount of work is done by js. Get back to me with what all routes you want.
+
+
+
+
+
+
+
+
 
 
 
