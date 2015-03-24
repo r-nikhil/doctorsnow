@@ -189,22 +189,21 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
         echo ("$email is not a valid email address");
     }
 
-    $query= mysqli_query($connection, "select id from profile_doctor where name ='$name'")
+    $query= mysqli_query($connection, "select id from profile_doctor where name ='$name'");
     $data   = mysqli_fetch_array($query);
     $doctor_id=$data[0];
     echo json_encode($doctor_id);
 
-  $sql=   CREATE TABLE IF NOT EXISTS `$doctor_id+$name` (
+  /*$sql=   CREATE TABLE IF NOT EXISTS `$doctor_id+$name` (
     `id` varchar(20) NOT NULL,
     `patient_id` int(12) NOT NULL,
     `doctor_id` int(12) NOT NULL,
     `confirm` int(12) NOT NULL,
     `busy` int(12) NOT NULL,
     `appointment_id` int(12) NOT NULL,
-
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+*/
 
 
 });
@@ -238,7 +237,7 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 // down here are the functions you asked for
 /// this one get doctor by id
 
-$app->post('/doctors/:id', function() use ($app, $connection)
+$app->post('/doctors/:id', function() use ($app, $connection){
 if(isset($login_session_user_patient) || isset($login_session_user_doctor))
 {
 

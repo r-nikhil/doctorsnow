@@ -6,7 +6,7 @@ require '.././libs/rb.php';
 \Slim\Slim::registerAutoloader();
 
 // set up database connection
-R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
+R::setup('mysql:host=localhost;dbname=doctornowv2','root','');
 
 //R::freeze(true);
 
@@ -18,31 +18,30 @@ $user_id = NULL;
 $app->contentType('application/json'); 
  
  
- $app->post('/register_doctor', function() use ($app) {
+ $app->post('/doctor/register', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
 			$body = $request->getBody();
 			$input = json_decode($body); 
 		
-		// storing to DB
-			$article = R::dispense('doctorregister');
-			$article->docFname = (string)$input->firstname;
-			$article->docLname = (string)$input->lastname;
+			// storing to DB login
+			$article = R::dispense('doctorlogin');
+			$article->docname = "Dr. ".(string)$input->firstname." ".(string)$input->lastname;
 			$article->docMobile = (string)$input->mobile;
 			$article->docEmail = (string)$input->email;
 			$article->docPassword = (string)$input->password;
 			$id = R::store($article); 
 			
-			//Nikhil note this storage when we are registering, we are also storing those fields in docs profile
-			$article = R::dispense('doctorsprofile');
+			$article = R::dispense('doctorprofile');
+			$article->docname = "Dr. ".(string)$input->firstname." ".(string)$input->lastname;
 			$article->docFname = (string)$input->firstname;
 			$article->docLname = (string)$input->lastname;
-			$article->doctor_name = (string)$input->firstname." ".(string)$input->lastname  ;
 			$article->docMobile = (string)$input->mobile;
 			$article->docEmail = (string)$input->email;
+			$article->docSpec = (string)$input->speciality;
+			$article->docApproved = 0;
 			$id = R::store($article); 
-		   
 			
 			//$app->response()->header('Content-Type', 'application/json');
 			//$app->response()->set->contentType('application/json');
