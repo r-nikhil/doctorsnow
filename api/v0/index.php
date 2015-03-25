@@ -10,15 +10,6 @@ $connection = mysqli_connect("localhost", "root", "", "doctornow");
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
 
-
-// the above code adds new row in the patient table
-
-
-// for the below code, lets sit together and finish it tonight... front + back.. until then, you try integrating the front\
-
-// down here are the functions you asked for
-/// this one get doctor by id
-
 $app->post('/doctor/profile/:id', function() use ($app, $connection){
 if(isset($login_session_user_patient) || isset($login_session_user_doctor))
 {
@@ -86,61 +77,6 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
 });
 // below code is for retrieving doctors by category
 
-$app->get('/doctor/search/category/:id', function() use ($app, $connection)
-{
-
-    $request   = $app->request();
-    $body      = $request->getBody();
-    $input     = json_decode($body);
-    $doctor_id = $input->doctor_id;
-    $tablename= "category"+$id;
-
-
-    $result = mysqli_query($connection, "select * from '.$tablename.' where doctor_id='$doctor_id'");
-    $data   = mysqli_fetch_array($result);
-
-    echo json_encode($data);
-
-
-
-});
-
-
-$app->get('/doctor/search/name/:name', function() use ($app, $connection)
-{
-
-  $request   = $app->request();
-  $body      = $request->getBody();
-  $input     = json_decode($body);
-
-
-  $result = mysqli_query($connection, "select * from doc_profile where full_name='$name'");
-  $data   = mysqli_fetch_array($result);
-
-  echo json_encode($data);
-
-});
-$app->get('/doctor/search/city/:city', function() use ($app, $connection)
-{
-
-  $request   = $app->request();
-  $body      = $request->getBody();
-  $input     = json_decode($body);
-
-
-  $result = mysqli_query($connection, "select * from doc_profile where city='$city'");
-  $data   = mysqli_fetch_array($result);
-
-  echo json_encode($data);
-
-});
-
-
-
-
-
-// retrieve doctors by category done
-// now moving on to slots and all that
 
 
 $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
