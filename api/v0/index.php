@@ -386,8 +386,7 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 
   $doctor_name= $input->doctor_name;
 
-  if(!isset($login_session_user_pati
-  ent) || !isset($login_session_user_doctor) )
+  if(!isset($login_session_user_patient) || !isset($login_session_user_doctor) )
   {
     mysqli_close($connection);
     // Closing Connection
@@ -454,17 +453,7 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 // I think this you have to do a lot in the frontend with what I have done here. Let's sit together we can fine tune this. I can code more logic into here. I am not able to do it now without much clarity
 // I want to know what all you want and what is easy for you so that minimum amount of work is done by js. Get back to me with what all routes you want.
 
-$app->post('/try/:id/yolo/:id1', function() use ($app, $connection)
-{
-  list ($id, $id1)= func_get_args();
-  echo json_encode($id);
-
-  echo json_encode($id1);
-
-
-
-});
-
+include "endpoint/test.php";
 
 
 
