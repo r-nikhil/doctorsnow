@@ -14,8 +14,6 @@ $app->get('/doctor/search/category/:id', function() use ($app, $connection)
 
   echo json_encode($data);
 
-
-
 });
 
 
