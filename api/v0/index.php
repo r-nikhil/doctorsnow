@@ -6,8 +6,18 @@ session_cache_limiter(false);
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "doctornow");
 
-
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
+
+include "endpoint/doctor/profile.php";
+include "endpoint/doctor/login.php";
+include "endpoint/doctor/search.php";
+include "endpoint/doctor/signup.php";
+
+
+include "endpoint/patient/profile.php";
+include "endpoint/patient/login.php";
+include "endpoint/patient/signup.php";
+
 
 
 $app->post('/doctor/profile/:id', function() use ($app, $connection){

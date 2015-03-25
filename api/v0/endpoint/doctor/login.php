@@ -1,5 +1,5 @@
 <?php
-
+include "session.php";
 $app->post('/doctor/login', function() use ($app, $connection)
 {
 
