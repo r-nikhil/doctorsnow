@@ -29,7 +29,7 @@ else
 }
 
 });
-// this one return whenever the doctor is free
+
 
 
 $app->post('/appointment', function() use ($app, $connection)
@@ -75,7 +75,7 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
 
 
 });
-// below code is for retrieving doctors by category
+
 
 
 
@@ -92,9 +92,7 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
   if(!isset($login_session_user_patient) || !isset($login_session_user_doctor) )
   {
     mysqli_close($connection);
-    // Closing Connection
-    // header('Location: index.php'); // This has to be changed. Come back to this at the end
-    // put the whole thing under a if statement
+
   }
 
 
@@ -102,7 +100,7 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
   $result = mysqli_query($connection, "select * from '$doctor_name+$doctor_id' where confirm = 0 and busy = 0");
   $data   = mysqli_fetch_array($result);
   echo json_encode($data);
-  // now you have all appointment id
+
 
 });
 
@@ -121,7 +119,6 @@ $app->get('/doctor/getschedule/busy', function() use ($app, $connection)
   $result = mysqli_query($connection, "select * from '$doctor_name+$doctor_id' where confirm != 0 and busy != 0");
   $data   = mysqli_fetch_array($result);
   echo json_encode($data);
-  // now you have all appointment id
 
 });
 
@@ -136,7 +133,7 @@ $app->get('/doctor/getschedule/busy/:id', function() use ($app, $connection)
   $data   = mysqli_fetch_array($result);
   echo json_encode($data);
 
-  // i am sending you all the busy ones
+
 
 });
 $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
@@ -149,12 +146,10 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
   $data   = mysqli_fetch_array($result);
   echo json_encode($data);
 
-  // i am sending you all the free ones
 
 });
 
 
-include "endpoint/test.php";
 
 
 
