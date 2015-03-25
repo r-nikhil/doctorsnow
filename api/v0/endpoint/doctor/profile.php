@@ -1,4 +1,5 @@
 <?php
+
 $app->get('/doctor/profile', function() use ($app, $connection)
 {
   include('session.php');
@@ -6,7 +7,7 @@ $app->get('/doctor/profile', function() use ($app, $connection)
   $result = json_decode($body);
 
 
-  $result = mysqli_query($connection, "select * from profile_doctor where username='$login_session_user_doctor'");
+  $result = mysqli_query($connection, "select * from doc_profile where username='$login_session_user_doctor'");
   $data   = mysqli_fetch_array($result);
 
   echo json_encode($data);
