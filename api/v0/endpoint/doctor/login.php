@@ -1,5 +1,5 @@
 <?php
-include "session.php";
+// include "session.php";
 $app->post('/doctor/login', function() use ($app, $connection)
 {
 
@@ -14,7 +14,7 @@ $app->post('/doctor/login', function() use ($app, $connection)
   if ($rows ==1){
     $arr = array(
       'status' => 'true',
-      'message' => 'username exists'
+      'message' => 'username exists. lets move to the next step'
     );
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
@@ -24,13 +24,13 @@ $app->post('/doctor/login', function() use ($app, $connection)
   else{
     $arr = array(
       'status' => 'true',
-      'message' => 'username itself does not exists'
+      'message' => 'username itself does not exists. SIgnup first asshole'
     );
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
   }
 
-  $query = mysqli_query($connection, "select * from login_doctor where username='$username' and password = '$password'");
+  $query = mysqli_query($connection, "select * from doc_login where username='$username' and password = '$password'");
   $rows1  = mysqli_num_rows($query);
   if ($rows1 == 1) { // the user logs in here
 
@@ -51,7 +51,7 @@ $app->post('/doctor/login', function() use ($app, $connection)
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
   }
-  mysqli_close($connection);
+
 });
 
 
