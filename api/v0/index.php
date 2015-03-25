@@ -5,7 +5,7 @@ require 'Slim/Slim.php';
 session_cache_limiter(false);
 session_start();
 $connection = mysqli_connect("localhost", "root", "", "doctornow");
-// include 'db.php';
+
 
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
