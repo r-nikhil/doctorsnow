@@ -1,4 +1,8 @@
 <?php
+
+/// this is the search api. I think we can even access this using chrome
+// have to look in specifications
+
 $app->get('/doctor/search/category/:id', function() use ($app, $connection)
 {
 
