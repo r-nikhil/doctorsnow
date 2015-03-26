@@ -21,6 +21,7 @@ $data   = mysqli_fetch_array($result);
 // this will query the doctors table abd give you all appoinbtmentt idd... there is no time specified there...
 
 
+
   }
 else
 {

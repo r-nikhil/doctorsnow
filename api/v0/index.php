@@ -12,7 +12,7 @@ include "endpoint/doctor/profile.php";
 include "endpoint/doctor/login.php";
 include "endpoint/doctor/search.php";
 include "endpoint/doctor/signup.php";
-
+include "endpoint/doctor/appointment.php";
 
 include "endpoint/patient/profile.php";
 include "endpoint/patient/login.php";
@@ -20,25 +20,7 @@ include "endpoint/patient/signup.php";
 
 
 
-$app->post('/doctor/profile/:id', function() use ($app, $connection){
-if(isset($login_session_user_patient) || isset($login_session_user_doctor))
-{
 
-$result = mysqli_query($connection, "select * from profile_doctor where id='$id'");
-$data   = mysqli_fetch_array($result);
-
-echo json_encode($data);
-
-$app->response()->header('Content-Type', 'application/json');
-
-}
-else
-{
-  echo json_encode("login first and then try to access all the doctors");
-
-}
-
-});
 
 
 
