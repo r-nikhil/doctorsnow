@@ -10,6 +10,13 @@ $result=mysqli_query($connection, "select username from login_patient where user
 $row = mysqli_fetch_assoc($result);
 
 $login_session_user_doctor  = $row['username'];// this extra time reassigning and search happens for safety
+$login_patient = $_SESSION['login_patient'];
+
+$result=mysqli_query($connection, "select username from login_patient where username= '$login_patient'");
+
+$row = mysqli_fetch_assoc($result);
+
+$login_session_user_patient  = $row['username'];
 
 
 
