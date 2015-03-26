@@ -25,13 +25,7 @@ else
 {
   echo " login first bitch";
 }
-
-
-
 });
-
-
-
 
 $app->post('/doctor/appointment', function() use ($app, $connection)
 {
@@ -55,6 +49,29 @@ $app->post('/doctor/appointment', function() use ($app, $connection)
     echo json_encode("the issue has been added");
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>
