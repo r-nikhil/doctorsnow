@@ -10,8 +10,6 @@ $connection = mysqli_connect("localhost", "root", "", "doctornow");
 $app = new \Slim\Slim(); // pass an associative array to this if you want to configure the settings
 
 
-
-
 // you wanted the id of doctor/patient while logging in. But I am giving you everything when you log in and redirtect to profile_doctor. Will that do ?
 
 $app->post('/patient/login', function() use ($app, $connection)
@@ -190,7 +188,6 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
         echo ("$email is not a valid email address");
     }
 
-<<<<<<< HEAD
     $query= mysqli_query($connection, "select id from profile_doctor where name ='$name'");
     $data   = mysqli_fetch_array($query);
     $doctor_id=$data[0];
@@ -204,7 +201,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     echo json_encode($doctor_id);
 
   $sql=   "CREATE TABLE IF NOT EXISTS `.$doctor_id+$name.` (
->>>>>>> origin/master
+
     `id` varchar(20) NOT NULL,
     `patient_id` int(12) NOT NULL,
     `doctor_id` int(12) NOT NULL,
@@ -212,7 +209,7 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     `busy` int(12) NOT NULL,
     `appointment_id` int(12) NOT NULL,
     PRIMARY KEY (`id`)
-<<<<<<< HEAD
+
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 */
 =======
@@ -230,8 +227,6 @@ VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     echo "Error creating table: " . mysqli_error($con);
   }
 
-
->>>>>>> origin/master
 
 
 });
@@ -265,11 +260,10 @@ VALUES ('$name','$issue','$age','$allergies','$blood')");
 // down here are the functions you asked for
 /// this one get doctor by id
 
-<<<<<<< HEAD
+
 $app->post('/doctors/:id', function() use ($app, $connection){
-=======
+
 $app->post('/doctor/profile/:id', function() use ($app, $connection){
->>>>>>> origin/master
 if(isset($login_session_user_patient) || isset($login_session_user_doctor))
 {
 
@@ -336,27 +330,9 @@ VALUES ('$patient_id','$doctor_id','$confirm','$busy' '$appointment_id')");
 });
 // below code is for retrieving doctors by category
 
-$app->get('/doctor/search/category/:id', function() use ($app, $connection)
-{
-
-    $request   = $app->request();
-    $body      = $request->getBody();
-    $input     = json_decode($body);
-    $doctor_id = $input->doctor_id;
-    $tablename= "category"+$id;
 
 
-    $result = mysqli_query($connection, "select * from '.$tablename.' where doctor_id='$doctor_id'");
-    $data   = mysqli_fetch_array($result);
-
-    echo json_encode($data);
-
-
-
-});
-
-
-$app->get('/doctor/search/name/:name', function() use ($app, $connection)
+$app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 {
 
   $request   = $app->request();
@@ -364,42 +340,6 @@ $app->get('/doctor/search/name/:name', function() use ($app, $connection)
   $input     = json_decode($body);
 
 
-  $result = mysqli_query($connection, "select * from doc_profile where full_name='$name'");
-  $data   = mysqli_fetch_array($result);
-
-  echo json_encode($data);
-
-});
-$app->get('/doctor/search/city/:city', function() use ($app, $connection)
-{
-
-  $request   = $app->request();
-  $body      = $request->getBody();
-  $input     = json_decode($body);
-
-
-  $result = mysqli_query($connection, "select * from doc_profile where city='$city'");
-  $data   = mysqli_fetch_array($result);
-
-  echo json_encode($data);
-
-})
-
-
-
-
-
-// retrieve doctors by category done
-// now moving on to slots and all that
-
-
-$app->get('/doctor/getschedule/free', function() use ($app, $connection)
-{
-
-  $request   = $app->request();
-  $body      = $request->getBody();
-  $input     = json_decode($body);
-  $doctor_id = $input->doctor_id;
   $doctor_name= $input->doctor_name;
 
   if(!isset($login_session_user_patient) || !isset($login_session_user_doctor) )
@@ -466,14 +406,8 @@ $app->get('/doctor/getschedule/free/:id', function() use ($app, $connection)
 
 });
 
-// I think this you have to do a lot in the frontend with what I have done here. Let's sit together we can fine tune this. I can code more logic into here. I am not able to do it now without much clarity
-// I want to know what all you want and what is easy for you so that minimum amount of work is done by js. Get back to me with what all routes you want.
 
-
-
-
-
-
+include "endpoint/test.php";
 
 
 
