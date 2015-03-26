@@ -17,8 +17,13 @@ $todate = date("Y-m-d",strtotime("+1 week"));
 // we have $id
 $result = mysqli_query($connection, "select * from  '.$name_$id.' where date BETWEEN '$fromdate' and '$todate'");
 $data   = mysqli_fetch_array($result);
+echo json_encode($data);
 
-// this will query the doctors table abd give you all appoinbtmentt idd... there is no time specified there...
+$app->response()->header('Content-Type', 'application/json');
+
+// this will query the doctors table abd give you all appoinbtmentt id... there is no time specified there...we have to query the appointment table first.. some joins can be done here.
+// call me when you see this.. i want some guidance to proceed here
+
 
   }
 else
@@ -26,6 +31,33 @@ else
   echo " login first bitch";
 }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $app->post('/doctor/appointment', function() use ($app, $connection)
 {
