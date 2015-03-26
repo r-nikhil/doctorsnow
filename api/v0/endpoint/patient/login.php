@@ -1,4 +1,5 @@
 <?php
+// include "session.php";
 $app->post('/patient/login', function() use ($app, $connection)
 {
 
@@ -23,7 +24,7 @@ $app->post('/patient/login', function() use ($app, $connection)
   else{
     $arr = array(
     'status' => 'true',
-    'message' => 'username itself does not exists'
+    'message' => 'username itself does not exists. go signup asshole'
     );
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
@@ -50,6 +51,6 @@ $app->post('/patient/login', function() use ($app, $connection)
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
   }
-  mysqli_close($connection);
+  // mysqli_close($connection);
 });
 ?>

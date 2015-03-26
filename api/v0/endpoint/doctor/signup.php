@@ -16,7 +16,7 @@ $app->post('/doctor/profile', function() use ($app, $connection)
   if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
     echo ("$email is a valid email address");
 
-    $query = mysqli_query($connection, "INSERT INTO profile_doctor (name, email, phone, city, speciality, experience)
+    $query = mysqli_query($connection, "INSERT INTO doc_profile (name, email, phone, city, speciality, experience)
     VALUES ('$namee','$email','$phone','$city','$speciality', '$experience')");
     if ($query) {
       echo json_encode("the doctor has been added");
@@ -27,7 +27,7 @@ $app->post('/doctor/profile', function() use ($app, $connection)
     echo ("$email is not a valid email address");
   }
 
-  $query = mysqli_query($connection, "select id from profile_doctor where name ='$name'");
+  $query = mysqli_query($connection, "select id from doc_profile where name ='$name'");
   $data = mysqli_fetch_array($query);
   $doctor_id=$data[0];
   echo json_encode($doctor_id);
@@ -46,6 +46,31 @@ $app->post('/doctor/profile', function() use ($app, $connection)
   if (mysqli_query($connection,$sql))
   {
     echo "new doctor table created successfully";
+  }
+  else
+  {
+    echo "Error creating table: " . mysqli_error($con);
+  }
+
+$sql = "INSERT INTO `.$doctor_id+$name.` (date)
+  SELECT
+  DATE_ADD('2014-01-01', INTERVAL t.n DAY)
+  FROM (
+  SELECT
+  a.N + b.N * 10 + c.N * 100 AS n
+  FROM
+  (SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) a
+  ,(SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9) b
+  ,(SELECT 0 AS N UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7) c
+  ORDER BY n
+  ) t
+  WHERE
+  t.n <= TIMESTAMPDIFF(DAY, '2015-04-01', '2015-12-31')";
+
+
+  if (mysqli_query($connection,$sql))
+  {
+    echo "table has been populated succesfully";
 
 
 
@@ -54,6 +79,12 @@ $app->post('/doctor/profile', function() use ($app, $connection)
   {
     echo "Error creating table: " . mysqli_error($con);
   }
+
+
+
+
+
+
 
 
 

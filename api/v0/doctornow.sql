@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 21, 2015 at 03:39 PM
+-- Generation Time: Mar 25, 2015 at 04:04 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -102,21 +102,86 @@ CREATE TABLE IF NOT EXISTS `docname_docid` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login_doctor`
+-- Table structure for table `doc_clinic`
 --
 
-CREATE TABLE IF NOT EXISTS `login_doctor` (
-  `id` int(12) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+CREATE TABLE IF NOT EXISTS `doc_clinic` (
+  `doc_id` int(12) NOT NULL,
+  `clinic_name` varchar(255) NOT NULL,
+  `clinic_address` text NOT NULL,
+  `clinic_phone` int(12) NOT NULL,
+  `pincode` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `login_doctor`
+-- Table structure for table `doc_education`
 --
 
-INSERT INTO `login_doctor` (`id`, `username`, `password`) VALUES
-(1, 'a@a.com', '123456');
+CREATE TABLE IF NOT EXISTS `doc_education` (
+  `doc_id` int(12) NOT NULL,
+  `doc_college` varchar(255) NOT NULL,
+  `doc_degree` varchar(255) NOT NULL,
+  `doc_year` int(12) NOT NULL,
+  `doc_awards` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_experience`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_experience` (
+  `doc_id` int(12) NOT NULL,
+  `doc_hospital` varchar(255) NOT NULL,
+  `doc_exp` int(12) NOT NULL,
+  `doc_details` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_login`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_login` (
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_membership`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_membership` (
+  `doc_id` int(12) NOT NULL,
+  `membership` varchar(255) NOT NULL,
+  `details` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_profile`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_profile` (
+  `doc_id` int(12) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `mobile` int(12) NOT NULL,
+  `speciality` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `writeup` text NOT NULL,
+  `full_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -129,30 +194,6 @@ CREATE TABLE IF NOT EXISTS `login_patient` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `login_patient`
---
-
-INSERT INTO `login_patient` (`id`, `username`, `password`) VALUES
-(1, 'b@b.com', '123456');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `profile_doctor`
---
-
-CREATE TABLE IF NOT EXISTS `profile_doctor` (
-  `id` int(12) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` int(12) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `speciality` varchar(255) NOT NULL,
-  `experience` int(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

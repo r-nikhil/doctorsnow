@@ -1,4 +1,8 @@
 <?php
+
+/// this is the search api. I think we can even access this using chrome
+// have to look in specifications
+
 $app->get('/doctor/search/category/:id', function() use ($app, $connection)
 {
 
@@ -13,8 +17,6 @@ $app->get('/doctor/search/category/:id', function() use ($app, $connection)
   $data   = mysqli_fetch_array($result);
 
   echo json_encode($data);
-
-
 
 });
 
