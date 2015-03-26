@@ -46,9 +46,6 @@ $app->post('/doctor/profile', function() use ($app, $connection)
   if (mysqli_query($connection,$sql))
   {
     echo "new doctor table created successfully";
-
-
-
   }
   else
   {
@@ -82,6 +79,10 @@ $sql = "INSERT INTO `.$doctor_id+$name.` (date)
   {
     echo "Error creating table: " . mysqli_error($con);
   }
+
+
+
+
 
 
 
