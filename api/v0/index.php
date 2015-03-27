@@ -16,6 +16,12 @@ include "endpoint/patient/login.php";
 include "endpoint/patient/profile.php";
 include "endpoint/patient/signup.php";
 
+include "endpoint/doctor/login.php";
+include "endpoint/doctor/profile.php";
+include "endpoint/doctor/signup.php";
+
+
+
 
 
 $app->run();

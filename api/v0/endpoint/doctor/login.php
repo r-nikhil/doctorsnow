@@ -9,7 +9,7 @@ $app->post('/doctor/login', function() use ($app, $connection)
   $username = $result->username;
   $password = $result->password;
 
-  $query = mysqli_query($connection, "select * from login_doctor where username='$username'");
+  $query = mysqli_query($connection, "select * from doctor_login where username='$username'");
   $rows  = mysqli_num_rows($query);
   if ($rows ==1){
     $arr = array(
@@ -30,7 +30,7 @@ $app->post('/doctor/login', function() use ($app, $connection)
     echo json_encode($arr);
   }
 
-  $query = mysqli_query($connection, "select * from doc_login where username='$username' and password = '$password'");
+  $query = mysqli_query($connection, "select * from doctor_login where username='$username' and password = '$password'");
   $rows1  = mysqli_num_rows($query);
   if ($rows1 == 1) { // the user logs in here
 
