@@ -28,8 +28,8 @@ $rows = mysqli_num_rows($query);
 
 if ($rows == 1) {
   echo json_encode("Username or Password is valid");
-  
-  
+
+
   $_SESSION['login_patient']=$username; // after the user logs the session variable is assigned.
   // $app->redirect('profile_patient');
   //include('session.php');
@@ -187,59 +187,6 @@ if($query){echo json_encode("the issue has been added");}
 
 // this has to be worked on
 });
-
-
-$app->put('/category1', function () use ($app,$connection) {
-
-$request = $app->request();
-  $body = $request->getBody();
-  $input = json_decode($body);
-   $doctor_id=$input->doctor_id;
-
-$result = mysqli_query($connection, "select * from category1 where doctor_id='$doctor_id'");
-
-
-
-});
-
-$app->put('/category2', function () use ($app,$connection) {
-
-$request = $app->request();
-  $body = $request->getBody();
-  $input = json_decode($body);
-   $doctor_id=$input->doctor_id;
-
-$result = mysqli_query($connection, "select * from category2 where doctor_id='$doctor_id'");
-
-
-
-});
-
-
-$app->put('/category3', function () use ($app,$connection) {
-
-$request = $app->request();
-  $body = $request->getBody();
-  $input = json_decode($body);
-   $doctor_id=$input->doctor_id;
-
-$result = mysqli_query($connection, "select * from category3 where doctor_id='$doctor_id'");
-
-
-
-});
-
-$app->put('/category4', function () use ($app,$connection) {
-
-$request = $app->request();
-  $body = $request->getBody();
-  $input = json_decode($body);
-   $doctor_id=$input->doctor_id;
-
-$result = mysqli_query($connection, "select * from category4 where doctor_id='$doctor_id'");
-
-});
-
 
 
 
