@@ -1,8 +1,5 @@
 <?php
-
-
-
-
+// keeep a dropdwonin frontend
 $app->get('/doctors/search/city/:city_name', function($city_name) use ($app) {
   try {
     //getting json and decoding it
@@ -10,7 +7,7 @@ $app->get('/doctors/search/city/:city_name', function($city_name) use ($app) {
     $body = $request->getBody();
     $input = json_decode($body);
 
-    $article = R::findOne('doctorsprofile', 'doccity=?', array($city_name));
+    $article = R::findOne('doctorsprofile', 'docCity=?', array($city_name));
 
     if ($article){
       // return JSON-encoded response body with query results
@@ -29,9 +26,6 @@ $app->get('/doctors/search/city/:city_name', function($city_name) use ($app) {
       $app->response->body($msg );
 
     }
-
-
-
 
   } catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
