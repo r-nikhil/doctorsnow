@@ -6,10 +6,10 @@ $app->post('/doctor/login', function() use ($app, $connection)
   $body     = $app->request->getBody();
   $req      = $app->request();
   $result   = json_decode($body);
-  $username = $result->username;
+  $username = $result->email;
   $password = $result->password;
 
-  $query = mysqli_query($connection, "select * from doctor_login where username='$username'");
+  $query = mysqli_query($connection, "select * from doctor_login where email='$username'");
   $rows  = mysqli_num_rows($query);
   if ($rows ==1){
     $arr = array(
@@ -24,13 +24,13 @@ $app->post('/doctor/login', function() use ($app, $connection)
   else{
     $arr = array(
       'status' => 'true',
-      'message' => 'username itself does not exists. SIgnup first asshole'
+      'message' => 'username itself does not exists. SIgnup first '
     );
     $app->response()->header('Content-Type', 'application/json');
     echo json_encode($arr);
   }
 
-  $query = mysqli_query($connection, "select * from doctor_login where username='$username' and password = '$password'");
+  $query = mysqli_query($connection, "select * from doctor_login where email='$username' and password = '$password'");
   $rows1  = mysqli_num_rows($query);
   if ($rows1 == 1) { // the user logs in here
 

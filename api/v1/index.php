@@ -18,7 +18,7 @@ $user_id = NULL;
 $app->contentType('application/json'); 
  
  
- $app->post('/register_doctor', function() use ($app) {
+ $app->post('/doctor/register', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
@@ -35,6 +35,7 @@ $app->contentType('application/json');
 			$id = R::store($article); 
 			
 			//Nikhil note this storage when we are registering, we are also storing those fields in docs profile
+			
 			$article = R::dispense('doctorsprofile');
 			$article->docFname = (string)$input->firstname;
 			$article->docLname = (string)$input->lastname;
@@ -66,7 +67,7 @@ $app->contentType('application/json');
         });
 		
 
- $app->post('/doctors/create_profile', function() use ($app) {
+ $app->post('/doctors/createProfile', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
@@ -76,7 +77,7 @@ $app->contentType('application/json');
 		
 		
 			$article = R::findOne('doctorsprofile', 'id=?', array((string)$input->doc_id));
-		// storing to DB
+			// storing to DB
 			
 			
 			if ($article) { // if found, return JSON response
@@ -90,6 +91,7 @@ $app->contentType('application/json');
 				$article->doccollege = (string)$input->college;
 				$article->docexp = (string)$input->experience;
 				$article->docwriteup = (string)$input->writeup;
+				$article->doccity = (string)$input->city;
 				$article->docmember = (string)$input->memberships;
 				$article->doctime = (string)$input->doc_time;
 				$article->docclinic = (string)$input->clinicname;
@@ -159,7 +161,7 @@ $app->contentType('application/json');
 		
 
 		
- $app->post('/register_patient', function() use ($app) {
+ $app->post('/patient/register', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
@@ -197,7 +199,7 @@ $app->contentType('application/json');
         });		
 		
 
- $app->post('/login_patient', function() use ($app) {
+ $app->post('/patient/login', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
@@ -253,7 +255,7 @@ $app->contentType('application/json');
         });		
  
 
- $app->post('/login_doctor', function() use ($app) {
+ $app->post('/doctor/login', function() use ($app) {
 		try {	
 			//getting json and decoding it
 			$request = $app->request();
@@ -388,8 +390,12 @@ $app->get('/doctors/:id', function($id) use ($app) {
 		  }
 
 
-
 });	
+
+
+
+
+
 
 
 

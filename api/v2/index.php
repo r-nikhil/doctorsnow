@@ -6,18 +6,17 @@ require '.././libs/rb.php';
 \Slim\Slim::registerAutoloader();
 
 // set up database connection
+
 R::setup('mysql:host=localhost;dbname=doctornowv2','root','');
 
 //R::freeze(true);
-
  
 $app = new \Slim\Slim();
 
 // User id from db - Global Variable
 $user_id = NULL;
 $app->contentType('application/json'); 
- 
- 
+  
  $app->post('/doctor/register', function() use ($app) {
 		try {	
 			//getting json and decoding it
@@ -391,18 +390,6 @@ $app->get('/doctors/:id', function($id) use ($app) {
 });	
 
 
-
-
-// a route /doctors/getschedule/:date1/:date2/:option
-//this should give me all rows between date1 and date2 of docs shcedule, which will be in dd-mm format
-//option will act as a filter
-// by default option will be 0 that is return all rows
-// option -1 means return all rows when he is free
-//option +1 means return all rows when is busy or booked
-
-
-//a route /doctors/makeapp/   this route will make appointment
-// this will be a post request with doc_id, date(dd-mm) and time (hh-mm), patient id and two more text fields about him
 
 
 
