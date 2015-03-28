@@ -18,7 +18,7 @@ $app->post('/patient/login', function() use ($app) {
         $msg=json_encode($arr );
         $app->response->body($msg );
         $_SESSION['patEmail'] = $article->patEmail;
-        $_SESSION['patEmail'] = $article->id;
+        $_SESSION['patId'] = $article->id;
         $_SESSION['patName'] = $article->patLname; // patient name because we will be sending it to frontend if they want to use
         
 
