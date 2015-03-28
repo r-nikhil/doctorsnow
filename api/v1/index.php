@@ -17,16 +17,39 @@ $user_id = NULL; // why do you need this ?
 $app->contentType('application/json');
 
 include "doctor/register.php";
-include "docotor/createProfile.php";
+include "doctor/createProfile.php";
 include "doctor/login.php";
 
 include "patient/register.php";
 include "patient/login.php";
+include "patient/utils.php";
 
-include "search/category.php"
-include "search/city.php"
+include "search/category.php";
+include "search/city.php";
 // include "search/name.php"
 
 $app->run();
 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
