@@ -28,28 +28,14 @@ include "search/category.php";
 include "search/city.php";
 // include "search/name.php"
 
+
+$app->get('/test', function() use ($app) {
+  
+  echo "working";
+ 
+});
+
+
 $app->run();
 
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

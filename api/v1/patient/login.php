@@ -9,7 +9,7 @@ $app->post('/patient/login', function() use ($app) {
     $article = R::findOne('patientregister', 'patEmail=?', array((string)$input->email));
 
     if ($article) { // if found, return JSON response
-      $pass_db = (string)$article->patPassword;
+      $pass_db = (string)$article->patpassword;
       $pass_request = (string)$input->password;
       if($pass_db === $pass_request)
       {
@@ -17,9 +17,10 @@ $app->post('/patient/login', function() use ($app) {
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );
-        $_SESSION['patEmail'] = $article->patEmail;
+        $_SESSION['patEmail'] = $article->patemail;
         $_SESSION['patId'] = $article->id;
-        $_SESSION['patName'] = $article->patLname; // patient name because we will be sending it to frontend if they want to use
+        $_SESSION['patName'] = $article->patlname; // patient name because we will be sending it to frontend if they want to use
+        $_SESSION['session_patient'] = $article->patemail.$article->patlname; // patient name because we will be sending it to frontend if they want to use
         
 
       }

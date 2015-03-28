@@ -8,28 +8,28 @@ $app->post('/doctor/register', function() use ($app) {
 
     // storing to DB
     $article = R::dispense('doctorregister');
-    $article->docFname = (string)$input->firstname;
-    $article->docLname = (string)$input->lastname;
-    $article->docMobile = (string)$input->mobile;
-    $article->docEmail = (string)$input->email;
-    $article->docPassword = (string)$input->password;
+    $article->docfname = (string)$input->firstName;
+    $article->doclname = (string)$input->lastName;
+    $article->docmobile = (string)$input->mobile;
+    $article->docemail = (string)$input->email;
+    $article->docpassword = (string)$input->password;
     $id = R::store($article);
 
     // we are also storing those fields in docs profile
 
     $article = R::dispense('doctorsprofile');
-    $article->docFname = (string)$input->firstname;
-    $article->docLname = (string)$input->lastname;
-    $article->doctor_name = (string)$input->firstname." ".(string)$input->lastname  ; // this column is for search
-    $article->docMobile = (string)$input->mobile;
-    $article->docEmail = (string)$input->email;
+    $article->docfname = (string)$input->firstname;
+    $article->doclname = (string)$input->lastname;
+    $article->docname = (string)$input->firstname." ".(string)$input->lastname  ; // this column is for search
+    $article->docmobile = (string)$input->mobile;
+    $article->docemail = (string)$input->email;
     $id = R::store($article);
 
 
     //$app->response()->header('Content-Type', 'application/json');
     //$app->response()->set->contentType('application/json');
 
-    $arr=array('status' => 'true', 'message' => 'Registered');
+    $arr=array('status' => '200', 'message' => 'Registered');
     $app->response()->header('Content-Type', 'application/javascript');
     $msg=json_encode($arr );
     $app->response->body($msg );

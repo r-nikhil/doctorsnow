@@ -1,12 +1,12 @@
 <?php
-$app->get('/doctor/category/:type_id', function($type_id) use ($app) {
+$app->get('/doctor/category/:category', function($category) use ($app) {
   try {
     //getting json and decoding it
     $request = $app->request();
     $body = $request->getBody();
     $input = json_decode($body);
 
-    $article = R::find('doctorsprofile', 'type_id=?', array($type_id));
+    $article = R::find('doctorsprofile', 'docspecial=?', array($category));
 
     if ($article){
       // return JSON-encoded response body with query results

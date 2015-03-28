@@ -7,7 +7,7 @@ $app->get('/doctors/search/pincode/:pin', function($pin) use ($app) {
     $body = $request->getBody();
     $input = json_decode($body);
 
-    $article = R::findOne('doctorsprofile', 'docPincode=?', array($pin));
+    $article = R::findAll('doctorsprofile', 'docpincode=?', array($pin));
 
     if ($article){
       // return JSON-encoded response body with query results

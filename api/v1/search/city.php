@@ -7,7 +7,7 @@ $app->get('/doctors/search/city/:city_name', function($city_name) use ($app) {
     $body = $request->getBody();
     $input = json_decode($body);
 
-    $article = R::findOne('doctorsprofile', 'docCity=?', array($city_name));
+    $article = R::findAll('doctorsprofile', 'doccity=?', array($city_name));
 
     if ($article){
       // return JSON-encoded response body with query results
