@@ -1,13 +1,12 @@
 <?php
 $app->post('/doctors/createProfile', function() use ($app) {
+
   try {
     //getting json and decoding it
     $request = $app->request();
     $body = $request->getBody();
     $input = json_decode($body);
-
-
-
+if ( isset($_SESSION['session_doctor'])){
     $article = R::findOne('doctorsprofile', 'id=?', array((string)$input->docId));
     // storing to DB
 
@@ -79,6 +78,13 @@ $app->post('/doctors/createProfile', function() use ($app) {
 
 
     }
+} else {
+
+  R::close();
+}
+
+
+
   }
   catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');

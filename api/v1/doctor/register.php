@@ -15,7 +15,7 @@ $app->post('/doctor/register', function() use ($app) {
     $article->docPassword = (string)$input->password;
     $id = R::store($article);
 
-    //Nikhil note this storage when we are registering, we are also storing those fields in docs profile
+    // we are also storing those fields in docs profile
 
     $article = R::dispense('doctorsprofile');
     $article->docFname = (string)$input->firstname;

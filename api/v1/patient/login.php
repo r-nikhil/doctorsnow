@@ -13,7 +13,7 @@ $app->post('/patient/login', function() use ($app) {
       $pass_request = (string)$input->password;
       if($pass_db === $pass_request)
       {
-        $arr=array('status' => 'true', 'message' => 'logging in','patient_id' => $article->id);
+        $arr=array('status' => 'true', 'message' => 'logging in','patient_id' => $article->id); // store the id in front
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );

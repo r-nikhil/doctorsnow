@@ -13,13 +13,15 @@ $app->post('/doctor/login', function() use ($app) {
     if ($article) { // if found, return JSON response
       $pass_db = (string)$article->docPassword;
       $pass_request = (string)$input->password;
-      if($pass_db == $pass_request)
+      if($pass_db === $pass_request)
       {
-        $arr=array('status' => 'true', 'message' => 'logging in', 'doc_id' => $article->id ); // store the id
+        $arr=array('status' => 'true', 'message' => 'logging in', 'doctor_id' => $article->id ); // store the id in front
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );
-
+        $session = $article->docEmail;
+        $session .= $article->docLname; // i concatenated email and last name and stored it in the session variable.
+        $_SESSION['session_doctor'] = $session;
 
       }
       else
