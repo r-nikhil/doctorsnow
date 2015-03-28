@@ -9,11 +9,12 @@ $app->post('/patient/register', function() use ($app) {
 
     // storing to DB
     $article = R::dispense('patientregister');
-    $article->docFname = (string)$input->firstname;
-    $article->docLname = (string)$input->lastname;
-    $article->docMobile = (string)$input->mobile;
-    $article->docEmail = (string)$input->email;
-    $article->docPassword = (string)$input->password;
+    $article->patFname = (string)$input->firstname;
+    $article->patLname = (string)$input->lastname;
+    $article->patMobile = (string)$input->mobile;
+    $article->patEmail = (string)$input->email;
+    $article->patPassword = (string)$input->password;
+    $article->patient_name = (string)$input->firstname." ".(string)$input->lastname  ;
     $id = R::store($article);
 
     //$app->response()->header('Content-Type', 'application/json');

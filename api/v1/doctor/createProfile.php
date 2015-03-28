@@ -8,25 +8,25 @@ $app->post('/doctors/createProfile', function() use ($app) {
 
 
 
-    $article = R::findOne('doctorsprofile', 'id=?', array((string)$input->doc_id));
+    $article = R::findOne('doctorsprofile', 'id=?', array((string)$input->docId));
     // storing to DB
 
 
     if ($article) { // if found, return JSON response
 
 
-      $article->docspecial = (string)$input->speciality;
-      $article->docadd = (string)$input->address;
-      $article->docpin = (string)$input->pincode;
-      $article->doccharges = (string)$input->charges;
-      $article->docdegrees = (string)$input->degrees;
-      $article->doccollege = (string)$input->college;
-      $article->docexp = (string)$input->experience;
-      $article->docwriteup = (string)$input->writeup;
-      $article->doccity = (string)$input->city;
-      $article->docmember = (string)$input->memberships;
-      $article->doctime = (string)$input->doc_time;
-      $article->docclinic = (string)$input->clinicname;
+      $article->docSpecial = (string)$input->speciality;
+      $article->docAddress = (string)$input->address;
+      $article->docPincode = (string)$input->pincode;
+      $article->docCharges = (string)$input->charges;
+      $article->docDegrees = (string)$input->degrees;
+      $article->docCollege = (string)$input->college;
+      $article->docExp = (string)$input->experience;
+      $article->docWriteup = (string)$input->writeup;
+      $article->docCity = (string)$input->city;
+      $article->docMember = (string)$input->memberships;
+      $article->docTime = (string)$input->doc_time;
+      $article->docClinic = (string)$input->clinicname;
       $id = R::store($article);
 
       //making and storing doc time table here

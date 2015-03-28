@@ -20,7 +20,7 @@ $app->post('/doctor/register', function() use ($app) {
     $article = R::dispense('doctorsprofile');
     $article->docFname = (string)$input->firstname;
     $article->docLname = (string)$input->lastname;
-    $article->doctor_name = (string)$input->firstname." ".(string)$input->lastname  ;
+    $article->doctor_name = (string)$input->firstname." ".(string)$input->lastname  ; // this column is for search
     $article->docMobile = (string)$input->mobile;
     $article->docEmail = (string)$input->email;
     $id = R::store($article);

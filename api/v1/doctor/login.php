@@ -8,14 +8,14 @@ $app->post('/doctor/login', function() use ($app) {
     $body = $request->getBody();
     $input = json_decode($body);
 
-    $article = R::findOne('doctorregister', 'doc_email=?', array((string)$input->username));
+    $article = R::findOne('doctorregister', 'docEmail=?', array((string)$input->email));
 
     if ($article) { // if found, return JSON response
-      $pass_db = (string)$article->doc_password;
+      $pass_db = (string)$article->docPassword;
       $pass_request = (string)$input->password;
       if($pass_db == $pass_request)
       {
-        $arr=array('status' => 'true', 'message' => 'logging in', 'doc_id' => $article->id );
+        $arr=array('status' => 'true', 'message' => 'logging in', 'doc_id' => $article->id ); // store the id
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );
