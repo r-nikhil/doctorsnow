@@ -17,9 +17,10 @@ $app->post('/patient/login', function() use ($app) {
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );
-        $session = $article->patEmail;
-        $session .= $article->patLname; // i concatenated email and last name and stored it in the session variable.
-        $_SESSION['session_patient'] = $session;
+        $_SESSION['patEmail'] = $article->patEmail;
+        $_SESSION['patEmail'] = $article->id;
+        $_SESSION['patName'] = $article->patLname; // patient name because we will be sending it to frontend if they want to use
+        
 
       }
       else
