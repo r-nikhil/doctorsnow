@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/doctor/makeAppoitment', function() use ($app) {
+$app->post('/patient/makeAppoitment', function() use ($app) {
 
 
   try {
@@ -9,18 +9,19 @@ $app->post('/doctor/makeAppoitment', function() use ($app) {
     $request = $app->request();
     $body = $request->getBody();
     $input = json_decode($body);
-// i am adduming you will be giving me doctorid and patientid
-    // storing to DB
+
     $article = R::dispense('appointments');
     $article->docId = (string)$input->doctorId;
     $article->patId = (string)$input->patientId;
+	$article->probDetails = (string)$input->problemDetails;
+	$article->currentMeds = (string)$input->currentMeds;
 
     $id = R::store($article);
 
     //$app->response()->header('Content-Type', 'application/json');
     //$app->response()->set->contentType('application/json');
 
-    $arr=array('status' => 'true', 'message' => 'Registered');
+    $arr=array('status' => '200', 'message' => 'Registered');
     $app->response()->header('Content-Type', 'application/javascript');
     $msg=json_encode($arr );
     $app->response->body($msg );
@@ -39,7 +40,10 @@ $app->post('/doctor/makeAppoitment', function() use ($app) {
   }
 });
 
-$app->post('/doctor/deleteAppoitment/:id', function($id) use ($app) {
+
+
+/* Commented out because we won't be using it for now
+$app->post('/patient/deleteAppoitment/:id', function($id) use ($app) {
 
 
   try {
@@ -77,9 +81,7 @@ $app->post('/doctor/deleteAppoitment/:id', function($id) use ($app) {
   }
 });
 
-
-
-
+*/
 
 
 

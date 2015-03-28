@@ -26,6 +26,7 @@ include "patient/utils.php";
 
 include "search/category.php";
 include "search/city.php";
+include "search/appointments.php";
 // include "search/name.php"
 
 $app->run();
