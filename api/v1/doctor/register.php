@@ -21,7 +21,8 @@ $app->post('/doctor/register', function() use ($app) {
     $article->doclname = $app->request->post('lastName');
     $article->docmobile = $app->request->post('mobile');
     $article->docemail = $app->request->post('email');
-    $article->docpassword = $app->request->post('password');   
+    $article->docpassword = $app->request->post('password');  
+	$article->doccategory = $app->request->post('category');  	
     $article->docname = $app->request->post('firstName')." ".$app->request->post('lastName');  ; // this column is for search
    
     $id = R::store($article);

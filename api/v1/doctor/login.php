@@ -14,8 +14,9 @@ $app->post('/doctor/login', function() use ($app) {
       $pass_db = (string)$article->docpassword;
       $pass_request = $app->request->post('password');
       if($pass_db === $pass_request)
-      {
-        $arr=array('status' => '201', 'message' => 'loggingIn', 'docId' => $article->id ); // store the id in front
+      {	
+		//$result = array('docId' => $article->id, 'fname' => $article->docfname, );
+        $arr=array('status' => '201', 'message' => 'loggingIn', 'doctorId' => $article->id, 'doctorName' => $article->docfname ); // store the id in front
         $app->response()->header('Content-Type', 'application/javascript');
         $msg=json_encode($arr );
         $app->response->body($msg );
@@ -68,17 +69,10 @@ $app->post('/doctor/login', function() use ($app) {
 $app->get('/doctor/profile/:id', function($id) use ($app) {
   try {
    
-
-     
-	 //getting json and decoding it
-    $request = $app->request();
-    $body = $request->getBody();
-    $input = json_decode($body);
-
-    $article = R::findAll('doctorsprofile', 'docid=?', array($id));
+    $article = R::findAll('doctorsprofile', 'id=?', array($id));
       // return JSON-encoded response body with query results
       $var_result=R::exportAll($article);
-      $arr=array('status' => '200', 'message' => 'found','queryResult'=> $var_result );
+      $arr=array('status' => '200', 'message' => 'found','queryResult'=> $var_result[0] );
       $app->response()->header('Content-Type', 'application/javascript');
       $msg=json_encode($arr);
       $app->response->body($msg );

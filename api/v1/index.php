@@ -23,6 +23,7 @@ include "doctor/login.php";
 include "patient/register.php";
 include "patient/login.php";
 include "patient/utils.php";
+include "patient/appointment.php";
 
 include "search/category.php";
 include "search/city.php";
