@@ -1,36 +1,36 @@
 <?php
-$app->post('/doctors/updateProfile', function() use ($app) {
+$app->post('/doctor/updateProfile', function() use ($app) {
 
   try {
     //getting json and decoding it
-    $request = $app->request();
-    $body = $request->getBody();
-    $input = json_decode($body);
+    //$request = $app->request();
+    //$body = $request->getBody();
+    //$input = json_decode($body);
 if ( isset($_SESSION['session_doctor'])){
-    $article = R::findOne('doctorsprofile', 'id=?', array((string)$input->docId));
+    $article = R::findOne('doctorsprofile', 'id=?', array($app->request->post('id')));
     // storing to DB
 
 
     if ($article) { // if found, return JSON response
 
 
-      $article->docspecial = (string)$input->speciality;
-      $article->docaddress = (string)$input->address;
-      $article->docpincode = (string)$input->pincode;
-      $article->doccharges = (string)$input->charges;
-      $article->docdegrees = (string)$input->degrees;
-      $article->doccollege = (string)$input->college;
-      $article->docexp = (string)$input->experience;
-      $article->docexpyears = (string)$input->numofYears;
-      $article->docwriteup = (string)$input->writeup;
-      $article->doccity = (string)$input->city;
-      $article->docmember = (string)$input->memberships;
-      $article->doctime = (string)$input->docTime;
-      $article->docclinic = (string)$input->clinicName;
+      $article->docspecial = $app->request->post('speciality');
+      $article->docaddress = $app->request->post('address');
+      $article->docpincode = $app->request->post('pincode');
+      $article->doccharges = $app->request->post('charges');
+      $article->docdegrees = $app->request->post('degrees');
+      $article->doccollege = $app->request->post('college');
+      $article->docexp = $app->request->post('experience');
+      $article->docexpyears = $app->request->post('numofYears');
+      $article->docwriteup = $app->request->post('writeup');
+      $article->doccity = $app->request->post('city');
+      $article->docmember = $app->request->post('memberships');
+      $article->doctime = $app->request->post('docTime');
+      $article->docclinic = $app->request->post('clinicName');
       $id = R::store($article);
 
-      //making and storing doc time table here
-      $time = (string)$input->docTime;
+   /*   //making and storing doc time table here
+      $time = $app->request->post('docTime');
       $time_arr=explode(',',$time);
 
       //we need like this date time patient case meds busy confirmed
@@ -46,26 +46,19 @@ if ( isset($_SESSION['session_doctor'])){
       { echo $dt->format( "l Y-m-d H:i:s\n" );
 
         foreach ($time_arr as $item) {
-          $article = R::dispense('doctime_'.(string)$input->doc_id);
-          $article->docspecial = (string)$input->speciality;
-          $article->docadd = (string)$input->address;
-          $article->docpin = (string)$input->pincode;
-          $article->doccharges = (string)$input->charges;
+          $article = R::dispense('doctime_'.$app->request->post('id'));
+        
 
-          echo "$item\n";
+        
         }
 
       }
-
-
+	  */
 
       $arr=array('status' => '201', 'message' => 'saved');
       $app->response()->header('Content-Type', 'application/javascript');
       $msg=json_encode($arr );
       $app->response->body($msg );
-
-
-
 
 
     }

@@ -16,15 +16,15 @@ $("#submit-register").click(function(){
   
   //encoding JSON
   encode=JSON.stringify({
-        "firstname": firstname,
-        "lastname": lastname,
+        "firstName": firstname,
+        "lastName": lastname,
         "mobile": mobile,
         "email": email,
         "password": password
        
         });
 		
-url=base_url+'api/v1/register_doctor';
+url=base_url+'api/v1/doctor/register';
 
 if(password.length>0)
 {

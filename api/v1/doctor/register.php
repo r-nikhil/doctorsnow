@@ -2,29 +2,29 @@
 $app->post('/doctor/register', function() use ($app) {
   try {
     //getting json and decoding it
-    $request = $app->request();
-    $body = $request->getBody();
-    $input = json_decode($body);
-
+    //$request = $app->request();
+    //$body = $request->getBody();
+	//$input = json_decode($body);
+	
     // storing to DB
     $article = R::dispense('doctorregister');
-    $article->docfname = (string)$input->firstName;
-    $article->doclname = (string)$input->lastName;
-    $article->docmobile = (string)$input->mobile;
-    $article->docemail = (string)$input->email;
-    $article->docpassword = (string)$input->password;
+    $article->docfname = $app->request->post('firstName');
+    $article->doclname = $app->request->post('lastName');
+    $article->docmobile = $app->request->post('mobile');
+    $article->docemail = $app->request->post('email');
+    $article->docpassword = $app->request->post('password');
     $id = R::store($article);
 
     // we are also storing those fields in docs profile
-
     $article = R::dispense('doctorsprofile');
-    $article->docfname = (string)$input->firstname;
-    $article->doclname = (string)$input->lastname;
-    $article->docname = (string)$input->firstname." ".(string)$input->lastname  ; // this column is for search
-    $article->docmobile = (string)$input->mobile;
-    $article->docemail = (string)$input->email;
+	$article->docfname = $app->request->post('firstName');
+    $article->doclname = $app->request->post('lastName');
+    $article->docmobile = $app->request->post('mobile');
+    $article->docemail = $app->request->post('email');
+    $article->docpassword = $app->request->post('password');   
+    $article->docname = $app->request->post('firstName')." ".$app->request->post('lastName');  ; // this column is for search
+   
     $id = R::store($article);
-
 
     //$app->response()->header('Content-Type', 'application/json');
     //$app->response()->set->contentType('application/json');

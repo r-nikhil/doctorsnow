@@ -4,15 +4,15 @@
 $app->post('/doctor/login', function() use ($app) {
   try {
     //getting json and decoding it
-    $request = $app->request();
-    $body = $request->getBody();
-    $input = json_decode($body);
+    //$request = $app->request();
+    //$body = $request->getBody();
+    //$input = json_decode($body);
 
-    $article = R::findOne('doctorregister', 'docemail=?', array((string)$input->email));
+    $article = R::findOne('doctorregister', 'docemail=?', array($app->request->post('email')));
 
     if ($article) { // if found, return JSON response
       $pass_db = (string)$article->docpassword;
-      $pass_request = (string)$input->password;
+      $pass_request = $app->request->post('password');
       if($pass_db === $pass_request)
       {
         $arr=array('status' => '201', 'message' => 'loggingIn', 'docId' => $article->id ); // store the id in front
