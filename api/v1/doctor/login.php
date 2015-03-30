@@ -25,7 +25,7 @@ $app->post('/doctor/login', function() use ($app) {
 		 $_SESSION['docId'] = $article->id;
 		 $_SESSION['docEmail'] = $article->docemail;
 		 $_SESSION['docLname'] = $article->doclname;
-		 
+
 
       }
       else
@@ -52,7 +52,8 @@ $app->post('/doctor/login', function() use ($app) {
   } catch (ResourceNotFoundException $e) {
     // return 404 server error
     $app->response()->status(404);
-  } catch (Exception $e) {
+  }
+  catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
     $app->response()->header('Content-Type', 'application/javascript');
     $msg=json_encode($arr );
@@ -62,14 +63,11 @@ $app->post('/doctor/login', function() use ($app) {
 
 });
 
-
-
-
 $app->get('/doctor/profile/:id', function($id) use ($app) {
   try {
-   
 
-     
+
+
 	 //getting json and decoding it
     $request = $app->request();
     $body = $request->getBody();
@@ -82,8 +80,8 @@ $app->get('/doctor/profile/:id', function($id) use ($app) {
       $app->response()->header('Content-Type', 'application/javascript');
       $msg=json_encode($arr);
       $app->response->body($msg );
-    
-  
+
+
 
   } catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
