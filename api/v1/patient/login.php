@@ -3,11 +3,12 @@ $app->post('/patient/login', function() use ($app) {
 	try {
 		//getting json and decoding it
 		$article = R::findOne('patientregister', 'patEmail=?', array($app->request->post('email')));
-
+		$request = $app->request();
+		$body = $request->getBody();
+		$input = json_decode($body);
 		if ($article) { // if found, return JSON response
 			$pass_db = (string)$article->patpassword;
 			$pass_request = (string)$input->password;
-			$pass_request = $app->request->post('password');
 			if($pass_db === $pass_request)
 			{
 				$arr=array('status' => '200', 'message' => 'logged in','patientId' => $article->id, 'patientName' => $article->patfname); // store the id in front
@@ -19,7 +20,6 @@ $app->post('/patient/login', function() use ($app) {
 				$_SESSION['patName'] = $article->patlname; // patient name because we will be sending it to frontend if they want to use
 				$_SESSION['session_patient'] = $article->patemail.$article->patlname; // patient name because we will be sending it to frontend if they want to use
 				
-
 			}
 			else
 			{
@@ -28,18 +28,14 @@ $app->post('/patient/login', function() use ($app) {
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 
-
 			}
 
 		}
-
 		else {
-
 			$arr=array('status' => '200', 'message' => 'emailNotRegistered');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
-
 
 		}
 	} catch (ResourceNotFoundException $e) {

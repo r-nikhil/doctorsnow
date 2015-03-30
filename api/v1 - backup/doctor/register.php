@@ -11,7 +11,7 @@ $app->post('/doctor/register', function() use ($app) {
     // storing to DB
     $article = R::dispense('doctorregister');
     $article->docfname = $app->request->post('firstName');
-    /*$article->doclname = (string)$input->lastName;
+    $article->doclname = (string)$input->lastName;
     $article->docmobile = (string)$input->mobile;
     $article->docemail = (string)$input->email;
     $article->docpassword = (string)$input->password;

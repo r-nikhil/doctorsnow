@@ -1,32 +1,28 @@
 <?php
 
 $app->post('/patient/makeAppoitment', function() use ($app) {
-//tested using POSTMAN
-
+	//tested using POSTMAN
 	try {
+		$request = $app->request();
+		$body = $request->getBody();
+		$input = json_decode($body);
 		if ( isset($_SESSION['session_patient']) || 1)//have to remove 1
 		{
 			$article = R::dispense('appointments');
-			$article->docid = $app->request->post('doctorId');
-			$article->docname = $app->request->post('doctorName');
-			$article->patid = $app->request->post('patientId');
-			$article->patname = $app->request->post('patientName');
-			$article->probdetails = $app->request->post('problemDetails');
-			$article->currentmeds = $app->request->post('currentMeds');
+			$article->docid = (string)$input->doctorId;
+			$article->docname = (string)$input->doctorName;
+			$article->patid = (string)$input->patientId;
+			$article->patname = (string)$input->patientName;
+			$article->probdetails = (string)$input->problemDetails;
+			$article->currentmeds = (string)$input->currentMeds;
 			$article->time = "";
 			$article->date = "";
 			$article->connectlink = "";
-
 			$id = R::store($article);
-
-			//$app->response()->header('Content-Type', 'application/json');
-			//$app->response()->set->contentType('application/json');
-
 			$arr=array('status' => '200', 'message' => 'Done');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
-
 		}else {
 			R::close();
 			$arr=array('status' => '401', 'message' => 'Unauthorized');
@@ -34,22 +30,18 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 		}
-
 	}
 	catch (Exception $e) {
 		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
-
 	}
 });
 
 $app->get('/patient/getappo', function() use ($app) {
-//tested using POSTMAN
+	//tested using POSTMAN
 	try {
-
-
 		if ( isset( $_SESSION['session_patient']) || 1)//have to remove 1
 		{
 			$article = R::findAll('appointments', 'patid=?', array($_SESSION['patId']));
@@ -66,25 +58,20 @@ $app->get('/patient/getappo', function() use ($app) {
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
-
 		}
-
 	} catch (Exception $e) {
 		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
 	}
-
-
 });
 
 
 
 $app->get('/doctor/getappo', function() use ($app) {
-//tested using POSTMAN
+	//tested using POSTMAN
 	try {
-
 		$_SESSION['docId'] =11;
 		if ( isset($_SESSION['session_doctor']) || 1)//have to remove 1
 		{
@@ -104,17 +91,13 @@ $app->get('/doctor/getappo', function() use ($app) {
 			$app->response->body($msg );
 
 		}
-
 	} catch (Exception $e) {
 		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
 	}
-
-
 });
-
 
 
 /* Commented out because we won't be using it for now
