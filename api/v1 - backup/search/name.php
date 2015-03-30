@@ -1,13 +1,13 @@
 <?php
-
-$app->get('/doctors/search/pincode/:pin', function($pin) use ($app) {
+// this is incomplete
+$app->get('/doctors/search/name/:name', function($name) use ($app) {
   try {
     //getting json and decoding it
     $request = $app->request();
     $body = $request->getBody();
     $input = json_decode($body);
-
-    $article = R::findAll('doctorsprofile', 'docpincode=?', array($pin));
+    // use regex here
+    // $article = R::findOne('doctorsprofile', 'd=?', array($name));
 
     if ($article){
       // return JSON-encoded response body with query results
@@ -27,6 +27,9 @@ $app->get('/doctors/search/pincode/:pin', function($pin) use ($app) {
 
     }
 
+
+
+
   } catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
     $app->response()->header('Content-Type', 'application/javascript');
@@ -36,4 +39,6 @@ $app->get('/doctors/search/pincode/:pin', function($pin) use ($app) {
 
 
 });
+
+
 ?>

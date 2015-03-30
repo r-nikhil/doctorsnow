@@ -1,35 +1,36 @@
 <?php
-$app->post('/doctors/createProfile', function() use ($app) {
+$app->post('/doctor/updateProfile', function() use ($app) {
 
   try {
     //getting json and decoding it
-    $request = $app->request();
-    $body = $request->getBody();
-    $input = json_decode($body);
+    //$request = $app->request();
+    //$body = $request->getBody();
+    //$input = json_decode($body);
 if ( isset($_SESSION['session_doctor'])){
-    $article = R::findOne('doctorsprofile', 'id=?', array((string)$input->docId));
+    $article = R::findOne('doctorsprofile', 'id=?', array($app->request->post('id')));
     // storing to DB
 
 
     if ($article) { // if found, return JSON response
 
 
-      $article->docSpecial = (string)$input->speciality;
-      $article->docAddress = (string)$input->address;
-      $article->docPincode = (string)$input->pincode;
-      $article->docCharges = (string)$input->charges;
-      $article->docDegrees = (string)$input->degrees;
-      $article->docCollege = (string)$input->college;
-      $article->docExp = (string)$input->experience;
-      $article->docWriteup = (string)$input->writeup;
-      $article->docCity = (string)$input->city;
-      $article->docMember = (string)$input->memberships;
-      $article->docTime = (string)$input->doc_time;
-      $article->docClinic = (string)$input->clinicname;
+      $article->docspecial = $app->request->post('speciality');
+      $article->docaddress = $app->request->post('address');
+      $article->docpincode = $app->request->post('pincode');
+      $article->doccharges = $app->request->post('charges');
+      $article->docdegrees = $app->request->post('degrees');
+      $article->doccollege = $app->request->post('college');
+      $article->docexp = $app->request->post('experience');
+      $article->docexpyears = $app->request->post('numofYears');
+      $article->docwriteup = $app->request->post('writeup');
+      $article->doccity = $app->request->post('city');
+      $article->docmember = $app->request->post('memberships');
+      $article->doctime = $app->request->post('docTime');
+      $article->docclinic = $app->request->post('clinicName');
       $id = R::store($article);
 
-      //making and storing doc time table here
-      $time = (string)$input->doc_time;
+   /*   //making and storing doc time table here
+      $time = $app->request->post('docTime');
       $time_arr=explode(',',$time);
 
       //we need like this date time patient case meds busy confirmed
@@ -45,40 +46,37 @@ if ( isset($_SESSION['session_doctor'])){
       { echo $dt->format( "l Y-m-d H:i:s\n" );
 
         foreach ($time_arr as $item) {
-          $article = R::dispense('doctime_'.(string)$input->doc_id);
-          $article->docspecial = (string)$input->speciality;
-          $article->docadd = (string)$input->address;
-          $article->docpin = (string)$input->pincode;
-          $article->doccharges = (string)$input->charges;
+          $article = R::dispense('doctime_'.$app->request->post('id'));
+        
 
-          echo "$item\n";
+        
         }
 
       }
+	  */
 
-
-
-      $arr=array('status' => 'true', 'message' => 'saved');
-      $app->response()->header('Content-Type', 'application/javascript');
+      $arr=array('status' => '201', 'message' => 'saved');
+      $app->response()->header('Content-Type', 'application/json');
       $msg=json_encode($arr );
       $app->response->body($msg );
-
-
-
 
 
     }
 
     else {
 
-      $arr=array('status' => 'true', 'message' => 'This email seems to be not registered. Any typo? ');
-      $app->response()->header('Content-Type', 'application/javascript');
+      $arr=array('status' => '404', 'message' => 'IdNotFound');
+      $app->response()->header('Content-Type', 'application/json');
       $msg=json_encode($arr );
       $app->response->body($msg );
 
 
     }
 } else {
+	$arr=array('status' => '401', 'message' => 'Unauthorized');
+    $app->response()->header('Content-Type', 'application/json');
+    $msg=json_encode($arr );
+    $app->response->body($msg );
 
   R::close();
 }
@@ -88,7 +86,7 @@ if ( isset($_SESSION['session_doctor'])){
   }
   catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-    $app->response()->header('Content-Type', 'application/javascript');
+    $app->response()->header('Content-Type', 'application/json');
     $msg=json_encode($arr );
     $app->response->body($msg );
 
