@@ -3,6 +3,7 @@
 $app->post('/patient/register', function() use ($app) {
   try {
     $article = R::dispense('patientregister');
+
     $article->patfname = $app->request->post('firstname');
     $article->patlname = $app->request->post('lastname');
     $article->patmobile = $app->request->post('mobile');
