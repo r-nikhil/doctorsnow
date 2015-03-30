@@ -4,7 +4,7 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 
 
   try {
-    if (isset($_SESSION['session_patient'])){
+    if ( isset($_SESSION['session_patient'])){
     //getting json and decoding it
     $request = $app->request();
     $body = $request->getBody();
@@ -15,11 +15,11 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
     $article->docname = (string)$input->doctorName;
     $article->patid = (string)$input->patientId;
     $article->patname = (string)$input->patientName;
-	  $article->probdetails = (string)$input->problemDetails;
-  	$article->currentmeds = (string)$input->currentMeds;
-	  $article->time = "";
-	  $article->date = "";
-	  $article->connectlink = "";
+	$article->probdetails = (string)$input->problemDetails;
+	$article->currentmeds = (string)$input->currentMeds;
+	$article->time = "";
+	$article->date = "";
+	$article->connectlink = "";
 
     $id = R::store($article);
 
@@ -51,7 +51,7 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 
 $app->get('/patient/getappo', function() use ($app) {
   try {
-
+   
 
      if ( isset( $_SESSION['session_patient'])){
 	 //getting json and decoding it
@@ -90,7 +90,7 @@ $app->get('/patient/getappo', function() use ($app) {
 
 $app->get('/doctor/getappo', function() use ($app) {
   try {
-
+   
 
      if ( isset($_SESSION['session_doctor'])){
 	 //getting json and decoding it
