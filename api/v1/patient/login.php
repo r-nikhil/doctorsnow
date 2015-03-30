@@ -23,7 +23,7 @@ $app->post('/patient/login', function() use ($app) {
 			}
 			else
 			{
-				$arr=array('status' => '200', 'message' => 'wrongPassword');
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'wrongPassword');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
@@ -32,7 +32,7 @@ $app->post('/patient/login', function() use ($app) {
 
 		}
 		else {
-			$arr=array('status' => '200', 'message' => 'emailNotRegistered');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'emailNotRegistered');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
@@ -43,7 +43,7 @@ $app->post('/patient/login', function() use ($app) {
 		$app->response()->status(404);
 	}
 	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );

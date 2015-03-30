@@ -23,6 +23,7 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				$article->docmember = (string)$input->memberships;
 				$article->doctime = (string)$input->docTime;
 				$article->docclinic = (string)$input->clinicName;
+				$article->docclinicadd = (string)$input->clinicAddress;
 				$id = R::store($article);
 
 				/*   //making and storing doc time table here
@@ -39,19 +40,19 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 		$article = R::dispense('doctime_'.$app->request->post('id'));
 		}}*/
 
-				$arr=array('status' => '201', 'message' => 'saved');
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'saved');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 			}
 			else {
-				$arr=array('status' => '404', 'message' => 'IdNotFound');
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'IdNotFound');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 			}
 		} else {
-			$arr=array('status' => '401', 'message' => 'Unauthorized');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
@@ -59,7 +60,7 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 		}
 	}
 	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );

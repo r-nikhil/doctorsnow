@@ -16,12 +16,12 @@ $app->post('/doctor/login', function() use ($app) {
 			if($pass_db === $pass_request)
 			{	
 				//$result = array('docId' => $article->id, 'fname' => $article->docfname, );
-				$arr=array('status' => '201', 'message' => 'loggingIn', 'doctorId' => $article->id, 'doctorName' => $article->docfname ); // store the id in front
+				//$arr=array('status' => '201', 'message' => 'loggingIn', 'doctorId' => $article->id, 'doctorName' => $article->docfname ); // store the id in front
 				
 				$article1 = R::findAll('doctorsprofile', 'id=?', array($article->id));
 				// return JSON-encoded response body with query results
 				$var_result=R::exportAll($article1);
-				$arr=array('status' => '200', 'message' => 'loggedin','queryResult'=> $var_result[0] );
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'loggedIn','queryResult'=> $var_result[0] );
 				
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
@@ -37,7 +37,7 @@ $app->post('/doctor/login', function() use ($app) {
 			}
 			else
 			{
-				$arr=array('status' => '401', 'message' => 'wrongPassword');
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'wrongPassword');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
@@ -45,7 +45,7 @@ $app->post('/doctor/login', function() use ($app) {
 
 		}
 		else {
-			$arr=array('status' => '401', 'message' => 'emailNotRegistered');
+			$arr=array('status' =>$app->response->getStatus(), 'message' => 'emailNotRegistered');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
@@ -54,7 +54,7 @@ $app->post('/doctor/login', function() use ($app) {
 		// return 404 server error
 		$app->response()->status(404);
 	} catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
@@ -66,17 +66,14 @@ $app->get('/doctor/profile/:id', function($id) use ($app) {
 		$article = R::findAll('doctorsprofile', 'id=?', array($id));
 		// return JSON-encoded response body with query results
 		$var_result=R::exportAll($article);
-		$arr=array('status' => '200', 'message' => 'found','queryResult'=> $var_result[0] );
-		//$app->response()->header('Content-Type', 'application/json');
-		$app->response->headers->set('Access-Control-Allow-Origin', '*');
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'found','queryResult'=> $var_result[0] );
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
 		$app->response->setBody($msg );
 
 	} catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		//$app->response()->header('Content-Type', 'application/json');
-		$app->response->headers->set('Access-Control-Allow-Origin', '*');
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->setBody($msg );
@@ -90,15 +87,12 @@ $app->get('/doctor/gettype', function() use ($app) {
 		$cat[1]=array( "id" => 2 , "title" => "Physician" );					
 		$cat[2]=array( "id" => 3 , "title" => "Gynae" );					
 		$arr=array('status' => '200', 'message' => 'found','queryResult'=> $cat );
-		//$app->response()->header('Content-Type', 'application/json');
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
 		$app->response->setBody($msg );
 
 		} catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-		//$app->response()->header('Content-Type', 'application/json');
-		//  $app->response->headers->set('Access-Control-Allow-Origin', '*');
+		$arr=array('status' =>$app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->setBody($msg );
@@ -108,15 +102,13 @@ $app->get('/doctor/gettype', function() use ($app) {
 //testing function to be removed
 $app->post('/doctors', function() use ($app) {
 	try {
-		$arr=array('status' => '200', 'message' => 'found' );
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'found' );
 		//$app->response()->header('Content-Type', 'application/json');
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
 		$app->response->setBody($msg );
 	} catch (Exception $e) {
 		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-		//$app->response()->header('Content-Type', 'application/json');
-		//  $app->response->headers->set('Access-Control-Allow-Origin', '*');
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->setBody($msg );

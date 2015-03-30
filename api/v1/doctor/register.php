@@ -22,20 +22,20 @@ $app->post('/doctor/register', function() use ($app) {
 		$article->doclname = (string)$input->lastName;
 		$article->docmobile = (string)$input->mobile;
 		$article->docemail = (string)$input->email;
-		$article->docpassword = (string)$input->password;  
+		//$article->docpassword = (string)$input->password;  
 		$article->doccategory = (string)$input->category;  	
 		$article->doctype = (string)$input->docType;  	
 		$article->docname = (string)$input->firstName." ".(string)$input->lastName;  ; // this column is for search
 		$id = R::store($article);
 	
-		$arr=array('status' => '200', 'message' => 'Registered');
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'Registered');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
 
 	}
 	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );

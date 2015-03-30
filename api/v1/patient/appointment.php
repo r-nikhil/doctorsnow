@@ -19,20 +19,20 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 			$article->date = "";
 			$article->connectlink = "";
 			$id = R::store($article);
-			$arr=array('status' => '200', 'message' => 'Done');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Done');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 		}else {
 			R::close();
-			$arr=array('status' => '401', 'message' => 'Unauthorized');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 		}
 	}
 	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
@@ -47,20 +47,20 @@ $app->get('/patient/getappo', function() use ($app) {
 			$article = R::findAll('appointments', 'patid=?', array($_SESSION['patId']));
 			// return JSON-encoded response body with query results
 			$var_result=R::exportAll($article);
-			$arr=array('status' => 'true', 'message' => 'found','query_result'=> $var_result );
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'found','query_result'=> $var_result );
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr);
 			$app->response->body($msg );
 		}
 		else
 		{
-			$arr=array('status' => '401', 'message' => 'Unauthorized');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 		}
 	} catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array( 'status' => $app->response->getStatus() , 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
@@ -78,21 +78,21 @@ $app->get('/doctor/getappo', function() use ($app) {
 			$article = R::findAll('appointments', 'docid=?', array(11));
 			// return JSON-encoded response body with query results
 			$var_result=R::exportAll($article);
-			$arr=array('status' => '200', 'message' => 'found','queryResult'=> $var_result );
+			$arr=array( 'status' => $app->response->getStatus() , 'message' => 'found','queryResult'=> $var_result );
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr);
 			$app->response->body($msg );
 		}
 		else
 		{
-			$arr=array('status' => '401', 'message' => 'Unauthorized');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 
 		}
 	} catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );

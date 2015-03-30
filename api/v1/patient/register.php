@@ -20,7 +20,7 @@ $app->post('/patient/register', function() use ($app) {
 		
 		$book = R::load( 'patientregister', $id );
 		
-		$arr=array('status' => '200', 'message' => 'Registered');
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'Registered');
 		$app->response()->header('Content-Type', 'application/javascript');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
@@ -28,7 +28,7 @@ $app->post('/patient/register', function() use ($app) {
 	}
 
 	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$arr=array('status' => $app->response->getStatus(), 'message' => ' '. $e->getMessage().' ');
 		$app->response()->header('Content-Type', 'application/javascript');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
