@@ -5,7 +5,7 @@ $app->post('/doctor/register', function() use ($app) {
     //$request = $app->request();
     //$body = $request->getBody();
 	//$input = json_decode($body);
-	
+
     // storing to DB
     $article = R::dispense('doctorregister');
     $article->docfname = $app->request->post('firstName');
@@ -21,10 +21,10 @@ $app->post('/doctor/register', function() use ($app) {
     $article->doclname = $app->request->post('lastName');
     $article->docmobile = $app->request->post('mobile');
     $article->docemail = $app->request->post('email');
-    $article->docpassword = $app->request->post('password');  
-	$article->doccategory = $app->request->post('category');  	
+    $article->docpassword = $app->request->post('password');
+	$article->doccategory = $app->request->post('category');
     $article->docname = $app->request->post('firstName')." ".$app->request->post('lastName');  ; // this column is for search
-   
+
     $id = R::store($article);
 
     //$app->response()->header('Content-Type', 'application/json');
