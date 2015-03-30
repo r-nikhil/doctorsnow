@@ -31,7 +31,7 @@ $app->post('/doctor/register', function() use ($app) {
     //$app->response()->set->contentType('application/json');
 
     $arr=array('status' => '200', 'message' => 'Registered');
-    $app->response()->header('Content-Type', 'application/javascript');
+    $app->response()->header('Content-Type', 'application/json');
     $msg=json_encode($arr );
     $app->response->body($msg );
 
@@ -39,7 +39,7 @@ $app->post('/doctor/register', function() use ($app) {
 
   catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-    $app->response()->header('Content-Type', 'application/javascript');
+    $app->response()->header('Content-Type', 'application/json');
     $msg=json_encode($arr );
     $app->response->body($msg );
 

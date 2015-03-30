@@ -56,7 +56,7 @@ if ( isset($_SESSION['session_doctor'])){
 	  */
 
       $arr=array('status' => '201', 'message' => 'saved');
-      $app->response()->header('Content-Type', 'application/javascript');
+      $app->response()->header('Content-Type', 'application/json');
       $msg=json_encode($arr );
       $app->response->body($msg );
 
@@ -66,7 +66,7 @@ if ( isset($_SESSION['session_doctor'])){
     else {
 
       $arr=array('status' => '404', 'message' => 'IdNotFound');
-      $app->response()->header('Content-Type', 'application/javascript');
+      $app->response()->header('Content-Type', 'application/json');
       $msg=json_encode($arr );
       $app->response->body($msg );
 
@@ -74,7 +74,7 @@ if ( isset($_SESSION['session_doctor'])){
     }
 } else {
 	$arr=array('status' => '401', 'message' => 'Unauthorized');
-    $app->response()->header('Content-Type', 'application/javascript');
+    $app->response()->header('Content-Type', 'application/json');
     $msg=json_encode($arr );
     $app->response->body($msg );
 
@@ -86,7 +86,7 @@ if ( isset($_SESSION['session_doctor'])){
   }
   catch (Exception $e) {
     $arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-    $app->response()->header('Content-Type', 'application/javascript');
+    $app->response()->header('Content-Type', 'application/json');
     $msg=json_encode($arr );
     $app->response->body($msg );
 

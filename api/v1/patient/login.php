@@ -11,7 +11,7 @@ $app->post('/patient/login', function() use ($app) {
 			if($pass_db === $pass_request)
 			{
 				$arr=array('status' => '200', 'message' => 'logged in','patientId' => $article->id, 'patientName' => $article->patfname); // store the id in front
-				$app->response()->header('Content-Type', 'application/javascript');
+				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 				$_SESSION['patEmail'] = $article->patemail;
@@ -24,7 +24,7 @@ $app->post('/patient/login', function() use ($app) {
 			else
 			{
 				$arr=array('status' => '200', 'message' => 'wrongPassword');
-				$app->response()->header('Content-Type', 'application/javascript');
+				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 
@@ -36,7 +36,7 @@ $app->post('/patient/login', function() use ($app) {
 		else {
 
 			$arr=array('status' => '200', 'message' => 'emailNotRegistered');
-			$app->response()->header('Content-Type', 'application/javascript');
+			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );
 
@@ -48,7 +48,7 @@ $app->post('/patient/login', function() use ($app) {
 	}
 	catch (Exception $e) {
 		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-		$app->response()->header('Content-Type', 'application/javascript');
+		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
 	}
