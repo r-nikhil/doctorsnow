@@ -1,6 +1,6 @@
 <?php
 
-$app->post('/patient/makeAppoitment', function() use ($app) {
+$app->post('/patient/makeappo', function() use ($app) {
 	//tested using POSTMAN
 	try {
 		$request = $app->request();
@@ -9,11 +9,11 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 		if ( isset($_SESSION['session_patient']) || 1)//have to remove 1
 		{
 			$article = R::dispense('appointments');
-			$article->docid = (string)$input->doctorId;
-			$article->docname = (string)$input->doctorName;
+			$article->docid = (string)$input->docId;
+			$article->docname = (string)$input->docName;
 			$article->patid = (string)$input->patientId;
 			$article->patname = (string)$input->patientName;
-			$article->probdetails = (string)$input->problemDetails;
+			$article->probdetails = (string)$input->patientDetails;
 			$article->currentmeds = (string)$input->currentMeds;
 			$article->time = "";
 			$article->date = "";
@@ -39,15 +39,15 @@ $app->post('/patient/makeAppoitment', function() use ($app) {
 	}
 });
 
-$app->get('/patient/getappo', function() use ($app) {
+$app->get('/patient/getappo/:id', function() use ($app) {
 	//tested using POSTMAN
 	try {
 		if ( isset( $_SESSION['session_patient']) || 1)//have to remove 1
 		{
-			$article = R::findAll('appointments', 'patid=?', array($_SESSION['patId']));
+			$article = R::findAll('appointments', 'patid=?', array(1));
 			// return JSON-encoded response body with query results
 			$var_result=R::exportAll($article);
-			$arr=array('status' => $app->response->getStatus(), 'message' => 'found','query_result'=> $var_result );
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'found','queryResult'=> $var_result );
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr);
 			$app->response->body($msg );
@@ -69,13 +69,13 @@ $app->get('/patient/getappo', function() use ($app) {
 
 
 
-$app->get('/doctor/getappo', function() use ($app) {
+$app->get('/doctor/getappo/:id', function($id) use ($app) {
 	//tested using POSTMAN
 	try {
-		$_SESSION['docId'] =11;
+		//$_SESSION['docId'] =11;
 		if ( isset($_SESSION['session_doctor']) || 1)//have to remove 1
 		{
-			$article = R::findAll('appointments', 'docid=?', array(11));
+			$article = R::findAll('appointments', 'docid=?', array($id));
 			// return JSON-encoded response body with query results
 			$var_result=R::exportAll($article);
 			$arr=array( 'status' => $app->response->getStatus() , 'message' => 'found','queryResult'=> $var_result );
@@ -85,7 +85,7 @@ $app->get('/doctor/getappo', function() use ($app) {
 		}
 		else
 		{
-			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
+			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized', 'session' => $_SESSION);
 			$app->response()->header('Content-Type', 'application/json');
 			$msg=json_encode($arr );
 			$app->response->body($msg );

@@ -7,16 +7,16 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 		$body = $request->getBody();
 		$input = json_decode($body);
 		if ( isset($_SESSION['session_doctor']) || 1){
-			$article = R::findOne('doctorsprofile', 'id=?', array($app->request->post('id')));
+			$article = R::findOne('doctorsprofile', 'id=?', array((string)$input->id));
 			// storing to DB
 			if ($article) { // if found, return JSON response
 				$article->docspecial = (string)$input->speciality;
 				$article->docaddress = (string)$input->address;
 				$article->docpincode = (string)$input->pincode;
 				$article->doccharges = (string)$input->charges;
-				$article->docdegrees = (string)$input->degrees;
-				$article->doccollege = (string)$input->college;
-				$article->docexp = (string)$input->experience;
+				$article->docdegrees = explode(",",(string)$input->degrees);
+				$article->doccollege = explode(",",(string)$input->college);
+				$article->docexp = explode(",",(string)$input->experience);
 				$article->docexpyears = (string)$input->numofYears;
 				$article->docwriteup = (string)$input->writeup;
 				$article->doccity = (string)$input->city;

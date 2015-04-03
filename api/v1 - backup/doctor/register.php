@@ -3,14 +3,13 @@ $app->post('/doctor/register', function() use ($app) {
   try {
     //getting json and decoding it
     $request = $app->request();
-    $body = $request->getBody();
-	
+    $body = $request->getBody();	
     $input = json_decode($body);
 	
 
     // storing to DB
     $article = R::dispense('doctorregister');
-    $article->docfname = $app->request->post('firstName');
+    $article->docfname = (string)$input->firstName;
     $article->doclname = (string)$input->lastName;
     $article->docmobile = (string)$input->mobile;
     $article->docemail = (string)$input->email;

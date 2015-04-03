@@ -1,8 +1,11 @@
 <?php
 $app->post('/patient/login', function() use ($app) {
 	try {
+		$request = $app->request();
+		$body = $request->getBody();
+		$input = json_decode($body);
 		//getting json and decoding it
-		$article = R::findOne('patientregister', 'patEmail=?', array($app->request->post('email')));
+		$article = R::findOne('patientregister', 'patemail=?', array((string)$input->email));
 		$request = $app->request();
 		$body = $request->getBody();
 		$input = json_decode($body);
@@ -10,15 +13,15 @@ $app->post('/patient/login', function() use ($app) {
 			$pass_db = (string)$article->patpassword;
 			$pass_request = (string)$input->password;
 			if($pass_db === $pass_request)
-			{
-				$arr=array('status' => '200', 'message' => 'logged in','patientId' => $article->id, 'patientName' => $article->patfname); // store the id in front
+			{	$result=array('patientId' => $article->id, 'patientName' => $article->patfname);
+				$arr=array('status' => '200', 'message' => 'loggedIn','queryResult' => $result); // store the id in front
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 				$_SESSION['patEmail'] = $article->patemail;
 				$_SESSION['patId'] = $article->id;
 				$_SESSION['patName'] = $article->patlname; // patient name because we will be sending it to frontend if they want to use
-				$_SESSION['session_patient'] = $article->patemail.$article->patlname; // patient name because we will be sending it to frontend if they want to use
+				$_SESSION['session_patient'] = $article->id; // patient name because we will be sending it to frontend if they want to use
 				
 			}
 			else
