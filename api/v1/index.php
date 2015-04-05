@@ -8,7 +8,7 @@ require '.././libs/Slim/Slim.php';
 require '.././libs/rb.php';
 \Slim\Slim::registerAutoloader();
 // set up database connection
-R::setup('mysql:host=localhost;dbname=doctorsnowv1','root','f2011858');
+R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
 //R::freeze(true);
 $app = new \Slim\Slim();
 // User id from db - Global Variable

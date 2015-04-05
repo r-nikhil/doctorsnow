@@ -17,7 +17,7 @@ $app->post('/patient/makeappo', function() use ($app) {
 			$article->currentmeds = (string)$input->currentMeds;
 			$article->time = "";
 			$article->date = "";
-			$article->connectlink = "";
+			$article->connectlink = "https://appear.in/docdoc".(string)$input->docId."_".(string)$input->patientId;
 			$id = R::store($article);
 			$arr=array('status' => $app->response->getStatus(), 'message' => 'Done');
 			$app->response()->header('Content-Type', 'application/json');

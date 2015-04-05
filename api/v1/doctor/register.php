@@ -1,53 +1,5 @@
 <?php
-//<<<<<<< HEAD
-//=======
-$app->post('/doctor/register', function() use ($app) {
-	try {
-		//getting json and decoding it
-		//$request = $app->request();
-		//$body = $request->getBody();
-		//$input = json_decode($body);
 
-		// storing to DB
-		$article = R::dispense('doctorregister');
-		$article->docfname = $app->request->post('firstName');
-		$article->doclname = $app->request->post('lastName');
-		$article->docmobile = $app->request->post('mobile');
-		$article->docemail = $app->request->post('email');
-		$article->docpassword = $app->request->post('password');
-		$id = R::store($article);
-
-		// we are also storing those fields in docs profile
-		$article = R::dispense('doctorsprofile');
-		$article->docfname = $app->request->post('firstName');
-		$article->doclname = $app->request->post('lastName');
-		$article->docmobile = $app->request->post('mobile');
-		$article->docemail = $app->request->post('email');
-		$article->docpassword = $app->request->post('password');
-		$article->doccategory = $app->request->post('category');
-		$article->docname = $app->request->post('firstName')." ".$app->request->post('lastName');  ; // this column is for search
-
-		$id = R::store($article);
-
-		//$app->response()->header('Content-Type', 'application/json');
-		//$app->response()->set->contentType('application/json');
-
-		$arr=array('status' => '200', 'message' => 'Registered');
-		$app->response()->header('Content-Type', 'application/json');
-		$msg=json_encode($arr );
-		$app->response->body($msg );
-
-	}
-
-	catch (Exception $e) {
-		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
-		$app->response()->header('Content-Type', 'application/json');
-		$msg=json_encode($arr );
-		$app->response->body($msg );
-
-	}
-	//>>>>>>> origin/netham
-});
 $app->post('/doctor/register', function() use ($app) {
 
 	try {
@@ -55,8 +7,11 @@ $app->post('/doctor/register', function() use ($app) {
 		$request = $app->request();
 		$body = $request->getBody();
 		$input = json_decode($body);
+		//generating uniqueID
+		$c = uniqid (rand(), true);
 		// storing to DB
 		$article = R::dispense('doctorregister');
+		$article->docid = $c;
 		$article->docfname = (string)$input->firstName;
 		$article->doclname = (string)$input->lastName;
 		$article->docmobile = (string)$input->mobile;
@@ -66,6 +21,7 @@ $app->post('/doctor/register', function() use ($app) {
 
 		// we are also storing those fields in docs profile
 		$article = R::dispense('doctorsprofile');
+		$article->docid = $c;
 		$article->docfname = (string)$input->firstName;
 		$article->doclname = (string)$input->lastName;
 		$article->docmobile = (string)$input->mobile;
@@ -73,6 +29,7 @@ $app->post('/doctor/register', function() use ($app) {
 		//$article->docpassword = (string)$input->password;  
 		$article->doccategory = (string)$input->category;  	
 		$article->doctype = (string)$input->docType;  	
+		$article->docservices = "";  	
 		$article->docname = (string)$input->firstName." ".(string)$input->lastName;  ; // this column is for search
 		$id = R::store($article);
 		

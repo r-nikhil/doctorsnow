@@ -22,6 +22,17 @@ $app->post('/doctor/login', function() use ($app) {
 				// return JSON-encoded response body with query results
 				$var_result=R::exportAll($article1);
 				
+				$experience = R::findAll('doctorexperience', 'docid=?', array($article->docid));
+				$var_result[0]['docexperience'] = R::exportAll($experience);
+				$education = R::findAll('doctoreducation', 'docid=?', array($article->docid));
+				$var_result[0]['doceducation'] = R::exportAll($education);
+				$memberships = R::findAll('doctormemberships', 'docid=?', array($article->docid));
+				$var_result[0]['docmemberships'] = R::exportAll($memberships);
+				$certifications = R::findAll('doctorcertifications', 'docid=?', array($article->docid));
+				$var_result[0]['doccertifications'] = R::exportAll($certifications);
+				$awards= R::findAll('doctorawards', 'docid=?', array($article->docid));
+				$var_result[0]['docawards'] = R::exportAll($awards);
+				
 				$session = $article->docemail;
 				$session .= $article->doclname; // i concatenated email and last name and stored it in the session variable.
 				$_SESSION['session_doctor'] = $session;
@@ -66,9 +77,22 @@ $app->post('/doctor/login', function() use ($app) {
 
 $app->get('/doctor/profile/:id', function($id) use ($app) {
 	try {
-		$article = R::findAll('doctorsprofile', 'id=?', array($id));
+		$article = R::findOne('doctorsprofile', 'id=?', array($id));
 		// return JSON-encoded response body with query results
 		$var_result=R::exportAll($article);
+		
+		
+		$experience = R::findAll('doctorexperience', 'docid=?', array($article->docid));
+		$var_result[0]['docexperience'] = R::exportAll($experience);
+		$education = R::findAll('doctoreducation', 'docid=?', array($article->docid));
+		$var_result[0]['doceducation'] = R::exportAll($education);
+		$memberships = R::findAll('doctormemberships', 'docid=?', array($article->docid));
+		$var_result[0]['docmemberships'] = R::exportAll($memberships);
+		$certifications = R::findAll('doctorcertifications', 'docid=?', array($article->docid));
+		$var_result[0]['doccertifications'] = R::exportAll($certifications);
+		$awards= R::findAll('doctorawards', 'docid=?', array($article->docid));
+		$var_result[0]['docawards'] = R::exportAll($awards);
+		
 		$arr=array('status' => $app->response->getStatus(), 'message' => 'found','queryResult'=> $var_result[0] );
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
@@ -89,8 +113,10 @@ $app->get('/doctor/gettype', function() use ($app) {
 		$cat[0]=array( "id" => 1 , "title" => "Cardiologist", "image" => "test.jpg" );					
 		$cat[1]=array( "id" => 2 , "title" => "Physician", "image" => "test.jpg"  );					
 		$cat[2]=array( "id" => 3 , "title" => "Gynaecologist", "image" => "test.jpg"  );					
-		$cat[3]=array( "id" => 4 , "title" => "Nutritionist", "image" => "test.jpg"  );					
+		$cat[3]=array( "id" => 4 , "title" => "Dietitian/Nutritionist", "image" => "test.jpg"  );					
 		$cat[4]=array( "id" => 5 , "title" => "Sexologist", "image" => "test.jpg"  );					
+		$cat[5]=array( "id" => 6 , "title" => "Dermatologist", "image" => "test.jpg"  );					
+		$cat[6]=array( "id" => 7 , "title" => "Psychiatrist", "image" => "test.jpg"  );					
 		
 		$arr=array('status' => '200', 'message' => 'found','queryResult'=> $cat );
 		$app->response->headers->set('Content-Type', 'application/json');

@@ -10,47 +10,77 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 			$article = R::findOne('doctorsprofile', 'id=?', array((string)$input->id));
 			// storing to DB
 			if ($article) { // if found, return JSON response
-				$article->docspecial = (string)$input->speciality;
-				$article->docaddress = (string)$input->address;
-				$article->docpincode = (string)$input->pincode;
-				$article->doccharges = (string)$input->charges;
-				$article->docdegrees = explode(",",(string)$input->degrees);
-				$article->doccollege = explode(",",(string)$input->college);
-				$article->docexp = explode(",",(string)$input->experience);
-				$article->docexpyears = (string)$input->numofYears;
-				$article->docwriteup = (string)$input->writeup;
+				//$article->docspecial = (string)$input->speciality;
 				$article->doccity = (string)$input->city;
-				$article->docmember = (string)$input->memberships;
-				$article->doctime = (string)$input->docTime;
-				$article->docclinic = (string)$input->clinicName;
-				$article->docclinicadd = (string)$input->clinicAddress;
+				$article->docexpyears = (string)$input->numOfYears;
+				$article->docinterests = (string)$input->interests;
+				$article->docwriteup = (string)$input->writeup;
+				$article->doccharges = (string)$input->charges;
+				$article->doclocality = (string)$input->locality;
+				$article->docavailability = (string)$input->availablity;
+				$article->docservices = (string)$input->services;
+				$article->docclinicname = (string)$input->clinicname;
+				$article->docclinicaddress = (string)$input->clinicaddress;
+				
+				$input->experience = explode(":", $input->experience);
+				foreach ($input->experience as $exp) 
+				{					
+				$experience =R::dispense('doctorexperience');
+  				$experience->docid = $article->docid;	
+				$experience->desc = $exp;
+				//$article->docexperience[] = $experience;	
+				$id = R::store($experience);
+				}	
+	
+				$input->education = explode(":", $input->education);
+				foreach ($input->education as $edu) 
+				{
+				$education =R::dispense('doctoreducation');
+  				$education->docid = $article->docid;	
+				$education->desc = $edu;
+				//$article->doceducation[] = $education;	
+				$id = R::store($education);
+				}	
+				
+				$input->memberships = explode(":", $input->memberships);
+				foreach ($input->memberships as $mem) {
+				$memberships =R::dispense('doctormemberships');
+  				$memberships->docid = $article->docid;	
+				$memberships->desc = $mem;
+				//$article->docmemberships[] = $memberships;	
+				$id = R::store($memberships);
+				}	
+				
+				$input->certifications = explode(":", $input->certifications);
+				foreach ($input->certifications as $cer) {
+						$certifications =R::dispense('doctorcertifications');
+  				$certifications->docid = $article->docid;	
+				$certifications->desc = $cer;
+				//$article->doccertifications[] = $certifications	;
+				$id = R::store($certifications);
+				}	
+				
+				$input->awards = explode(":", $input->awards);
+				foreach ($input->awards as $awa) {
+				$awards =R::dispense('doctorawards');
+  				$awards->docid = $article->docid;	
+				$awards->desc = $awa;
+				//$article->docawards[] = $awards;
+				$id = R::store($awards);
+				}	
+				
 				$id = R::store($article);
-
-				/*   //making and storing doc time table here
-	$time = $app->request->post('docTime');
-	$time_arr=explode(',',$time);
-	//we need like this date time patient case meds busy confirmed
-	$begin = new DateTime( '2010-05-01' );
-	$end = new DateTime( '2010-05-10' );
-	$interval = DateInterval::createFromDateString('1 day');
-	$period = new DatePeriod($begin, $interval, $end);
-	foreach ( $period as $dt )
-	{ echo $dt->format( "l Y-m-d H:i:s\n" );
-		foreach ($time_arr as $item) {
-		$article = R::dispense('doctime_'.$app->request->post('id'));
-		}}*/
-
+				
 				$arr=array('status' => $app->response->getStatus(), 'message' => 'saved');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
 			}
-			else {
-				$arr=array('status' => $app->response->getStatus(), 'message' => 'IdNotFound');
-				$app->response()->header('Content-Type', 'application/json');
-				$msg=json_encode($arr );
-				$app->response->body($msg );
-			}
+			
+			
+			
+			
+			
 		} else {
 			$arr=array('status' => $app->response->getStatus(), 'message' => 'Unauthorized');
 			$app->response()->header('Content-Type', 'application/json');
@@ -66,5 +96,9 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 		$app->response->body($msg );
 	}
 });
+
+
+
+
 
 ?>
