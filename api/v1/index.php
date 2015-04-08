@@ -14,6 +14,12 @@ $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL; // why do you need this ?
 
+//Adding mailing functionality
+require_once '.././libs/Mandrill/Mandrill.php'; 
+$mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
+
+
+
 //$app->contentType('application/json');
 //$app->response->headers->set('Access-Control-Allow-Origin', '*');
 //TODO: make a config file for dev, staging and production
