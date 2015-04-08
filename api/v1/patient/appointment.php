@@ -44,7 +44,7 @@ $app->get('/patient/getappo/:id', function() use ($app) {
 	try {
 		if ( isset( $_SESSION['session_patient']) || 1)//have to remove 1
 		{
-			$article = R::findAll('appointments', 'patid=?', array(1));
+			$article = R::findAll('appointments', 'patid=?', array($id));
 			// return JSON-encoded response body with query results
 			$var_result=R::exportAll($article);
 			$arr=array('status' => $app->response->getStatus(), 'message' => 'found','queryResult'=> $var_result );

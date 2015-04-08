@@ -7,8 +7,19 @@ $app->post('/doctor/register', function() use ($app) {
 		$request = $app->request();
 		$body = $request->getBody();
 		$input = json_decode($body);
-		//generating uniqueID
-		$c = uniqid (rand(), true);
+		
+		$article = R::findOne('doctorregister', 'docemail=?', array((string)$input->email));
+		
+if ($article) {
+	$arr=array('status' => $app->response->getStatus(), 'message' => 'alreadyRegistered');
+		$app->response()->header('Content-Type', 'application/json');
+		$msg=json_encode($arr );
+		$app->response->body($msg );
+	
+	
+}
+	else{	//generating uniqueID
+		$c = uniqid (rand(), true); //to be changed
 		// storing to DB
 		$article = R::dispense('doctorregister');
 		$article->docid = $c;
@@ -33,10 +44,11 @@ $app->post('/doctor/register', function() use ($app) {
 		$article->docname = (string)$input->firstName." ".(string)$input->lastName;  ; // this column is for search
 		$id = R::store($article);
 		
-		$arr=array('status' => $app->response->getStatus(), 'message' => 'Registered');
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'registered');
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
+	}
 
 	}
 	catch (Exception $e) {
