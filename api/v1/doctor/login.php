@@ -13,6 +13,10 @@ $app->post('/doctor/login', function() use ($app) {
 		if ($article) { // if found, return JSON response
 			$pass_db = (string)$article->docpassword;
 			$pass_request = (string)$input->password;
+			$approved = $article->approved;
+			//echo $approved;
+			if($approved == 1)
+			{
 			if($pass_db === $pass_request)
 			{	
 				//$result = array('docId' => $article->id, 'fname' => $article->docfname, );
@@ -52,6 +56,14 @@ $app->post('/doctor/login', function() use ($app) {
 			else
 			{
 				$arr=array('status' => $app->response->getStatus(), 'message' => 'wrongPassword');
+				$app->response()->header('Content-Type', 'application/json');
+				$msg=json_encode($arr );
+				$app->response->body($msg );
+			}
+			}
+			else
+				{
+				$arr=array('status' => $app->response->getStatus(), 'message' => 'notApproved');
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );

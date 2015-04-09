@@ -28,6 +28,7 @@ if ($article) {
 		$article->docmobile = (string)$input->mobile;
 		$article->docemail = (string)$input->email;
 		$article->docpassword = (string)$input->password;
+		$article->approved = 0;
 		$id = R::store($article);
 
 		// we are also storing those fields in docs profile
@@ -48,6 +49,8 @@ if ($article) {
 		$app->response()->header('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->body($msg );
+		
+		 doctorWelcomeMail($input->firstName,$input->email);
 	}
 
 	}
