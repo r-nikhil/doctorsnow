@@ -17,7 +17,7 @@ $user_id = NULL; // why do you need this ?
 //Adding mailing functionality
 require_once '.././libs/Mandrill/Mandrill.php'; 
 $mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
-
+require_once '.././libs/Swiftmailer/swift_required.php'; 
 
 
 //$app->contentType('application/json');
@@ -57,8 +57,13 @@ include "search/city.php";
 // include "search/name.php"
 
 
+include "mailers/signup.php";
+
+
 $app->get('/test', function() use ($app) {
 	echo "working";
+	
+doctorWelcomeMail("Hemant", "maddyhemu@gmail.com");
 });
 
 $app->run();
