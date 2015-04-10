@@ -23,19 +23,19 @@ header("Access-Control-Allow-Origin: *");
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-	header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+	header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
 	header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
 }
 // instead of mapping:
-$app->options('/(:x+)', function() use ($app) {
-	//...return correct headers...
-	//$app->response->setStatus(200);
-	//$this->next->call();
-});
+// $app->options('/(:x+)', function() use ($app) {
+// 	//...return correct headers...
+// 	//$app->response->setStatus(200);
+// 	//$this->next->call();
+// });
 //Handling CORS ends
-
+// I commented it out because it doesnt make any sense to me.
 include "doctor/login.php";
 include "doctor/register.php";
 include "doctor/createProfile.php";
