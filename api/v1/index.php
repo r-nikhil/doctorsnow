@@ -4,13 +4,32 @@ session_cache_limiter(false);
 
 
 session_start();
-require '.././libs/Slim/Slim.php';
-require '.././libs/rb.php';
+require 'Slim/Slim.php';
+require 'rb.php';
+// require '.././libs/Slim/Middleware/StrongAuth.php';
+use \Slim\Middleware\StrongAuth;
+// use the middelware above
+// foreach (glob("auth/*.php") as $filename)
+// {
+//     include $filename;
+// }
+// the above thing includes everything at once.
 \Slim\Slim::registerAutoloader();
 // set up database connection
 R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
 //R::freeze(true);
 $app = new \Slim\Slim();
+$config = array(
+    'provider' => 'PDO',
+    'pdo' => new PDO('mysql:host=localhost;dbname=doctornowv1', 'root', ''),
+    'auth.type' => 'form',
+    'login.url' => '/',
+    'security.urls' => array(
+        array('path' => '/test'),
+        array('path' => '/about/.+'),
+    ),
+);
+$app->add(new StrongAuth($config));
 // User id from db - Global Variable
 $user_id = NULL; // why do you need this ?
 
@@ -49,6 +68,9 @@ include "patient/appointment.php";
 include "search/category.php";
 include "search/city.php";
 // include "search/name.php"
+
+
+
 
 
 $app->get('/test', function() use ($app) {
