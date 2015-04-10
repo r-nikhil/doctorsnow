@@ -14,14 +14,14 @@ $app->post('/doctor/login', function() use ($app) {
 			$pass_db = (string)$article->docpassword;
 			$pass_request = (string)$input->password;
 			if($pass_db === $pass_request)
-			{	
+			{
 				//$result = array('docId' => $article->id, 'fname' => $article->docfname, );
 				//$arr=array('status' => '201', 'message' => 'loggingIn', 'doctorId' => $article->id, 'doctorName' => $article->docfname ); // store the id in front
-				
+
 				$article1 = R::findAll('doctorsprofile', 'id=?', array($article->id));
 				// return JSON-encoded response body with query results
 				$var_result=R::exportAll($article1);
-				
+
 				$experience = R::findAll('doctorexperience', 'docid=?', array($article->docid));
 				$var_result[0]['docexperience'] = R::exportAll($experience);
 				$education = R::findAll('doctoreducation', 'docid=?', array($article->docid));
@@ -32,7 +32,7 @@ $app->post('/doctor/login', function() use ($app) {
 				$var_result[0]['doccertifications'] = R::exportAll($certifications);
 				$awards= R::findAll('doctorawards', 'docid=?', array($article->docid));
 				$var_result[0]['docawards'] = R::exportAll($awards);
-				
+
 				$session = $article->docemail;
 				$session .= $article->doclname; // i concatenated email and last name and stored it in the session variable.
 				$_SESSION['session_doctor'] = $session;
@@ -40,13 +40,13 @@ $app->post('/doctor/login', function() use ($app) {
 				$_SESSION['docEmail'] = $article->docemail;
 				$_SESSION['docLname'] = $article->doclname;
 				//echo $_SESSION;
-				
+
 				$arr=array('status' => $app->response->getStatus(), 'message' => 'loggedIn','queryResult'=> $var_result[0], 'session'=> $_SESSION );
-				
+
 				$app->response()->header('Content-Type', 'application/json');
 				$msg=json_encode($arr );
 				$app->response->body($msg );
-				
+
 
 			}
 			else
@@ -80,8 +80,8 @@ $app->get('/doctor/profile/:id', function($id) use ($app) {
 		$article = R::findOne('doctorsprofile', 'id=?', array($id));
 		// return JSON-encoded response body with query results
 		$var_result=R::exportAll($article);
-		
-		
+
+
 		$experience = R::findAll('doctorexperience', 'docid=?', array($article->docid));
 		$var_result[0]['docexperience'] = R::exportAll($experience);
 		$education = R::findAll('doctoreducation', 'docid=?', array($article->docid));
@@ -92,7 +92,7 @@ $app->get('/doctor/profile/:id', function($id) use ($app) {
 		$var_result[0]['doccertifications'] = R::exportAll($certifications);
 		$awards= R::findAll('doctorawards', 'docid=?', array($article->docid));
 		$var_result[0]['docawards'] = R::exportAll($awards);
-		
+
 		$arr=array('status' => $app->response->getStatus(), 'message' => 'found','queryResult'=> $var_result[0] );
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
@@ -109,15 +109,15 @@ $app->get('/doctor/profile/:id', function($id) use ($app) {
 
 $app->get('/doctor/gettype', function() use ($app) {
 	try {
-		$cat = array();	
-		$cat[0]=array( "id" => 1 , "title" => "Cardiologist", "image" => "test.jpg" );					
-		$cat[1]=array( "id" => 2 , "title" => "Physician", "image" => "test.jpg"  );					
-		$cat[2]=array( "id" => 3 , "title" => "Gynaecologist", "image" => "test.jpg"  );					
-		$cat[3]=array( "id" => 4 , "title" => "Dietitian/Nutritionist", "image" => "test.jpg"  );					
-		$cat[4]=array( "id" => 5 , "title" => "Sexologist", "image" => "test.jpg"  );					
-		$cat[5]=array( "id" => 6 , "title" => "Dermatologist", "image" => "test.jpg"  );					
-		$cat[6]=array( "id" => 7 , "title" => "Psychiatrist", "image" => "test.jpg"  );					
-		
+		$cat = array();
+		$cat[0]=array( "id" => 1 , "title" => "Cardiologist", "image" => "test.jpg" );
+		$cat[1]=array( "id" => 2 , "title" => "Physician", "image" => "test.jpg"  );
+		$cat[2]=array( "id" => 3 , "title" => "Gynaecologist", "image" => "test.jpg"  );
+		$cat[3]=array( "id" => 4 , "title" => "Dietitian/Nutritionist", "image" => "test.jpg"  );
+		$cat[4]=array( "id" => 5 , "title" => "Sexologist", "image" => "test.jpg"  );
+		$cat[5]=array( "id" => 6 , "title" => "Dermatologist", "image" => "test.jpg"  );
+		$cat[6]=array( "id" => 7 , "title" => "Psychiatrist", "image" => "test.jpg"  );
+
 		$arr=array('status' => '200', 'message' => 'found','queryResult'=> $cat );
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr);
@@ -128,7 +128,7 @@ $app->get('/doctor/gettype', function() use ($app) {
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->setBody($msg );
-	}  
+	}
 });
 
 //testing function to be removed
@@ -144,10 +144,23 @@ $app->post('/doctors', function() use ($app) {
 		$app->response->headers->set('Content-Type', 'application/json');
 		$msg=json_encode($arr );
 		$app->response->setBody($msg );
-	}  
+	}
 });
 
-
+$app->post('/doctors', function() use ($app) {
+	try {
+		$arr=array('status' => $app->response->getStatus(), 'message' => 'found' );
+		//$app->response()->header('Content-Type', 'application/json');
+		$app->response->headers->set('Content-Type', 'application/json');
+		$msg=json_encode($arr);
+		$app->response->setBody($msg );
+	} catch (Exception $e) {
+		$arr=array('status' => '400', 'message' => ' '. $e->getMessage().' ');
+		$app->response->headers->set('Content-Type', 'application/json');
+		$msg=json_encode($arr );
+		$app->response->setBody($msg );
+	}
+});
 
 
 

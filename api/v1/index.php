@@ -19,17 +19,7 @@ use \Slim\Middleware\StrongAuth;
 R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
 //R::freeze(true);
 $app = new \Slim\Slim();
-$config = array(
-    'provider' => 'PDO',
-    'pdo' => new PDO('mysql:host=localhost;dbname=doctornowv1', 'root', ''),
-    'auth.type' => 'form',
-    'login.url' => '/',
-    'security.urls' => array(
-        array('path' => '/test'),
-        array('path' => '/about/.+'),
-    ),
-);
-$app->add(new StrongAuth($config));
+
 // User id from db - Global Variable
 $user_id = NULL; // why do you need this ?
 
