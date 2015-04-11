@@ -15,9 +15,9 @@ $app = new \Slim\Slim();
 $user_id = NULL; // why do you need this ?
 
 //Adding mailing functionality
-require_once '.././libs/Mandrill/Mandrill.php'; 
-$mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
-require_once '.././libs/Swiftmailer/swift_required.php'; 
+// require_once '.././libs/Mandrill/Mandrill.php';
+// $mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
+// require_once '.././libs/Swiftmailer/swift_required.php';
 
 
 //$app->contentType('application/json');
@@ -29,7 +29,7 @@ header("Access-Control-Allow-Origin: *");
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-	header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");         
+	header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
 	if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
 	header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
@@ -57,14 +57,41 @@ include "search/city.php";
 // include "search/name.php"
 
 
-include "mailers/signup.php";
-
+// include "mailers/signup.php";
+include "vendor/autoload.php";
 
 $app->get('/test', function() use ($app) {
 	echo "working";
-	
+
 doctorWelcomeMail("Hemant", "maddyhemu@gmail.com");
 });
+
+// testing jwt
+$app->get('/jwt', function() use ($app) {
+	$key = "example_key";
+	$token = array(
+	    "iss" => "http://example.org",
+	    "aud" => "http://example.com",
+	    "iat" => 1356999524,
+	    "nbf" => 1357000000
+	);
+	$jwt = JWT::encode($token, $key);
+	echo $jwt;
+	setcookie('identity', $jwt);
+});
+$app->get('/jwt1', function() use ($app) {
+	$key = "example_key";
+	$jws        = $_COOKIE['identity'];
+	$decoded = JWT::decode($jws, $key, array('HS256'));
+	print_r($decoded);
+
+
+});
+
+
+
+
+
 
 $app->run();
 
