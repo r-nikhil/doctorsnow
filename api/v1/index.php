@@ -62,7 +62,13 @@ include "search/city.php";
 
 // echoResponse seems to work well with angularjs. Check this sample out
 
-
+$app->get('/session', function() {
+    $db = new DbHandler();
+    $session = $db->getSession();
+    $response["email"] = $session['email'];
+    $response["name"] = $session['name'];
+    echoResponse(200, $session);
+});
 
 
 $app->get('/test', function() use ($app) {
