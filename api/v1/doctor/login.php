@@ -35,6 +35,10 @@ $app->post('/doctor/login', function() use ($app) {
 
 				$session = $article->docemail;
 				$session .= $article->doclname; // i concatenated email and last name and stored it in the session variable.
+				if (!isset($_SESSION)) {
+					session_start();
+			}
+	
 				$_SESSION['session_doctor'] = $session;
 				$_SESSION['docId'] = $article->id;
 				$_SESSION['docEmail'] = $article->docemail;

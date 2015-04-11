@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 include "doctor/login.php";
 include "doctor/register.php";
 include "doctor/createProfile.php";
+include "doctor/sessionHandler.php"
 
 
 include "patient/register.php";
@@ -59,6 +60,7 @@ include "search/category.php";
 include "search/city.php";
 // include "search/name.php"
 
+// echoResponse seems to work well with angularjs. Check this sample out
 
 
 
