@@ -13,7 +13,8 @@ $app->post('/doctor/login', function() use ($app) {
 		if ($article) { // if found, return JSON response
 			$pass_db = (string)$article->docpassword;
 			$pass_request = (string)$input->password;
-			if($pass_db === $pass_request)
+
+			if(passwordHash::check_password($pass_db,$pass_request))
 			{
 				//$result = array('docId' => $article->id, 'fname' => $article->docfname, );
 				//$arr=array('status' => '201', 'message' => 'loggingIn', 'doctorId' => $article->id, 'doctorName' => $article->docfname ); // store the id in front
@@ -38,7 +39,7 @@ $app->post('/doctor/login', function() use ($app) {
 				if (!isset($_SESSION)) {
 					session_start();
 			}
-	
+
 				$_SESSION['session_doctor'] = $session;
 				$_SESSION['docId'] = $article->id;
 				$_SESSION['docEmail'] = $article->docemail;

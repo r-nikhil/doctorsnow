@@ -49,6 +49,7 @@ include "doctor/login.php";
 include "doctor/register.php";
 include "doctor/createProfile.php";
 include "doctor/sessionHandler.php"
+include "doctor/passwordhash.php"
 
 
 include "patient/register.php";
@@ -63,13 +64,19 @@ include "search/city.php";
 // echoResponse seems to work well with angularjs. Check this sample out
 
 $app->get('/session', function() {
-    $db = new DbHandler();
+    $db = new sessionHandler();
     $session = $db->getSession();
     $response["email"] = $session['email'];
     $response["name"] = $session['name'];
     echoResponse(200, $session);
 });
-
+$app->get('/logout', function() {
+    $db = new sessionHandler();
+    $session = $db->destroySession();
+    $response["status"] = "info";
+    $response["message"] = "Logged out successfully";
+    echoResponse(200, $response);
+});
 
 $app->get('/test', function() use ($app) {
 	echo "working";
