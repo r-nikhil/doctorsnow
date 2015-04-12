@@ -6,18 +6,23 @@ session_cache_limiter(false);
 session_start();
 require '.././libs/Slim/Slim.php';
 require '.././libs/rb.php';
+
+//including Mailing Libs
+//require_once '.././mailLibs/Mandrill/Mandrill.php'; 
+require_once '.././mailLibs/Swiftmailer/swift_required.php'; 
+
 \Slim\Slim::registerAutoloader();
 // set up database connection
 R::setup('mysql:host=localhost;dbname=doctornowv1','root','');
+//R::setup('mysql:host=localhost;dbname=doctorsnowv1','root','f2011858');
 //R::freeze(true);
 $app = new \Slim\Slim();
 // User id from db - Global Variable
 $user_id = NULL; // why do you need this ?
 
 //Adding mailing functionality
-require_once '.././libs/Mandrill/Mandrill.php'; 
-$mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
-require_once '.././libs/Swiftmailer/swift_required.php'; 
+//$mandrill = new Mandrill('H11K_849FF05ZLgxBoeN9w');
+
 
 
 //$app->contentType('application/json');
@@ -63,7 +68,7 @@ include "mailers/signup.php";
 $app->get('/test', function() use ($app) {
 	echo "working";
 	
-doctorWelcomeMail("Hemant", "maddyhemu@gmail.com");
+//doctorWelcomeMail("Hemant", "chetannnd60@gmail.com");
 });
 
 $app->run();

@@ -1,6 +1,6 @@
 <?php
 $ch = curl_init();
-curl_setopt ($ch, CURLOPT_CAINFO, "E:\wamp23\www\doctorsnow\api\v1\mailers\cacert.pem");
+//curl_setopt ($ch, CURLOPT_CAINFO, "E:\wamp23\www\doctorsnow\api\v1\mailers\cacert.pem");
 require_once '../.././libs/Mandrill/Mandrill.php'; 
 patientWelcomeMail("Hemant", "unizen01@gmail.com");
 

@@ -10,7 +10,7 @@ $to = array(
 );
 
 $text = "Hello, Welcome to DoctorsNow";
-$html = "Hello ".$name.", <br/> Welcome to  <strong>DoctorsNow</strong>";
+$html = "Hello Dr. ".$name.", <br/> Welcome to  <strong>DoctorsNow</strong>";
 
 $transport = Swift_SmtpTransport::newInstance('smtp.mandrillapp.com', 587);
 $transport->setUsername('unizen01@gmail.com');
