@@ -39,7 +39,7 @@ $app->post('/patient/makeappo', function() use ($app) {
 	}
 });
 
-$app->get('/patient/getappo/:id', function() use ($app) {
+$app->get('/patient/getappo/:id', function($id) use ($app) {
 	//tested using POSTMAN
 	try {
 		if ( isset( $_SESSION['session_patient']) || 1)//have to remove 1
