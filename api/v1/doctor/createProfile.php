@@ -46,8 +46,14 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				else
 				{
 				$experience = R::findOne('doctorexperience', 'id=?', array((string)$exp->id));
-				$experience->desc = $exp->desc;				
+				if(isset($exp->desc))
+				{	
+				$experience->desc = $exp->desc;
 				$id = R::store($experience);	
+				}
+				else
+				R::trash( $experience );
+				
 				}
 
 				}	
@@ -66,10 +72,14 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				else
 				{
 				$education = R::findOne('doctoreducation', 'id=?', array((string)$edu->id));
+				if(isset($edu->desc))
+				{	
 				$education->desc = $edu->desc;				
 				$id = R::store($education);	
 				}
-
+				else
+				R::trash( $education );
+				}
 				}
 				
 				//$input->memberships = explode(":", $input->memberships);
@@ -85,11 +95,17 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				else
 				{
 				$memberships = R::findOne('doctormemberships', 'id=?', array((string)$mem->id));
+				if(isset($mem->desc))
+				{
 				$memberships->desc = $mem->desc;				
 				$id = R::store($memberships);	
 				}
+				
+				else
+				R::trash( $memberships );
 
-				}				
+				}
+				}
 				
 				//$input->certifications = explode(":", $input->certifications);
 				foreach ($input->certifications as $cer) {
@@ -104,11 +120,16 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				else
 				{
 				$certifications = R::findOne('doctorcertifications', 'id=?', array((string)$cer->id));
+				if(isset($cer->desc))
+				{
 				$certifications->desc = $cer->desc;				
 				$id = R::store($certifications);	
 				}
+				else
+				R::trash( $certifications );
 
 				}	
+				}
 				
 				//$input->awards = explode(":", $input->awards);
 				foreach ($input->awards as $awa) {
@@ -123,9 +144,15 @@ $app->post('/doctor/updateProfile', function() use ($app) {
 				else
 				{
 				$awards = R::findOne('doctorawards', 'id=?', array((string)$awa->id));
+				if(isset($awa->desc))
+				{
 				$awards->desc = $awa->desc;				
 				$id = R::store($awards);	
 				}
+				else
+				R::trash( $awards );
+
+				}	
 
 				}		
 				
